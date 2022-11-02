@@ -15,7 +15,7 @@ class HomePage extends GetView<HomeController> {
             type: BottomNavigationBarType.fixed,
             elevation: 5,
             //backgroundColor: Theme.of(context).primaryColor.withAlpha(0),
-            selectedItemColor: AppColors.primaryColor,
+            selectedItemColor: AppColors.IconColor,
             currentIndex: logic.navigatorValue,
             unselectedItemColor: Colors.grey,
             showSelectedLabels: true,
