@@ -1,6 +1,8 @@
+import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:knowplesy/app/config/app_colors.dart';
 import 'package:knowplesy/presentation/bindings/bindings.dart';
 import 'package:knowplesy/presentation/pages/home_page.dart';
 
@@ -10,7 +12,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
-
 
   // This widget is the root of your application.
   @override
@@ -29,13 +30,19 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
+      initialBinding: HomeBinding(),
+      home: AnimatedSplashScreen(
+        duration: 3000,
+        splashIconSize: 75,
+        splash: Image.asset("assets/images/logo_knowlepsy.png"),
+        nextScreen: HomePage(),
+        splashTransition: SplashTransition.slideTransition,
+        backgroundColor: AppColors.primaryColor,
+      ),
       getPages: [
-
         /// "/" Start Screen
         GetPage(name: "/", page: () => HomePage(), binding: HomeBinding()),
       ],
     );
   }
 }
-
-

@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-
   static Color primaryColor = HexColor("#EFB773");
   static Color BorderColore = Colors.black12;
   static Color FontColorBlack = HexColor("#474749");
   static Color contColor = HexColor("#fec8bd");
   static Color redColor = Colors.red;
   static Color white = Colors.white;
-
-
 }
 
 class HexColor extends Color {
