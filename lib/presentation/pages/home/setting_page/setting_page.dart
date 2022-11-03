@@ -26,12 +26,12 @@ class SettingPage extends StatelessWidget {
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ],
-            ),
+            )  ,
           ),*/
           Container(
             height: 100,
             decoration: BoxDecoration(
-                color: AppColors.backgroundColor,
+                color: AppColors.primaryColor,
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(20),
                     bottomRight: Radius.circular(20))),
