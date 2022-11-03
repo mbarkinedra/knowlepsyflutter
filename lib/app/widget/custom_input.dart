@@ -41,9 +41,7 @@ class CustomInput extends StatelessWidget {
                       borderSide:
                           BorderSide(color: AppColors.BorderInputColor)),
                   focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        0
-                      ),
+                      borderRadius: BorderRadius.circular(0),
                       borderSide:
                           BorderSide(color: Colors.grey.withOpacity(.0))),
                   enabledBorder: OutlineInputBorder(

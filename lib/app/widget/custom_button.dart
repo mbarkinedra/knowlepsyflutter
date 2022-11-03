@@ -9,20 +9,26 @@ class CustomButton extends StatelessWidget {
 
   CustomButton(
       {required this.text,
-        required this.onClick,
-        required this.color,
-        required this.width,
-        required this.hight});
+      required this.onClick,
+      required this.color,
+      required this.width,
+      required this.hight});
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(onTap: onClick,
+    return InkWell(
+      onTap: onClick,
       child: Container(
-        decoration:
-        BoxDecoration(color: color, borderRadius: BorderRadius.circular(25)),
+        decoration: BoxDecoration(
+            color: color, borderRadius: BorderRadius.circular(25)),
         height: hight,
         width: width,
-        child: Center(child: Text(text,style: TextStyle(color: Colors.white),)),
+        child: Center(
+            child: Text(
+          text,
+          style: TextStyle(
+              color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+        )),
       ),
     );
   }

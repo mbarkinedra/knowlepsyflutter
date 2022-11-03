@@ -14,182 +14,184 @@ class SettingPage extends StatelessWidget {
     return Scaffold(
       // drawer: WidgetDrawer(),
       //appBar: AppBar(elevation: 0, backgroundColor: AppColors.backgroundColor),
-      body: Column(
-        children: [
-          /*   Expanded(
-            flex: 6,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                Text(
-                  "Annonce détaillée",
-                  style: TextStyle(color: Colors.white, fontSize: 20),
-                ),
-              ],
-            )  ,
-          ),*/
-          Container(
-            height: 100,
-            decoration: BoxDecoration(
-                color: AppColors.primaryColor,
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(20),
-                    bottomRight: Radius.circular(20))),
-            child: Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Setting",
-                    style: TextStyle(color: Colors.white, fontSize: 23),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            /*   Expanded(
+              flex: 6,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: const [
+                  Text(
+                    "Annonce détaillée",
+                    style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
-                )),
-          ),
-          SizedBox(
-            height: 50,
-          ),
-          /*   Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
+                ],
+              )  ,
+            ),*/
+            Container(
+              height: 100,
+              decoration: BoxDecoration(
+                  color: AppColors.primaryColor,
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(20),
+                      bottomRight: Radius.circular(20))),
+              child: Align(
+                  alignment: Alignment.center,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      "Setting",
+                      style: TextStyle(color: Colors.white, fontSize: 23),
+                    ),
+                  )),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            /*   Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => PersonalInformationPage()),
+                  );
+                },
+                child: Row(
+                  children: [
+                    Icon(Icons.person),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Text("Personal information",),
+                    Spacer(),
+                    Icon(Icons.arrow_forward_ios),
+                  ],
+                ),
+              ),
+            ),*/
+            CustomSetting(
+              iconProfile: Icons.perm_identity,
+              text: "Personal Information",
+              press: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => PersonalInformationPage()),
-                );
+                ) =>
+                        PersonalInformationPage()));
               },
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 16.0, left: 16),
+              child: Divider(
+                height: 1,
+                color: Colors.grey,
+                thickness: 1,
+              ),
+            ),
+            /*  Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => ChangePasswordPage()),
+                  );
+                },
+                child: Row(
+                  children: [
+                    Icon(Icons.lock_outlined),
+                    SizedBox(
+                      width: 16,
+                    ),
+                    Text("Change password"),
+                    Spacer(),
+                    Icon(Icons.arrow_forward_ios),
+                  ],
+                ),
+              ),
+            ),*/
+            CustomSetting(
+              iconProfile: Icons.lock_outlined,
+              text: "Change password",
+              press: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (
+                  context,
+                ) =>
+                        ChangePasswordPage()));
+              },
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 16.0, left: 16),
+              child: Divider(
+                height: 1,
+                color: Colors.grey,
+                thickness: 1,
+              ),
+            ),
+            /*       Padding(
+              padding: const EdgeInsets.all(8.0),
               child: Row(
                 children: [
-                  Icon(Icons.person),
+                  Icon(Icons.miscellaneous_services_outlined),
                   SizedBox(
-                    width: 16,
+                    width: 20,
                   ),
-                  Text("Personal information",),
+                  Text("Access and control"),
                   Spacer(),
                   Icon(Icons.arrow_forward_ios),
                 ],
               ),
-            ),
-          ),*/
-          CustomSetting(
-            iconProfile: Icons.perm_identity,
-            text: "Personal Information",
-            press: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (
-                context,
-              ) =>
-                      PersonalInformationPage()));
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0, left: 16),
-            child: Divider(
-              height: 1,
-              color: Colors.grey,
-              thickness: 1,
-            ),
-          ),
-          /*  Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: InkWell(
-              onTap: () {
-                Navigator.push(
+            ),*/
+            CustomSetting(
+              iconProfile: Icons.miscellaneous_services_outlined,
+              text: "Access and control",
+              press: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (
                   context,
-                  MaterialPageRoute(builder: (context) => ChangePasswordPage()),
-                );
+                ) =>
+                        AccessControlPage()));
               },
-              child: Row(
-                children: [
-                  Icon(Icons.lock_outlined),
-                  SizedBox(
-                    width: 16,
-                  ),
-                  Text("Change password"),
-                  Spacer(),
-                  Icon(Icons.arrow_forward_ios),
-                ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(right: 16.0, left: 16),
+              child: Divider(
+                height: 1,
+                color: Colors.grey,
+                thickness: 1,
               ),
             ),
-          ),*/
-          CustomSetting(
-            iconProfile: Icons.lock_outlined,
-            text: "Change password",
-            press: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (
-                context,
-              ) =>
-                      ChangePasswordPage()));
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0, left: 16),
-            child: Divider(
-              height: 1,
-              color: Colors.grey,
-              thickness: 1,
+            // Padding(
+            //   padding: const EdgeInsets.all(8.0),
+            //   child: Row(
+            //     children: [
+            //       Icon(Icons.language),
+            //       SizedBox(
+            //         width: 16,
+            //       ),
+            //       Text("Language"),
+            //       Spacer(),
+            //       Icon(Icons.arrow_forward_ios),
+            //     ],
+            //   ),
+            // ),
+            CustomSetting(
+              iconProfile: Icons.language,
+              text: "Language",
+              press: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (
+                  context,
+                ) =>
+                        LanguagePage()));
+              },
             ),
-          ),
-          /*       Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Icon(Icons.miscellaneous_services_outlined),
-                SizedBox(
-                  width: 20,
-                ),
-                Text("Access and control"),
-                Spacer(),
-                Icon(Icons.arrow_forward_ios),
-              ],
-            ),
-          ),*/
-          CustomSetting(
-            iconProfile: Icons.miscellaneous_services_outlined,
-            text: "Access and control",
-            press: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (
-                context,
-              ) =>
-                      AccessControlPage()));
-            },
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 16.0, left: 16),
-            child: Divider(
-              height: 1,
-              color: Colors.grey,
-              thickness: 1,
-            ),
-          ),
-          // Padding(
-          //   padding: const EdgeInsets.all(8.0),
-          //   child: Row(
-          //     children: [
-          //       Icon(Icons.language),
-          //       SizedBox(
-          //         width: 16,
-          //       ),
-          //       Text("Language"),
-          //       Spacer(),
-          //       Icon(Icons.arrow_forward_ios),
-          //     ],
-          //   ),
-          // ),
-          CustomSetting(
-            iconProfile: Icons.language,
-            text: "Language",
-            press: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                  builder: (
-                context,
-              ) =>
-                      LanguagePage()));
-            },
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -12,23 +12,38 @@ class PersonalInformationPage extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: 100,
-              decoration: BoxDecoration(
-                  color: AppColors.primaryColor,
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20))),
-              child: Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    "Personal Information",
-                    style: TextStyle(color: Colors.white, fontSize: 23),
-                  ),
+                height: 100,
+                decoration: BoxDecoration(
+                    color: AppColors.primaryColor,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20))),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 8,
+                    ),
+                    GestureDetector(onTap: (){
+                      Navigator.of(context).pop();
+                    },child: Icon(Icons.arrow_back,color: Colors.white,)),
+                    Spacer(),
+                    Text("Personal Information",
+                        style: TextStyle(color: Colors.white, fontSize: 23)),
+                    Spacer(),
+                  ],
+                )
+
+                // Align(
+                //   alignment: Alignment.center,
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(8.0),
+                //     child: Text(
+                //       "Personal Information",
+                //       style: TextStyle(color: Colors.white, fontSize: 23),
+                //     ),
+                //   ),
+                // ),
                 ),
-              ),
-            ),
             SizedBox(
               height: 10,
             ),
