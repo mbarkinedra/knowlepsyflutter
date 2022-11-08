@@ -24,7 +24,7 @@ class CustomButton extends StatelessWidget {
         decoration: BoxDecoration(
             color: color, borderRadius: BorderRadius.circular(26)),
         height: 51,
-        width: 223,
+        width: 230,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Row(
@@ -42,7 +42,7 @@ class CustomButton extends StatelessWidget {
                   style: TextStyle(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: 20),
+                      fontSize: 18),
                 ),
               ),
             ],
