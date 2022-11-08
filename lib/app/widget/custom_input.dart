@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:knowplesy/app/config/font_size.dart';
 
 import '../config/app_colors.dart';
 
@@ -15,7 +16,13 @@ class CustomInput extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(lep),
+          Text(
+            lep,
+            style: TextStyle(
+              color: AppColors.textColor,
+              fontSize: 12,
+            ),
+          ),
           SizedBox(
             height: 15,
           ),
@@ -24,7 +31,7 @@ class CustomInput extends StatelessWidget {
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
+                borderRadius: BorderRadius.circular(26),
                 border: Border.all(color: Colors.black38)),
             child: Center(
               child: TextField(

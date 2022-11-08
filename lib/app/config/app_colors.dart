@@ -12,12 +12,13 @@ class AppColors {
   static Color CercleBlue = HexColor("#0000FF");
   static Color CerclePink =HexColor("#FF4DCF");
 
+
   Color contColor = HexColor("#fec8bd");
   static Color white = Colors.white;
   static Color textColor = Colors.black;
   static Color primaryColor = HexColor("#0000FF");
   static Color secondryColor = HexColor("#FF8751");
-
+  static Color yellowColor = HexColor("##FFEA58");
 }
 
 class HexColor extends Color {
