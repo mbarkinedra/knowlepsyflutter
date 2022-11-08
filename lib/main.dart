@@ -7,7 +7,6 @@ import 'package:knowplesy/presentation/bindings/bindings.dart';
 import 'package:knowplesy/presentation/pages/home_page.dart';
 import 'package:knowplesy/presentation/pages/login_page/login_page.dart';
 import 'package:knowplesy/presentation/pages/login_page/reset_password/reset_password.dart';
-import 'package:knowplesy/presentation/pages/register_page/register_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,22 +32,22 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      initialBinding: HomeBinding(),
-      home: AnimatedSplashScreen(
-        duration: 3000,
-        splashIconSize: 75,
-        splash: Image.asset("assets/images/logo_knowlepsy.png"),
-        nextScreen: RegisterPage(),
-        splashTransition: SplashTransition.slideTransition,
-        backgroundColor: AppColors.primaryColor,
-      ),
+    initialBinding: HomeBinding(),
+    home: AnimatedSplashScreen(
+    duration: 3000,
+    splashIconSize: 75,
+    splash: Image.asset("assets/images/logo_knowlepsy.png"),
+    // nextScreen: LoginPage(),
+      nextScreen: HomePage(),
+
+      splashTransition: SplashTransition.slideTransition,
+    backgroundColor: AppColors.primaryColor,),
       getPages: [
         /// "/" Start Screen
-        GetPage(name: "/", page: () => RegisterPage(), binding: HomeBinding()),
-
+       // GetPage(name: "/", page: () => LoginPage(), binding: HomeBinding()),
         GetPage(name: "/", page: () => HomePage(), binding: HomeBinding()),
-        //  GetPage(name: "/", page: () => LoginPage(), binding: HomeBinding()),
-        GetPage(name: "/", page: () => ResetPassword(), binding: HomeBinding()),
+      //  GetPage(name: "/", page: () => ResetPassword(), binding: HomeBinding()),
+
       ],
     );
   }

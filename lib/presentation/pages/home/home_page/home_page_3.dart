@@ -1,0 +1,189 @@
+// import 'package:flutter/material.dart';
+// import 'package:knowplesy/app/config/app_colors.dart';
+// import 'package:knowplesy/app/config/text_style.dart';
+// import 'package:knowplesy/app/widget/custom_button.dart';
+// import 'package:knowplesy/app/widget/widget_drawer.dart';
+// import 'package:percent_indicator/percent_indicator.dart';
+//
+// class HomePage3 extends StatelessWidget {
+//   const HomePage3({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       drawer: WidgetDrawer(),
+//       appBar: AppBar(
+//         elevation: 1,
+//         backgroundColor: AppColors.primaryColor,
+//         title: Align(
+//           alignment: Alignment.topRight,
+//           child: ClipRRect(
+//             borderRadius: BorderRadius.circular(8.0),
+//             child: Image.asset(
+//               "assets/images/avatar.png",
+//               width: 80,
+//               height: 50,
+//             ),
+//           ),
+//
+//         ),
+//
+//       ),
+//       body: Column(
+//         children: [
+//           Container(
+//             height: MediaQuery.of(context).size.height * .5,
+//             decoration: BoxDecoration(
+//                 color: AppColors.primaryColor,
+//                 borderRadius: BorderRadius.only(
+//                     bottomLeft: Radius.circular(20),
+//                     bottomRight: Radius.circular(20))),
+//             child: Column(children: [
+//               Padding(
+//                 padding: const EdgeInsets.only(right: 10.0, left: 50.0),
+//                 child: Row(
+//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                   children: [
+//                     Text(
+//                       "Hi,Nedra !",
+//                       style: BigTextStyle(),
+//                     ),
+//                   ],
+//                 ),
+//               ),
+//               SizedBox(
+//                 height: 8,
+//               ),
+//               Center(
+//                   child: Text(
+//                     "APPROVED SEIZURE",
+//                     style: BigTextStyle(),
+//                   )),
+//               SizedBox(
+//                 height: 8,
+//               ),
+//               Expanded(
+//                   child: Container(
+//                     child: Stack(children: [
+//                       Row(
+//                         mainAxisAlignment: MainAxisAlignment.center,
+//                         children: [
+//                           GestureDetector(
+//                             onTap: () {
+//                               Navigator.of(context).pop();
+//                             },
+//                             child: Icon(Icons.arrow_back_ios_new,
+//                                 size: 30, color: Colors.grey),
+//                           ),
+//                           Expanded(
+//                               child: Container(
+//                                 child: Stack(alignment: Alignment.center, children: [
+//                                   Container(
+//                                     decoration: BoxDecoration(
+//                                         shape: BoxShape.circle,
+//                                         color: Colors.deepPurpleAccent),
+//                                   ),
+//                                   Padding(
+//                                     padding: const EdgeInsets.all(30.0),
+//                                     child: Container(
+//                                       decoration: BoxDecoration(
+//                                           shape: BoxShape.circle, color: Colors.white),
+//                                     ),
+//                                   ),
+//                                   Padding(
+//                                     padding: const EdgeInsets.all(40.0),
+//                                     child: CircularPercentIndicator(
+//                                       radius: 50.0,
+//                                       lineWidth: 8,
+//                                       backgroundColor:
+//                                       Colors.blueAccent.withOpacity(.3),
+//                                       percent: 1 / 4,
+//                                       animation: true,
+//                                       circularStrokeCap: CircularStrokeCap.round,
+//                                       center: Text("1 \n Seizur".toString(),
+//                                           textAlign: TextAlign.center,
+//                                           style: TextStyle(
+//                                               fontSize: 20,
+//                                               color: AppColors.secondryColor,
+//                                               fontWeight: FontWeight.bold)),
+//                                       progressColor: AppColors.CerclePink,
+//                                     ),
+//                                   ),
+//                                 ]),
+//                               )),
+//                           GestureDetector(
+//                             onTap: () {},
+//                             child: Icon(Icons.arrow_forward_ios,
+//                                 size: 30, color: Colors.grey),
+//                           )
+//                         ],
+//                       )
+//                     ]),
+//                   )),
+//
+//               //  SizedBox(height: 20,),
+//               Padding(
+//                 padding: const EdgeInsets.only(
+//                     top: 20.0, bottom: 20, right: 40, left: 40),
+//                 child: CustomButton(
+//                   text: 'Log an undetected Seizure Alert',
+//                   onClick: () {},
+//                   hight: 40,
+//                   color: AppColors.secondryColor,
+//                   width: double.infinity,
+//                 ),
+//               )
+//             ]),
+//           ),
+//           SizedBox(
+//             height: 10,
+//           ),
+//           Expanded(
+//               child: ListView.separated(
+//                 itemCount: 1,
+//                 itemBuilder: (context, index) {
+//                   return Padding(
+//                     padding: const EdgeInsets.all(8.0),
+//                     child: Row(
+//                       crossAxisAlignment: CrossAxisAlignment.start,
+//                       mainAxisAlignment: MainAxisAlignment.start,
+//                       children: [
+//                         Container(
+//                           height: 15,
+//                           width: 15,
+//                           decoration: BoxDecoration(
+//                               color: AppColors.CerclePink,
+//                               shape: BoxShape.circle),
+//                         ),
+//                         SizedBox(
+//                           width: 10,
+//                         ),
+//                         Expanded(
+//                           child: Column(
+//                             mainAxisAlignment: MainAxisAlignment.start,
+//                             crossAxisAlignment: CrossAxisAlignment.start,
+//                             children: [
+//                               Text(
+//                                 "Convulsve senzure",
+//                                 style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),
+//                               ),
+//                             ],
+//                           ),
+//                         ),
+//                         Text(
+//                           "3:20 AM",
+//                         ),
+//                       ],
+//                     ),
+//                   );
+//                 },
+//                 separatorBuilder: (context, index) {
+//                   return Divider();
+//                 },
+//               ))
+//         ],
+//       ),
+//     );
+//     ;
+//   }
+// }

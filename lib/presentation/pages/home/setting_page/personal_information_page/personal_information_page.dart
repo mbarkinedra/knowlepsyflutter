@@ -129,7 +129,7 @@ class PersonalInformationPage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: CustomButton(
-                  text: 'confirme',
+                  text: 'Confirme',
                   color: Colors.deepOrangeAccent,
                   width: double.infinity,
                   hight: 40,
