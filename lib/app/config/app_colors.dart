@@ -9,13 +9,12 @@ class AppColors {
   static Color BorderInputColor = HexColor("#707070");
   static Color BorderInputColorlogin = HexColor("#FFEA58");
 
-
   Color contColor = HexColor("#fec8bd");
   static Color white = Colors.white;
   static Color textColor = Colors.black;
   static Color primaryColor = HexColor("#0000FF");
   static Color secondryColor = HexColor("#FF6819");
-
+  static Color yellowColor = HexColor("##FFEA58");
 }
 
 class HexColor extends Color {
