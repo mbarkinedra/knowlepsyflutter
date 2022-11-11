@@ -253,7 +253,13 @@ class RegisterPage extends StatelessWidget {
                         color: Colors.deepOrangeAccent,
                         width: double.infinity,
                         hight: 40,
-                        onClick: () {},
+                        onClick: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (
+                                  context,
+                                  ) =>
+                                  LoginPage()));
+                        },
                       ),
                     ),
                   )

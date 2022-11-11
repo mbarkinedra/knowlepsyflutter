@@ -8,6 +8,17 @@ import '../pages/home/seizure_page/seizure_page.dart';
 
 
 class HomeController extends GetxController {
+  PageController pageController=PageController();
+  int pageNumber=0;
+  updatePageChaing(int i){
+    pageNumber=i;
+    update();
+
+
+  }
+
+
+
   int _navigatorValue = 0;
   String _currentPage = 'Page1';
   late var _navigatorKey;
@@ -79,7 +90,7 @@ class PageToView extends StatelessWidget {
     switch (tabItem) {
       case 'Page1':
         {
-          currentScreen = HomePage();
+          currentScreen = HomePage1();
 
           break;
         }

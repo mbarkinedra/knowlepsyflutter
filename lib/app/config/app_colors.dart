@@ -10,9 +10,9 @@ class AppColors {
   static Color BorderInputColorlogin = HexColor("#FFEA58");
 
   static Color CercleBlue = HexColor("#0000FF");
-  static Color CerclePink =HexColor("#FF4DCF");
-
-
+  static Color CerclePink = HexColor("#FF4DCF");
+  static Color MedecinePurpre = HexColor("#7652DC");
+  static Color MedecineInput = HexColor("  #5F616E");
   Color contColor = HexColor("#fec8bd");
   static Color white = Colors.white;
   static Color textColor = Colors.black;

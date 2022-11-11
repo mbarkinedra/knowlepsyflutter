@@ -12,7 +12,7 @@ class PersonalInformationPage extends StatelessWidget {
         child: Column(
           children: [
             Container(
-                height: 100,
+                height: 80,
                 decoration: BoxDecoration(
                     color: AppColors.primaryColor,
                     borderRadius: BorderRadius.only(

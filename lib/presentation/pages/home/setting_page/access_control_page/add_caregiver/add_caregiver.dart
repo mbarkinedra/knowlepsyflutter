@@ -17,7 +17,7 @@ class Addcaregiver extends StatelessWidget {
         child: Column(
           children: [
             Container(
-                height: 100,
+                height: 80,
                 decoration: BoxDecoration(
                     color: AppColors.primaryColor,
                     borderRadius: BorderRadius.only(
@@ -133,7 +133,7 @@ class Addcaregiver extends StatelessWidget {
                         titlePadding: EdgeInsets.all(16),
                         titleStyle: TextStyle(color: Colors.black),
                         middleTextStyle: TextStyle(color: Colors.black),
-                        // textConfirm: "OPEN MY MAILBOX",
+                         textConfirm: "OPEN MY MAILBOX",
 
                         //textCancel: "CAMERA",
                         //  cancelTextColor: Colors.blue,

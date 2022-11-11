@@ -215,8 +215,8 @@ import 'package:knowplesy/presentation/pages/home/setting_page/personal_informat
 import '../../../../app/widget/widget_home/widget_home_page1.dart';
 import '../../../../app/widget/widget_home/widget_home_page2.dart';
 
-class HomePage extends GetView<HomeController> {
-  const HomePage({Key? key}) : super(key: key);
+class HomePage1 extends GetView<HomeController> {
+  const HomePage1({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -249,7 +249,7 @@ class HomePage extends GetView<HomeController> {
             ],
           ),
         ),
-        body: PageView(
+        body: PageView(controller:controller.pageController ,onPageChanged: controller.updatePageChaing,
           children: const <Widget>[
             WidgetHomePage1(),
             widgetHomePage2(),

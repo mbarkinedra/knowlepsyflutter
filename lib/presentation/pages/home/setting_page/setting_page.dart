@@ -17,20 +17,8 @@ class SettingPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            /*   Expanded(
-              flex: 6,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
-                    "Annonce détaillée",
-                    style: TextStyle(color: Colors.white, fontSize: 20),
-                  ),
-                ],
-              )  ,
-            ),*/
             Container(
-              height: 100,
+              height: 80,
               decoration: BoxDecoration(
                   color: AppColors.primaryColor,
                   borderRadius: BorderRadius.only(
@@ -49,29 +37,7 @@ class SettingPage extends StatelessWidget {
             SizedBox(
               height: 50,
             ),
-            /*   Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => PersonalInformationPage()),
-                  );
-                },
-                child: Row(
-                  children: [
-                    Icon(Icons.person),
-                    SizedBox(
-                      width: 16,
-                    ),
-                    Text("Personal information",),
-                    Spacer(),
-                    Icon(Icons.arrow_forward_ios),
-                  ],
-                ),
-              ),
-            ),*/
+
             CustomSetting(
               iconProfile: Icons.perm_identity,
               text: "Personal Information",
@@ -91,28 +57,8 @@ class SettingPage extends StatelessWidget {
                 thickness: 1,
               ),
             ),
-            /*  Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => ChangePasswordPage()),
-                  );
-                },
-                child: Row(
-                  children: [
-                    Icon(Icons.lock_outlined),
-                    SizedBox(
-                      width: 16,
-                    ),
-                    Text("Change password"),
-                    Spacer(),
-                    Icon(Icons.arrow_forward_ios),
-                  ],
-                ),
-              ),
-            ),*/
+
+
             CustomSetting(
               iconProfile: Icons.lock_outlined,
               text: "Change password",
@@ -132,20 +78,7 @@ class SettingPage extends StatelessWidget {
                 thickness: 1,
               ),
             ),
-            /*       Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Icon(Icons.miscellaneous_services_outlined),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text("Access and control"),
-                  Spacer(),
-                  Icon(Icons.arrow_forward_ios),
-                ],
-              ),
-            ),*/
+
             CustomSetting(
               iconProfile: Icons.miscellaneous_services_outlined,
               text: "Access and control",
@@ -165,20 +98,7 @@ class SettingPage extends StatelessWidget {
                 thickness: 1,
               ),
             ),
-            // Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: Row(
-            //     children: [
-            //       Icon(Icons.language),
-            //       SizedBox(
-            //         width: 16,
-            //       ),
-            //       Text("Language"),
-            //       Spacer(),
-            //       Icon(Icons.arrow_forward_ios),
-            //     ],
-            //   ),
-            // ),
+
             CustomSetting(
               iconProfile: Icons.language,
               text: "Language",

@@ -5,6 +5,10 @@ import 'package:knowplesy/app/widget/custom_button_login.dart';
 import 'package:knowplesy/app/widget/custom_button_without_icon_login.dart';
 import 'package:knowplesy/app/widget/custom_input_login.dart';
 import 'package:knowplesy/presentation/controllers/login_controller/login_controller.dart';
+import 'package:knowplesy/presentation/pages/register_page/register_page.dart';
+
+import '../home/home_page/home_page.dart';
+import '../home_page.dart';
 
 class LoginPage extends GetView<LoginController> {
   const LoginPage({super.key});
@@ -23,16 +27,16 @@ class LoginPage extends GetView<LoginController> {
                   padding: const EdgeInsets.fromLTRB(20, 20, 20, 70),
                   child: Image.asset("assets/images/logo_knowlepsy.png"),
                 ),
-                CustomInput(
+                CustomInputLogin(
                   lep: "Email :",
-                  hint: "email",
+                  hint: "Exemple@gmail.com",
                 ),
                 SizedBox(
                   height: 18,
                 ),
-                CustomInput(
+                CustomInputLogin(
                   lep: "Password :",
-                  hint: "Password",
+                  hint: "********",
                 ),
                 Align(
                   //  alignment: EdgeInsets.symmetric(8.0),
@@ -54,7 +58,13 @@ class LoginPage extends GetView<LoginController> {
                     width: double.infinity,
                     // MediaQuery.of(context).size.width*.8,
                     hight: 2,
-                    onClick: () {},
+                    onClick: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (
+                              context,
+                              ) =>
+                              HomePage()));
+                    },
                   ),
                 ),
                 SizedBox(
@@ -95,7 +105,12 @@ class LoginPage extends GetView<LoginController> {
                 Center(
                   child: InkWell(
                     onTap: () {
-                      //Get.toNamed(AppRouting.signUp);
+
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (
+                              context,
+                              ) =>
+                              RegisterPage()));
                     },
                     child: RichText(
                       text: TextSpan(

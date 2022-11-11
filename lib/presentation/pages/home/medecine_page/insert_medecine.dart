@@ -1,20 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:knowplesy/app/config/app_colors.dart';
-import 'package:knowplesy/app/config/text_style.dart';
-import 'package:knowplesy/presentation/pages/home/home_page/home_page.dart';
+import 'package:knowplesy/presentation/pages/home/medecine_page/medecine_page.dart';
+import 'package:knowplesy/presentation/pages/home/setting_page/personal_information_page/personal_information_page.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../../app/widget/custom_button.dart';
-import '../../../../app/widget/widget_home/widget_home_page1.dart';
-import '../../home_page.dart';
+import '../../../../app/widget/widget_drawer.dart';
+import '../home_page/home_page.dart';
 
-class SeizurePage extends StatefulWidget {
+class InsertMedecine extends StatefulWidget {
+  const InsertMedecine({Key? key}) : super(key: key);
+
   @override
-  State<SeizurePage> createState() => _SeizurePageState();
+  State<InsertMedecine> createState() => _InsertMedecineState();
 }
 
-class _SeizurePageState extends State<SeizurePage> {
+class _InsertMedecineState extends State<InsertMedecine> {
   DateTime? _selectedDay;
 
   DateTime? _focusedDay;
@@ -28,7 +30,7 @@ class _SeizurePageState extends State<SeizurePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-                height: 100,
+                height: 80,
                 decoration: BoxDecoration(
                   color: AppColors.primaryColor,
                   borderRadius: BorderRadius.only(
@@ -49,11 +51,8 @@ class _SeizurePageState extends State<SeizurePage> {
                           color: Colors.white,
                         )),
                     Spacer(),
-                    Text("LOG AN UNDETECTED \n    SEINZURE ALERT",
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 21,
-                            fontFamily: "Roboto")),
+                    Text("Insert Medecine",
+                        style: TextStyle(color: Colors.white, fontSize: 21)),
                     Spacer(),
                   ],
                 )),
@@ -69,9 +68,9 @@ class _SeizurePageState extends State<SeizurePage> {
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 5,
-                      blurRadius: 7,
+                      color: Colors.grey.withOpacity(0.2),
+                      spreadRadius: 3,
+                      blurRadius: 10,
                       offset: Offset(0, 3), // changes position of shadow
                     ),
                   ],
@@ -85,9 +84,7 @@ class _SeizurePageState extends State<SeizurePage> {
                         padding: const EdgeInsets.only(top: 8.0, left: 18),
                         child: Text("Schedule",
                             style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                fontFamily: "Poppins")),
+                                fontSize: 14, fontWeight: FontWeight.bold)),
                       ),
                     ),
                     SizedBox(
@@ -100,10 +97,20 @@ class _SeizurePageState extends State<SeizurePage> {
                             todayBuilder: (context, _datetime, focusedDay) {
                           return Container(
                             decoration: BoxDecoration(
-                                color: focusedDay == _datetime
-                                    ? Colors.amberAccent
-                                    : Theme.of(context).scaffoldBackgroundColor,
-                                borderRadius: BorderRadius.circular(4.0)),
+                              color: focusedDay == _datetime
+                                  ? Colors.amberAccent
+                                  : Theme.of(context).scaffoldBackgroundColor,
+                              borderRadius: BorderRadius.circular(4.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.3),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: Offset(
+                                      0, 3), // changes position of shadow
+                                ),
+                              ],
+                            ),
                             margin: EdgeInsets.symmetric(
                                 vertical: 0, horizontal: 0.0),
                             child: focusedDay == _datetime
@@ -221,95 +228,121 @@ class _SeizurePageState extends State<SeizurePage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 28.0, top: 8, bottom: 8),
+              padding: const EdgeInsets.only(
+                  left: 28.0, top: 8, right: 28, bottom: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Time",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      Container(
+                        height: 40,
+                        width: 100,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                              width: 1, color: AppColors.BorderInputColor),
+                          borderRadius: BorderRadius.all(Radius.circular(20)),
+                        ),
+                        child: TextField(
+                          decoration: InputDecoration(
+                            fillColor: Colors.grey.withOpacity(.1),
+                            filled: true,
+                            hintText: "00h00",
+                            border: InputBorder.none,
+                            hintStyle: TextStyle(
+                                color: Colors.grey,
+                                fontFamily: "Italic",
+                                fontSize: 11),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(
+                                  20,
+                                ),
+                                borderSide: BorderSide(color: Colors.grey)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(
+                                  20,
+                                ),
+                                borderSide: BorderSide(
+                                    color: Colors.grey.withOpacity(.0))),
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                    color: Colors.grey.withOpacity(.0))),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Spacer(),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "Remind me",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontFamily: "Poppins",
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      CupertinoSwitch(value: true, onChanged: (v) {}),
+                    ],
+                  )
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 28.0, top: 8, right: 28),
               child: Text(
-                "Time",
+                "Insert name of medecine",
                 style: TextStyle(
                   fontSize: 14,
+                  fontFamily: "Poppins",
                   fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.left,
               ),
             ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 18.0),
-              child: Container(
-                height: 40,
-                width: 100,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(width: 1, color: Colors.black26),
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-                child: TextField(
-                  decoration: InputDecoration(
-                    fillColor: Colors.grey.withOpacity(.1),
-                    filled: true,
-                    border: InputBorder.none,
-                    hintStyle: TextStyle(color: Colors.grey),
-                    errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(
-                          20,
-                        ),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(
-                          20,
-                        ),
-                        borderSide:
-                            BorderSide(color: Colors.grey.withOpacity(.0))),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            BorderSide(color: Colors.grey.withOpacity(.0))),
-                  ),
-                ),
-              ),
-            ),
             SizedBox(
               height: 8,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 28.0),
-              child: Text(
-                "Add a comment",
-                style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.textColor),
-                textAlign: TextAlign.left,
-              ),
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 18.0),
+              padding: const EdgeInsets.only(left: 28.0, right: 28),
               child: Container(
-                //  height: 150,
+                height: 50,
+                width: double.infinity,
                 decoration: BoxDecoration(
                   color: Colors.white,
+                  border:
+                      Border.all(width: 1, color: AppColors.BorderInputColor),
                   borderRadius: BorderRadius.all(Radius.circular(20)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.3),
-                      spreadRadius: 5,
-                      blurRadius: 7,
-                      offset: Offset(0, 3), // changes position of shadow
-                    ),
-                  ],
                 ),
                 child: TextField(
-                  maxLines: 6,
                   decoration: InputDecoration(
-                    fillColor: Colors.grey.withOpacity(.1),
+                    fillColor: AppColors.MedecineInput,
                     filled: true,
-                    hintText: "Add a comment ....",
+                    hintText: "Insert name of Medecine",
                     border: InputBorder.none,
                     hintStyle: TextStyle(
-                        color: Colors.grey[500], fontSize: 10, fontFamily: "Italic"),
+                        color: Colors.grey, fontFamily: "Italic", fontSize: 11),
                     errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(
                           20,
@@ -327,23 +360,160 @@ class _SeizurePageState extends State<SeizurePage> {
                             BorderSide(color: Colors.grey.withOpacity(.0))),
                   ),
                 ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                  left: 28.0, right: 28, top: 8, bottom: 8),
+              child: Row(
+                children: [
+                  Expanded(
+                      child: Column(
+                    children: [
+                      Text("Dosage",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 14)),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 1, color: AppColors.BorderInputColor),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Center(
+                          child: DropdownButton<String>(
+                            hint: Text("- - mg"),
+                            value: null,
+                            elevation: 16,
+                            underline: SizedBox(),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                // dropdownValue = newValue!;
+                              });
+                            },
+                            items: <String>['One', 'Two', 'Free', 'Four']
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
+                  SizedBox(
+                    width: 6,
+                  ),
+                  Expanded(
+                      child: Column(
+                    children: [
+                      Text(""),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 1, color: AppColors.BorderInputColor),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Center(
+                          child: DropdownButton<String>(
+                            hint: Text("- - ml"),
+                            value: null,
+                            // icon: const Icon(Icons.arrow_downward),
+                            iconSize: 24,
+                            elevation: 16,
+                            //style: const TextStyle(color: Colors.deepPurple),
+                            underline: SizedBox(),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                // dropdownValue = newValue!;
+                              });
+                            },
+                            items: <String>['One', 'Two', 'Free', 'Four']
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
+                  SizedBox(
+                    width: 4,
+                  ),
+                  Expanded(
+                      child: Column(
+                    children: [
+                      Text(
+                        "Quantité",
+                        style: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 12,
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 1, color: AppColors.BorderInputColor),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Center(
+                          child: DropdownButton<String>(
+                            hint: Text("- -"),
+                            value: null,
+                            // icon: const Icon(Icons.arrow_downward),
+                            iconSize: 24,
+                            elevation: 16,
+                            //style: const TextStyle(color: Colors.deepPurple),
+                            underline: SizedBox(),
+                            onChanged: (String? newValue) {
+                              setState(() {
+                                // dropdownValue = newValue!;
+                              });
+                            },
+                            items: <String>['One', 'Two', 'Free', 'Four']
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
+                ],
               ),
             ),
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: CustomButton(
-                  text: 'Save',
+                  text: 'insert a medecine',
                   color: AppColors.secondryColor,
-                  width: 167,
+                  width: MediaQuery.of(context).size.width * .7,
                   // MediaQuery.of(context).size.width*.8,
-                  hight: 40,
+                  hight: 60,
                   onClick: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (
                       context,
                     ) =>
-                            HomePage1()));
+                            MedecinePage()));
                   },
                 ),
               ),
