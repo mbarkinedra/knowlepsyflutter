@@ -100,10 +100,17 @@ class WidgetDrawer extends StatelessWidget {
             }),
         _buildDrawerItem(
             isSelect: Get.find<HomeController>().navigatorValue == 2,
-            label: 'Setting',
-            image: CupertinoIcons.play_arrow,
+            label: 'Medecine',
+            image: CupertinoIcons.ant_fill,
             onTap: () {
               Get.find<HomeController>().changeSelectedValue(2);
+            }),
+        _buildDrawerItem(
+            isSelect: Get.find<HomeController>().navigatorValue == 3,
+            label: 'Setting',
+            image: CupertinoIcons.settings,
+            onTap: () {
+              Get.find<HomeController>().changeSelectedValue(3);
             }),
       ],
     );

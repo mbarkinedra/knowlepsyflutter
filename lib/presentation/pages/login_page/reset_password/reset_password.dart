@@ -39,21 +39,21 @@ class ResetPassword extends GetView<LoginPasswordController> {
               SizedBox(
                 height: 30,
               ),
-              CustomInput(
+              CustomInputLogin(
                 lep: "Email ",
                 hint: "johndoe@gmail.com",
               ),
               SizedBox(
                 height: 18,
               ),
-              CustomInput(
+              CustomInputLogin(
                 lep: "Enter New Password ",
                 hint: ".............",
               ),
               SizedBox(
                 height: 18,
               ),
-              CustomInput(
+              CustomInputLogin(
                 lep: "Confirm your password",
                 hint: ".............",
               ),

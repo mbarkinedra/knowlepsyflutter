@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:knowplesy/app/config/app_colors.dart';
 import 'package:knowplesy/app/config/text_style.dart';
 import 'package:knowplesy/app/widget/custom_button.dart';
 import 'package:knowplesy/app/widget/widget_drawer.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
+import '../../../presentation/controllers/home_controller.dart';
+import '../../../presentation/pages/home/seizure_page/seizure_page_comment.dart';
 import 'widget_home_page3.dart';
 
 class widgetHomePage2 extends StatelessWidget {
@@ -29,7 +32,7 @@ class widgetHomePage2 extends StatelessWidget {
               ),
               Center(
                   child: Text(
-                "APPROVED SEIZURE",
+                "UNDETECTED SEIZURE",
                 style: BigTextStyle(),
               )),
               SizedBox(
@@ -41,13 +44,6 @@ class widgetHomePage2 extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Icon(Icons.arrow_back_ios_new,
-                            size: 30, color: Colors.grey),
-                      ),
                       Expanded(
                           child: Container(
                         child: Stack(alignment: Alignment.center, children: [
@@ -84,17 +80,6 @@ class widgetHomePage2 extends StatelessWidget {
                           ),
                         ]),
                       )),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (
-                            context,
-                          ) =>
-                                  WidgetHomePage3()));
-                        },
-                        child: Icon(Icons.arrow_forward_ios,
-                            size: 30, color: Colors.grey),
-                      )
                     ],
                   )
                 ]),
@@ -106,13 +91,41 @@ class widgetHomePage2 extends StatelessWidget {
                     top: 20.0, bottom: 20, right: 40, left: 40),
                 child: CustomButton(
                   text: 'Log an undetected Seizure Alert',
-                  onClick: () {},
-                  hight: 40,
+                  onClick: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (
+                      context,
+                    ) =>
+                            SeizurePage()));
+                  },
                   color: AppColors.secondryColor,
-                  width: double.infinity,
+                  width: MediaQuery.of(context).size.width * .8,
+                  hight: 60,
                 ),
-              )
-            ]),
+              ),
+              SizedBox(height: 8,),
+              Center(
+                child: GetBuilder<HomeController>(builder: (logic)
+                {
+                  return Row(mainAxisAlignment: MainAxisAlignment.center,children: List.generate(3, (index) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                      child: InkWell(
+                          onTap: () {
+                            logic.pageController.animateToPage(index,
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeIn);
+                          },
+                          child: CircleAvatar(
+                            radius: 5,
+                            // check if a dot is connected to the current page
+                            // if true, give it a different color
+                            backgroundColor: logic.pageNumber == index
+                                ? Colors.deepPurple
+                                : Colors.grey[400],
+                          ) )
+                  ),));}),
+              ),
+              SizedBox(height: 8,)   ]),
           ),
           SizedBox(
             height: 10,

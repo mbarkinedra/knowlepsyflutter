@@ -37,15 +37,15 @@ class MyApp extends StatelessWidget {
     duration: 3000,
     splashIconSize: 75,
     splash: Image.asset("assets/images/logo_knowlepsy.png"),
-    // nextScreen: LoginPage(),
-      nextScreen: HomePage(),
+     nextScreen: LoginPage(),
+      //nextScreen: HomePage(),
 
       splashTransition: SplashTransition.slideTransition,
     backgroundColor: AppColors.primaryColor,),
       getPages: [
         /// "/" Start Screen
-       // GetPage(name: "/", page: () => LoginPage(), binding: HomeBinding()),
-        GetPage(name: "/", page: () => HomePage(), binding: HomeBinding()),
+       GetPage(name: "/", page: () => LoginPage(), binding: HomeBinding()),
+       // GetPage(name: "/", page: () => HomePage(), binding: HomeBinding()),
       //  GetPage(name: "/", page: () => ResetPassword(), binding: HomeBinding()),
 
       ],

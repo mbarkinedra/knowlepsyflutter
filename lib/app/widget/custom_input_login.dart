@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../config/app_colors.dart';
 
-class CustomInput extends StatelessWidget {
+class CustomInputLogin extends StatelessWidget {
   final String lep;
   final String hint;
 
-  CustomInput({required this.lep, this.hint = ""});
+  CustomInputLogin({required this.lep, this.hint = ""});
 
   @override
   Widget build(BuildContext context) {
@@ -27,11 +27,11 @@ class CustomInput extends StatelessWidget {
           ),
           Container(
             height: 50,
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.all(5),
             decoration: BoxDecoration(
                 color: AppColors.primaryColor,
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: Colors.yellow)),
+                border: Border.all(color: Colors.white)),
             child: Center(
               child: TextField(
                 decoration: InputDecoration(
