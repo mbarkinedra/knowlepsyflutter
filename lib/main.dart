@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -32,22 +33,22 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-    initialBinding: HomeBinding(),
-    home: AnimatedSplashScreen(
-    duration: 3000,
-    splashIconSize: 75,
-    splash: Image.asset("assets/images/logo_knowlepsy.png"),
-     nextScreen: LoginPage(),
-      //nextScreen: HomePage(),
+      initialBinding: HomeBinding(),
+      home: AnimatedSplashScreen(
+        duration: 3000,
+        splashIconSize: 75,
+        splash: Image.asset("assets/images/logo_knowlepsy.png"),
+        nextScreen: LoginPage(),
+        //nextScreen: HomePage(),
 
-      splashTransition: SplashTransition.slideTransition,
-    backgroundColor: AppColors.primaryColor,),
+        splashTransition: SplashTransition.slideTransition,
+        backgroundColor: AppColors.primaryColor,
+      ),
       getPages: [
         /// "/" Start Screen
-       GetPage(name: "/", page: () => LoginPage(), binding: HomeBinding()),
-       // GetPage(name: "/", page: () => HomePage(), binding: HomeBinding()),
-      //  GetPage(name: "/", page: () => ResetPassword(), binding: HomeBinding()),
-
+        GetPage(name: "/", page: () => LoginPage(), binding: HomeBinding()),
+        // GetPage(name: "/", page: () => HomePage(), binding: HomeBinding()),
+        //  GetPage(name: "/", page: () => ResetPassword(), binding: HomeBinding()),
       ],
     );
   }
