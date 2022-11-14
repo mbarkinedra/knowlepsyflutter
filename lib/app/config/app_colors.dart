@@ -5,6 +5,7 @@ class AppColors {
   static Color BorderColore = Colors.black12;
   static Color FontColorBlack = HexColor("#474749");
   static Color IconColor = HexColor("#7652DC");
+  static Color IconColorBlue = HexColor("#000000");
 
   static Color BorderInputColor = HexColor("#707070");
   static Color BorderInputColorlogin = HexColor("#FFEA58");

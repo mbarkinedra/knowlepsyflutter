@@ -5,6 +5,7 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:knowplesy/app/config/app_colors.dart';
 import 'package:knowplesy/presentation/bindings/bindings.dart';
 import 'package:knowplesy/presentation/pages/home_page.dart';
+import 'package:knowplesy/presentation/pages/login_page/BleutoothScreen/ConnectBleutoothScreen.dart';
 import 'package:knowplesy/presentation/pages/login_page/login_page.dart';
 import 'package:knowplesy/presentation/pages/login_page/reset_password/reset_password.dart';
 
@@ -38,7 +39,7 @@ class MyApp extends StatelessWidget {
         duration: 3000,
         splashIconSize: 75,
         splash: Image.asset("assets/images/logo_knowlepsy.png"),
-        nextScreen: LoginPage(),
+        nextScreen: ConnectBleutoothScreen(),
         //nextScreen: HomePage(),
 
         splashTransition: SplashTransition.slideTransition,
@@ -46,7 +47,10 @@ class MyApp extends StatelessWidget {
       ),
       getPages: [
         /// "/" Start Screen
-        GetPage(name: "/", page: () => LoginPage(), binding: HomeBinding()),
+        GetPage(
+            name: "/",
+            page: () => ConnectBleutoothScreen(),
+            binding: HomeBinding()),
         // GetPage(name: "/", page: () => HomePage(), binding: HomeBinding()),
         //  GetPage(name: "/", page: () => ResetPassword(), binding: HomeBinding()),
       ],
