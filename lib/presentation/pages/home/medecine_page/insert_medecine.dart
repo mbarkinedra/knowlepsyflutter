@@ -20,7 +20,20 @@ class _InsertMedecineState extends State<InsertMedecine> {
   DateTime? _selectedDay;
 
   DateTime? _focusedDay;
+  TimeOfDay _timeOfDay = TimeOfDay(hour: 8, minute: 30);
 
+
+  // show time picker method
+  void _showTimePicker() {
+    showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    ).then((value) {
+      setState(() {
+        _timeOfDay = value!;
+      });
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -232,7 +245,7 @@ class _InsertMedecineState extends State<InsertMedecine> {
                   left: 28.0, top: 8, right: 28, bottom: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.end,
+               // crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -249,39 +262,16 @@ class _InsertMedecineState extends State<InsertMedecine> {
                         height: 8,
                       ),
                       Container(
-                        height: 40,
-                        width: 100,
                         decoration: BoxDecoration(
                           color: Colors.white,
-                          border: Border.all(
-                              width: 1, color: AppColors.BorderInputColor),
+                          border: Border.all(width: 1, color: Colors.black26),
                           borderRadius: BorderRadius.all(Radius.circular(20)),
                         ),
-                        child: TextField(
-                          decoration: InputDecoration(
-                            fillColor: Colors.grey.withOpacity(.1),
-                            filled: true,
-                            hintText: "00h00",
-                            border: InputBorder.none,
-                            hintStyle: TextStyle(
-                                color: Colors.grey,
-                                fontFamily: "Italic",
-                                fontSize: 11),
-                            errorBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  20,
-                                ),
-                                borderSide: BorderSide(color: Colors.grey)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(
-                                  20,
-                                ),
-                                borderSide: BorderSide(
-                                    color: Colors.grey.withOpacity(.0))),
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
-                                    color: Colors.grey.withOpacity(.0))),
+                        child: MaterialButton(
+                          onPressed: _showTimePicker,
+                          child: Text(
+                            _timeOfDay.format(context).toString(),
+                            style: TextStyle(fontSize: 16),
                           ),
                         ),
                       ),
@@ -368,135 +358,169 @@ class _InsertMedecineState extends State<InsertMedecine> {
             Padding(
               padding: const EdgeInsets.only(
                   left: 28.0, right: 28, top: 8, bottom: 8),
-              child: Row(
-                children: [
-                  Expanded(
-                      child: Column(
-                    children: [
-                      Text("Dosage",
+              child: SizedBox(
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text("Dosage",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 14)),
+                        ),
+                        SizedBox(
+                          height: 12,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 1, color: AppColors.BorderInputColor),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Center(
+                            child: Row(
+                              children: [Expanded(child: TextField( decoration: InputDecoration(
+                                fillColor: AppColors.MedecineInput,
+                                filled: true,
+                                //hintText: "Insert name of Medecine",
+                                border: InputBorder.none,
+                                hintStyle: TextStyle(
+                                    color: Colors.grey, fontFamily: "Italic", fontSize: 11),
+                                errorBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      20,
+                                    ),
+                                    borderSide: BorderSide(color: Colors.grey)),
+                                focusedBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(
+                                      20,
+                                    ),
+                                    borderSide:
+                                    BorderSide(color: Colors.grey.withOpacity(.0))),
+                                enabledBorder: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    borderSide:
+                                    BorderSide(color: Colors.grey.withOpacity(.0))),
+                              ),
+
+
+                              )),
+                                DropdownButton<String>(
+                                  hint: Text("mg"),
+                                  value: null,
+                                  elevation: 16,
+                                  underline: SizedBox(),
+                                  onChanged: (String? newValue) {
+                                    setState(() {
+                                      // dropdownValue = newValue!;
+                                    });
+                                  },
+                                  items: <String>['mg', 'ml', ]
+                                      .map<DropdownMenuItem<String>>((String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    )),
+                   SizedBox(
+                      width: 6,
+                    ),
+                  /*  Expanded(
+                        child: Column(
+                      children: [
+                        Text(""),
+                        SizedBox(
+                          height: 12,
+                        ),
+                       *//* Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 1, color: AppColors.BorderInputColor),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Center(
+                            child: DropdownButton<String>(
+                              hint: Text("- - ml"),
+                              value: null,
+                              // icon: const Icon(Icons.arrow_downward),
+                              iconSize: 24,
+                              elevation: 16,
+                              //style: const TextStyle(color: Colors.deepPurple),
+                              underline: SizedBox(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  // dropdownValue = newValue!;
+                                });
+                              },
+                              items: <String>['One', 'Two', 'Free', 'Four']
+                                  .map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ),
+                        ),*//*
+                      ],
+                    )),*/
+                    SizedBox(
+                      width: 4,
+                    ),
+                    Expanded(
+                        child: Column(
+                      children: [
+                        Text(
+                          "Quantité",
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 14)),
-                      SizedBox(
-                        height: 12,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 1, color: AppColors.BorderInputColor),
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Center(
-                          child: DropdownButton<String>(
-                            hint: Text("- - mg"),
-                            value: null,
-                            elevation: 16,
-                            underline: SizedBox(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                // dropdownValue = newValue!;
-                              });
-                            },
-                            items: <String>['One', 'Two', 'Free', 'Four']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 12,
+                        ),
+                        Container(height: 60,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 1, color: AppColors.BorderInputColor),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20)),
+                          child: Center(
+                            child: DropdownButton<String>(
+                              hint: Text("- -"),
+                              value: null,
+                              // icon: const Icon(Icons.arrow_downward),
+                              iconSize: 24,
+                              elevation: 16,
+                              //style: const TextStyle(color: Colors.deepPurple),
+                              underline: SizedBox(),
+                              onChanged: (String? newValue) {
+                                setState(() {
+                                  // dropdownValue = newValue!;
+                                });
+                              },
+                              items: <String>['One', 'Two', 'Free', 'Four']
+                                  .map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  )),
-                  SizedBox(
-                    width: 6,
-                  ),
-                  Expanded(
-                      child: Column(
-                    children: [
-                      Text(""),
-                      SizedBox(
-                        height: 12,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 1, color: AppColors.BorderInputColor),
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Center(
-                          child: DropdownButton<String>(
-                            hint: Text("- - ml"),
-                            value: null,
-                            // icon: const Icon(Icons.arrow_downward),
-                            iconSize: 24,
-                            elevation: 16,
-                            //style: const TextStyle(color: Colors.deepPurple),
-                            underline: SizedBox(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                // dropdownValue = newValue!;
-                              });
-                            },
-                            items: <String>['One', 'Two', 'Free', 'Four']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )),
-                  SizedBox(
-                    width: 4,
-                  ),
-                  Expanded(
-                      child: Column(
-                    children: [
-                      Text(
-                        "Quantité",
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold),
-                      ),
-                      SizedBox(
-                        height: 12,
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 1, color: AppColors.BorderInputColor),
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20)),
-                        child: Center(
-                          child: DropdownButton<String>(
-                            hint: Text("- -"),
-                            value: null,
-                            // icon: const Icon(Icons.arrow_downward),
-                            iconSize: 24,
-                            elevation: 16,
-                            //style: const TextStyle(color: Colors.deepPurple),
-                            underline: SizedBox(),
-                            onChanged: (String? newValue) {
-                              setState(() {
-                                // dropdownValue = newValue!;
-                              });
-                            },
-                            items: <String>['One', 'Two', 'Free', 'Four']
-                                .map<DropdownMenuItem<String>>((String value) {
-                              return DropdownMenuItem<String>(
-                                value: value,
-                                child: Text(value),
-                              );
-                            }).toList(),
-                          ),
-                        ),
-                      ),
-                    ],
-                  )),
-                ],
+                      ],
+                    )),
+                  ],
+                ),
               ),
             ),
             Center(

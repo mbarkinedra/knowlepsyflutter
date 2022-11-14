@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:knowplesy/app/config/app_colors.dart';
 import 'package:knowplesy/app/widget/custom_button.dart';
 import 'package:knowplesy/app/widget/custom_input.dart';
@@ -7,6 +8,8 @@ import 'package:knowplesy/app/widget/custom_input.dart';
 class PersonalInformationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<FormState> _formKey = GlobalKey();
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -23,9 +26,14 @@ class PersonalInformationPage extends StatelessWidget {
                     SizedBox(
                       width: 8,
                     ),
-                    GestureDetector(onTap: (){
-                      Navigator.of(context).pop();
-                    },child: Icon(Icons.arrow_back,color: Colors.white,)),
+                    GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: Colors.white,
+                        )),
                     Spacer(),
                     Text("Personal Information",
                         style: TextStyle(color: Colors.white, fontSize: 23)),
@@ -106,24 +114,61 @@ class PersonalInformationPage extends StatelessWidget {
             ),
             CustomInput(
               lep: "Name :",
+              hint: "Nedra",
             ),
             SizedBox(
               height: 8,
             ),
             CustomInput(
               lep: "Family Name :",
+              hint: "Mbarki",
+
             ),
             SizedBox(
               height: 8,
             ),
             CustomInput(
               lep: "Email :",
+              hint: "Nedrambarki@gmail.com",
+
             ),
             SizedBox(
-              height: 8,
+              height: 10,
             ),
-            CustomInput(
-              lep: "Phone :",
+            Padding(
+              padding: const EdgeInsets.only(left: 30.0, right: 30),
+              child: Column(
+                children: [
+                  Align(alignment: Alignment.centerLeft, child: Text("phone")),
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        const SizedBox(height: 20),
+                        IntlPhoneField(
+                          decoration: InputDecoration(
+                            hintText: 'Phone Number',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(26),
+                              borderSide: BorderSide(),
+                            ),
+                          ),
+                          onChanged: (phone) {
+                            print(phone.completeNumber);
+                          },
+                          onCountryChanged: (country) {
+                            print('Country changed to: ' + country.name);
+                          },
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
             ),
             Center(
               child: Padding(

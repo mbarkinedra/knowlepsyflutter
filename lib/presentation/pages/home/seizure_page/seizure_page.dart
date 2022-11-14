@@ -16,8 +16,21 @@ class SeizurePage extends StatefulWidget {
 
 class _SeizurePageState extends State<SeizurePage> {
   DateTime? _selectedDay;
+  TimeOfDay _timeOfDay = TimeOfDay(hour: 8, minute: 30);
 
   DateTime? _focusedDay;
+
+  // show time picker method
+  void _showTimePicker() {
+    showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    ).then((value) {
+      setState(() {
+        _timeOfDay = value!;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -220,7 +233,7 @@ class _SeizurePageState extends State<SeizurePage> {
                 ),
               ),
             ),
-            Padding(
+            /*   Padding(
               padding: const EdgeInsets.only(left: 28.0, top: 8, bottom: 8),
               child: Text(
                 "Time",
@@ -266,7 +279,45 @@ class _SeizurePageState extends State<SeizurePage> {
                   ),
                 ),
               ),
+            ),*/
+            // create TimeOfDay variable
+
+            // show time picker method
+            // display the chosen time
+
+            // button
+            Padding(
+              padding: const EdgeInsets.only(left: 28.0, top: 8, bottom: 8),
+              child: Text(
+                "Time",
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.left,
+              ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(left: 28.0, top: 8, bottom: 8),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border: Border.all(width: 1, color: Colors.black26),
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                ),
+                child: MaterialButton(
+                  onPressed: _showTimePicker,
+                  child: Padding(
+                    padding: EdgeInsets.all(20.0),
+                    child: Text(
+                      _timeOfDay.format(context).toString(),
+                      style: TextStyle(fontSize: 18),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+
             SizedBox(
               height: 8,
             ),
@@ -309,7 +360,9 @@ class _SeizurePageState extends State<SeizurePage> {
                     hintText: "Add a comment ....",
                     border: InputBorder.none,
                     hintStyle: TextStyle(
-                        color: Colors.grey[500], fontSize: 10, fontFamily: "Italic"),
+                        color: Colors.grey[500],
+                        fontSize: 10,
+                        fontFamily: "Italic"),
                     errorBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(
                           20,
