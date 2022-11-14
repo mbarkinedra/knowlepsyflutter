@@ -6,7 +6,6 @@ import 'package:knowplesy/app/widget/custom_button_without_icon_login.dart';
 import 'package:knowplesy/app/widget/custom_input_login.dart';
 import 'package:flutter/services.dart';
 import 'package:knowplesy/presentation/pages/login_page/BleutoothScreen/CustomSettingBleutooth.dart';
-import 'package:flutter_blue/flutter_blue.dart';
 
 import '../../../../app/widget/custom_setting.dart';
 import 'BraceletConnected.dart';
@@ -15,75 +14,14 @@ class ConnectBleutoothScreen extends StatefulWidget {
   // ConnectBleutoothScreen({super.key});
 
   @override
-  final FlutterBlue flutterBlue = FlutterBlue.instance;
 
   State<ConnectBleutoothScreen> createState() => _ConnectBleutoothScreenState();
-  final List<BluetoothDevice> devicesList = new List<BluetoothDevice>();
 }
 
 class _ConnectBleutoothScreenState extends State<ConnectBleutoothScreen> {
   @override
-  _addDeviceTolist(final BluetoothDevice device) {
-    if (!widget.devicesList.contains(device)) {
-      setState(() {
-        widget.devicesList.add(device);
-      });
-    }
-  }
 
-  void initState() {
-    super.initState();
-    widget.flutterBlue.connectedDevices
-        .asStream()
-        .listen((List<BluetoothDevice> devices) {
-      for (BluetoothDevice device in devices) {
-        _addDeviceTolist(device);
-      }
-    });
-    widget.flutterBlue.scanResults.listen((List<ScanResult> results) {
-      for (ScanResult result in results) {
-        _addDeviceTolist(result.device);
-      }
-    });
-    widget.flutterBlue.startScan();
-  }
 
-  ListView _buildListViewOfDevices() {
-    List<Container> containers = new List<Container>();
-    for (BluetoothDevice device in widget.devicesList) {
-      containers.add(
-        Container(
-          height: 50,
-          child: Row(
-            children: <Widget>[
-              Expanded(
-                child: Column(
-                  children: <Widget>[
-                    Text(device.name == '' ? '(unknown device)' : device.name),
-                    Text(device.id.toString()),
-                  ],
-                ),
-              ),
-              ElevatedButton(
-                child: Text(
-                  'Connect',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () {},
-              ),
-            ],
-          ),
-        ),
-      );
-    }
-
-    return ListView(
-      padding: const EdgeInsets.all(8),
-      children: <Widget>[
-        ...containers,
-      ],
-    );
-  }
 
   @override
   Widget build(BuildContext context) {
