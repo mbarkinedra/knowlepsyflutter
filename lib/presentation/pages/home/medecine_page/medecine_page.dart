@@ -32,7 +32,7 @@ class _MedecinePageState extends State<MedecinePage> {
     List<Event> e = [];
     selectedEvents = {_selectedDay: e};
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 2; i++) {
       e.add(Event(
           name: "Panadol  $i",
           des: "  3 pils(10mg) ",
@@ -206,13 +206,13 @@ class _MedecinePageState extends State<MedecinePage> {
                 ),
                 Center(
                   child: Padding(
-                    padding: const EdgeInsets.all(30.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: CustomButton(
                       text: 'insert a medecine',
                       color: AppColors.secondryColor,
-                      width: MediaQuery.of(context).size.width * .7,
+                      width: MediaQuery.of(context).size.width * .6,
                       // MediaQuery.of(context).size.width*.8,
-                      hight: 60,
+                      hight: 50,
                       onClick: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (
@@ -227,13 +227,27 @@ class _MedecinePageState extends State<MedecinePage> {
             ),
           ),
         ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 8.0, left: 18),
-            child: Text("Medecine",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+        Padding(
+          padding: const EdgeInsets.only(top: 8.0, left: 18),
+          child: Column(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text("Medecine",
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+              ),
+              SizedBox(height: 8,),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text("Today",
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
+              ),
+            ],
           ),
+        ),
+        SizedBox(
+          height: 10,
         ),
         Expanded(
             child: ListView.builder(
@@ -242,74 +256,354 @@ class _MedecinePageState extends State<MedecinePage> {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                      height: 150,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.white.withOpacity(1)),
-                      child: IntrinsicHeight(
-                        child: Row(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Container(
-                                  height: double.infinity,
-                                  width: 40,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(5),
-                                    color: Colors.deepPurpleAccent[100],
+                      padding: EdgeInsets.only(left: 10),
+                      child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(15),
+                                  bottomRight: Radius.circular(15))),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 8,
                                   ),
-                                  child: Align(
-                                      alignment: Alignment.topCenter,
-                                      child: Padding(
-                                        padding:
-                                            const EdgeInsets.only(top: 8.0),
-                                        child: Icon(Icons.add),
-                                      ))),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(top: 8.0, bottom: 8),
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                        _getEventsForDay(_selectedDay)[pos]
-                                            .name,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16)),
-                                    Text(_getEventsForDay(_selectedDay)[pos]
-                                        .des),
-                                    Spacer(),
-                                    Text(_getEventsForDay(_selectedDay)[pos]
-                                        .time)
-                                  ]),
-                            ),
-                            Spacer(),
-                            Align(
-                              alignment: Alignment.topRight,
-                              child: GestureDetector(
-                                onTap: () {
-                                  //     Navigator.of(context).push(MaterialPageRoute(
-                                  //        builder: (
-                                  //           context,
-                                  //          ) =>
-                                  //         PopUpAlert()));
-
-                                  _showMyDialog();
-                                },
-                                child: Image.asset(
-                                  "assets/images/chek_medecine.png",
-                                  width: 40,
-                                  height: 40,
-                                ),
+                                  Image.asset(
+                                    "assets/images/icon_piles.png",
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                  SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text(
+                                    "TEGRETOL",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  Spacer(),
+                                  Image.asset(
+                                    "assets/images/icon_time.png",
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                  Text("12:23"),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                ],
                               ),
-                            )
-                          ],
-                        ),
-                      ),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Image.asset(
+                                    "assets/images/icon_medecine.png",
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                  Text(
+                                    "2 piles",
+                                    style: TextStyle(),
+                                  ),
+                                  Spacer(),
+                                  Image.asset(
+                                    "assets/images/icon_dosage.png",
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                  SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text("200: mg"),
+                                  Spacer(),
+                                  Container(
+                                    height: 30,
+                                    width: 70,
+                                    decoration: BoxDecoration(
+                                        color: Colors.deepPurpleAccent,
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
+                                    child: Center(
+                                        child: Text(
+                                      "taken",
+                                      style: TextStyle(color: Colors.white),
+                                    )),
+                                  ),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                ],
+                              )
+                            ],
+                          )),
+                      height: 70,
+                      decoration: BoxDecoration(
+                          color: Colors.deepPurpleAccent,
+                          borderRadius: BorderRadius.circular(15)),
                     ),
                   );
+
+                  // return Padding(
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: Container(
+                  //     height: 150,
+                  //     decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.circular(10),
+                  //         color: Colors.white.withOpacity(1)),
+                  //     child: IntrinsicHeight(
+                  //       child: Row(
+                  //         children: [
+                  //           Padding(
+                  //             padding: const EdgeInsets.all(8.0),
+                  //             child: Container(
+                  //                 height: double.infinity,
+                  //                 width: 40,
+                  //                 decoration: BoxDecoration(
+                  //                   borderRadius: BorderRadius.circular(5),
+                  //                   color: Colors.deepPurpleAccent[100],
+                  //                 ),
+                  //                 child: Align(
+                  //                     alignment: Alignment.topCenter,
+                  //                     child: Padding(
+                  //                       padding:
+                  //                           const EdgeInsets.only(top: 8.0),
+                  //                       child: Icon(Icons.add),
+                  //                     ))),
+                  //           ),
+                  //           Padding(
+                  //             padding:
+                  //                 const EdgeInsets.only(top: 8.0, bottom: 8),
+                  //             child: Column(
+                  //                 crossAxisAlignment: CrossAxisAlignment.start,
+                  //                 children: [
+                  //                   Text(
+                  //                       _getEventsForDay(_selectedDay)[pos]
+                  //                           .name,
+                  //                       style: TextStyle(
+                  //                           fontWeight: FontWeight.bold,
+                  //                           fontSize: 16)),
+                  //                   Text(_getEventsForDay(_selectedDay)[pos]
+                  //                       .des),
+                  //                   Spacer(),
+                  //                   Text(_getEventsForDay(_selectedDay)[pos]
+                  //                       .time)
+                  //                 ]),
+                  //           ),
+                  //           Spacer(),
+                  //           Align(
+                  //             alignment: Alignment.topRight,
+                  //             child: GestureDetector(
+                  //               onTap: () {
+                  //                 //     Navigator.of(context).push(MaterialPageRoute(
+                  //                 //        builder: (
+                  //                 //           context,
+                  //                 //          ) =>
+                  //                 //         PopUpAlert()));
+                  //
+                  //                 _showMyDialog();
+                  //               },
+                  //               child: Image.asset(
+                  //                 "assets/images/chek_medecine.png",
+                  //                 width: 40,
+                  //                 height: 40,
+                  //               ),
+                  //             ),
+                  //           )
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // );
+                })),
+        SizedBox(
+          height: 8,
+        ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 2.0, left: 18),
+            child: Text("Tomorrow",
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
+          ),
+        ),
+        SizedBox(
+          height: 8,
+        ),
+        Expanded(
+            child: ListView.builder(
+                itemCount: _getEventsForDay(_selectedDay).length,
+                itemBuilder: (context, pos) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(15),
+                                  bottomRight: Radius.circular(15))),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Image.asset(
+                                    "assets/images/icon_piles.png",color: AppColors.secondryColor,
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                  SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text(
+                                    "TEGRETOL",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  Spacer(),
+                                  Image.asset(
+                                    "assets/images/icon_time.png",
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                  Text("12:23"),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                  Image.asset(
+                                    "assets/images/icon_medecine.png",
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                  Text(
+                                    "2 piles",
+                                    style: TextStyle(),
+                                  ),
+                                  Spacer(),
+                                  Image.asset(
+                                    "assets/images/icon_dosage.png",
+                                    height: 20,
+                                    width: 20,
+                                  ),
+                                  SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text("200: mg"),
+                                  Spacer(),
+                                  Container(
+                                    height: 30,
+                                    width: 70,
+                                    decoration: BoxDecoration(
+                                        color: AppColors.secondryColor,
+                                        borderRadius:
+                                            BorderRadius.circular(15)),
+                                    child: Center(
+                                        child: Text(
+                                      "Pending",
+                                      style: TextStyle(color: Colors.white),
+                                    )),
+                                  ),
+                                  SizedBox(
+                                    width: 8,
+                                  ),
+                                ],
+                              )
+                            ],
+                          )),
+                      height: 70,
+                      decoration: BoxDecoration(
+                          color: AppColors.secondryColor,
+                          borderRadius: BorderRadius.circular(15)),
+                    ),
+                  );
+
+                  // return Padding(
+                  //   padding: const EdgeInsets.all(8.0),
+                  //   child: Container(
+                  //     height: 150,
+                  //     decoration: BoxDecoration(
+                  //         borderRadius: BorderRadius.circular(10),
+                  //         color: Colors.white.withOpacity(1)),
+                  //     child: IntrinsicHeight(
+                  //       child: Row(
+                  //         children: [
+                  //           Padding(
+                  //             padding: const EdgeInsets.all(8.0),
+                  //             child: Container(
+                  //                 height: double.infinity,
+                  //                 width: 40,
+                  //                 decoration: BoxDecoration(
+                  //                   borderRadius: BorderRadius.circular(5),
+                  //                   color: Colors.deepPurpleAccent[100],
+                  //                 ),
+                  //                 child: Align(
+                  //                     alignment: Alignment.topCenter,
+                  //                     child: Padding(
+                  //                       padding:
+                  //                           const EdgeInsets.only(top: 8.0),
+                  //                       child: Icon(Icons.add),
+                  //                     ))),
+                  //           ),
+                  //           Padding(
+                  //             padding:
+                  //                 const EdgeInsets.only(top: 8.0, bottom: 8),
+                  //             child: Column(
+                  //                 crossAxisAlignment: CrossAxisAlignment.start,
+                  //                 children: [
+                  //                   Text(
+                  //                       _getEventsForDay(_selectedDay)[pos]
+                  //                           .name,
+                  //                       style: TextStyle(
+                  //                           fontWeight: FontWeight.bold,
+                  //                           fontSize: 16)),
+                  //                   Text(_getEventsForDay(_selectedDay)[pos]
+                  //                       .des),
+                  //                   Spacer(),
+                  //                   Text(_getEventsForDay(_selectedDay)[pos]
+                  //                       .time)
+                  //                 ]),
+                  //           ),
+                  //           Spacer(),
+                  //           Align(
+                  //             alignment: Alignment.topRight,
+                  //             child: GestureDetector(
+                  //               onTap: () {
+                  //                 //     Navigator.of(context).push(MaterialPageRoute(
+                  //                 //        builder: (
+                  //                 //           context,
+                  //                 //          ) =>
+                  //                 //         PopUpAlert()));
+                  //
+                  //                 _showMyDialog();
+                  //               },
+                  //               child: Image.asset(
+                  //                 "assets/images/chek_medecine.png",
+                  //                 width: 40,
+                  //                 height: 40,
+                  //               ),
+                  //             ),
+                  //           )
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // );
                 }))
       ]),
     );
