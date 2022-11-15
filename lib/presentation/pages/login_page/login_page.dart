@@ -9,6 +9,8 @@ import 'package:knowplesy/presentation/pages/register_page/register_page.dart';
 
 import '../home/home_page/home_page.dart';
 import '../home_page.dart';
+import 'BleutoothScreen/BleutoothScreen1.dart';
+import 'BleutoothScreen/BraceletNotConnected.dart';
 
 class LoginPage extends GetView<LoginController> {
   const LoginPage({super.key});
@@ -55,15 +57,15 @@ class LoginPage extends GetView<LoginController> {
                   child: CustomButtonWithoutIcon(
                     text: 'Login ',
                     color: Colors.deepOrangeAccent,
-                    width: double.infinity,
-                    // MediaQuery.of(context).size.width*.8,
+                    width:
+                     MediaQuery.of(context).size.width*.8,
                     hight: 2,
                     onClick: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (
                               context,
                               ) =>
-                              HomePage()));
+                              BleutoothScreen()));
                     },
                   ),
                 ),
@@ -72,7 +74,7 @@ class LoginPage extends GetView<LoginController> {
                 ),
                 Center(
                   child: CustomButton(
-                    icon: Icons.login,
+                    icon: ImageIcon(AssetImage("assets/images/icon_google.png")),
                     text: 'Continue with google',
                     color: Colors.deepOrangeAccent,
                     width: double.infinity,

@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
         duration: 3000,
         splashIconSize: 75,
         splash: Image.asset("assets/images/logo_knowlepsy.png"),
-        nextScreen: ConnectBleutoothScreen(),
+        nextScreen: LoginPage(),
         //nextScreen: HomePage(),
 
         splashTransition: SplashTransition.slideTransition,
@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
         /// "/" Start Screen
         GetPage(
             name: "/",
-            page: () => ConnectBleutoothScreen(),
+            page: () => LoginPage(),
             binding: HomeBinding()),
         // GetPage(name: "/", page: () => HomePage(), binding: HomeBinding()),
         //  GetPage(name: "/", page: () => ResetPassword(), binding: HomeBinding()),

@@ -7,6 +7,8 @@ import 'package:knowplesy/app/widget/custom_button_without_icon_login.dart';
 import 'package:knowplesy/app/widget/custom_input_login.dart';
 import 'package:flutter/services.dart';
 
+import '../../home_page.dart';
+
 class BraceletConnected extends StatefulWidget {
   // BraceletConnected({super.key});
   late final String title;
@@ -131,19 +133,28 @@ class _BraceletConnectedState extends State<BraceletConnected> {
                           child: SizedBox(
                             width: 66.0,
                             height: 21.0,
-                            child: Text(
-                              'Go Home',
-                              style: TextStyle(
-                                fontFamily: 'Roboto',
-                                fontSize: 16,
-                                color: const Color(0xffffffff),
-                                fontWeight: FontWeight.w500,
-                                height: 1.0625,
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (
+                                  context,
+                                ) =>
+                                        HomePage()));
+                              },
+                              child: Text(
+                                'Go Home',
+                                style: TextStyle(
+                                  fontFamily: 'Roboto',
+                                  fontSize: 16,
+                                  color: const Color(0xffffffff),
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.0625,
+                                ),
+                                textHeightBehavior: TextHeightBehavior(
+                                    applyHeightToFirstAscent: false),
+                                textAlign: TextAlign.center,
+                                softWrap: false,
                               ),
-                              textHeightBehavior: TextHeightBehavior(
-                                  applyHeightToFirstAscent: false),
-                              textAlign: TextAlign.center,
-                              softWrap: false,
                             ),
                           ),
                         ),
