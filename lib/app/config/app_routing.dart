@@ -4,9 +4,14 @@
 //
 // import '../../presentation/bindings/bindings.dart';
 //
-// class AppRouting {
-//   static String login = '/';
-//   static String home = '/home';
+ import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:knowplesy/presentation/pages/home_page.dart';
+
+import '../../presentation/bindings/bindings.dart';
+
+class AppRouting {
+   static String login = '/';
+   static String home = '/home';
 //   static String search = '/search';
 //   static String searchForm = '/search/form';
 //   static String filter = '/filter';
@@ -35,8 +40,8 @@
 //
 //   static String settings = '/settings';
 //
-//   static List<GetPage> pages = [
-//     GetPage(name: home, page: () => HomeView(), binding: AllBindings()),
+  static List<GetPage> pages = [
+     GetPage(name: home, page: () => HomePage(), binding: AllBindings()),
 //     GetPage(
 //         name: search, page: () => const SearchView(), binding: AllBindings()),
 //     GetPage(
@@ -109,19 +114,19 @@
 //         name: deleteAccountSuccess,
 //         page: () => DeleteAccountSuccessView(),
 //         binding: AllBindings()),
-//   ];
-//
-//   static GetPage getPageByName(String name) {
-//     return pages.firstWhere((p) => p.name == name);
-//   }
-//
-//   static List<String> getPageNames() {
-//     List<String> names = <String>[];
-//
-//     for (GetPage element in pages) {
-//       names.add(element.name);
-//     }
-//
-//     return names;
-//   }
-// }
+   ];
+
+  static GetPage getPageByName(String name) {
+     return pages.firstWhere((p) => p.name == name);
+   }
+
+  static List<String> getPageNames() {
+     List<String> names = <String>[];
+
+     for (GetPage element in pages) {
+       names.add(element.name);
+   }
+     return names;
+
+
+ }}
