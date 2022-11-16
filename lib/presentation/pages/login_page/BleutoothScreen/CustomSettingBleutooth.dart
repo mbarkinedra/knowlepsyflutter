@@ -47,6 +47,9 @@ class CustomSettingBleutooth extends StatelessWidget {
                             color: AppColors.textColor,
                             fontWeight: FontWeight.bold),
                       ),
+                      SizedBox(
+                        height: 05,
+                      ),
                       Text(
                         text1!,
                         style: const TextStyle(
