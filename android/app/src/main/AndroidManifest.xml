@@ -1,5 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
     package="com.example.knowplesy">
+      <!-- Permissions options for the `bluetooth` group -->
+ <uses-permission android:name="android.permission.BLUETOOTH" />
+<uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+<uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
    <application
         android:label="knowplesy"
         android:name="${applicationName}"
@@ -31,4 +37,5 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+s 
 </manifest>

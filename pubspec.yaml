@@ -34,6 +34,7 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  flutter_bluetooth_serial: ^0.4.0
   get: ^4.6.5
   google_fonts: ^3.0.1
   percent_indicator: ^4.2.2
@@ -42,8 +43,9 @@ dependencies:
   table_calendar: ^3.0.8
   intl: ^0.17.0
   datetime_picker_formfield:
-  flutter_blue_plus: 1.3.1
-  intl_phone_field: ^3.0.1
+  flutter_blue_plus:
+  permission_handler: ^10.0.0
+  # flutter_blue: ^0.4.1
 
 dev_dependencies:
   flutter_test:
