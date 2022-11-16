@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../config/app_colors.dart';
+import '../util/app_colors.dart';
 
 class CustomInputLogin extends StatelessWidget {
   final String lep;

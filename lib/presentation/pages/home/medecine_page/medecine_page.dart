@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-import '../../../../app/config/app_colors.dart';
+import '../../../../app/util/app_colors.dart';
 import '../../../../app/widget/custom_button.dart';
 import '../../../../app/widget/pop_up_Alert.dart';
 import '../../../../app/widget/widget_drawer.dart';

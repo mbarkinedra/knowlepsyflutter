@@ -206,7 +206,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:knowplesy/app/config/app_colors.dart';
+import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:knowplesy/app/widget/widget_drawer.dart';
 import 'package:knowplesy/app/widget/widget_home/widget_home_page3.dart';
 import 'package:knowplesy/presentation/controllers/home_controller.dart';

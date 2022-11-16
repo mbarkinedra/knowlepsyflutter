@@ -5,7 +5,7 @@ import 'package:knowplesy/app/widget/custom_button.dart';
 import 'package:knowplesy/app/widget/custom_input.dart';
 import 'package:knowplesy/presentation/pages/login_page/login_page.dart';
 
-import '../../../../../app/config/app_colors.dart';
+import '../../../../../app/util/app_colors.dart';
 
 const List<String> listcountry = <String>[
   'Tunsia',
@@ -112,6 +112,23 @@ class RegisterPage extends StatelessWidget {
               height: 25,
             ),
             CustomInput(
+              lep: "First name",
+              hint: "Enter your first name",
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            CustomInput(
+              lep: "Last name",
+              hint: "Enter your last name",
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            CustomInput(
               lep: "Email",
               hint: "Enter your email address",
             ),
@@ -120,7 +137,7 @@ class RegisterPage extends StatelessWidget {
             ),
             CustomInput(
               lep: "Password ",
-              hint: "Choose a password",
+              hint: "Enter_password",
             ),
             SizedBox(
               height: 8,
@@ -128,23 +145,6 @@ class RegisterPage extends StatelessWidget {
             CustomInput(
               lep: "Confirm password",
               hint: "Confirm password",
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            CustomInput(
-              lep: "First name",
-              hint: "Enter Knowlepsy user's first name",
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            CustomInput(
-              lep: "First name",
-              hint: "Enter Knowlepsy user's first name",
             ),
             SizedBox(
               height: 8,
@@ -256,8 +256,8 @@ class RegisterPage extends StatelessWidget {
                         onClick: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (
-                                  context,
-                                  ) =>
+                            context,
+                          ) =>
                                   LoginPage()));
                         },
                       ),

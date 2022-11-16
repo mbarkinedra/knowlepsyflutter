@@ -6,7 +6,7 @@ class CustomButton extends StatelessWidget {
   Color color;
   double width;
   double hight;
-  IconData icon;
+  ImageIcon icon;
 
   CustomButton(
       {required this.text,
@@ -29,8 +29,8 @@ class CustomButton extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Row(
             children: [
-              Icon(
-                icon,
+              ImageIcon(
+                icon.image,
                 color: Colors.white,
               ),
               SizedBox(

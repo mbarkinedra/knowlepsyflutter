@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:knowplesy/app/config/app_colors.dart';
+import 'package:knowplesy/app/util/app_colors.dart';
 
 import '../../../../../../app/widget/custom_button.dart';
 import '../../../../../../app/widget/custom_input.dart';

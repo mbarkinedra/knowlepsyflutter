@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
-import 'package:knowplesy/app/config/app_colors.dart';
+import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:knowplesy/app/widget/custom_button.dart';
 import 'package:knowplesy/app/widget/custom_input.dart';
 
@@ -122,7 +122,6 @@ class PersonalInformationPage extends StatelessWidget {
             CustomInput(
               lep: "Family Name :",
               hint: "Mbarki",
-
             ),
             SizedBox(
               height: 8,
@@ -130,7 +129,6 @@ class PersonalInformationPage extends StatelessWidget {
             CustomInput(
               lep: "Email :",
               hint: "Nedrambarki@gmail.com",
-
             ),
             SizedBox(
               height: 10,
@@ -154,9 +152,11 @@ class PersonalInformationPage extends StatelessWidget {
                               borderSide: BorderSide(),
                             ),
                           ),
+                          initialCountryCode: 'TN',
                           onChanged: (phone) {
                             print(phone.completeNumber);
                           },
+
                           onCountryChanged: (country) {
                             print('Country changed to: ' + country.name);
                           },

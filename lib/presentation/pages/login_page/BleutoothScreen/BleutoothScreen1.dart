@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:knowplesy/app/config/app_colors.dart';
+import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:knowplesy/app/widget/custom_button_login.dart';
 import 'package:knowplesy/app/widget/custom_button_without_icon_login.dart';
 import 'package:knowplesy/app/widget/custom_input_login.dart';
 import 'package:knowplesy/presentation/controllers/login_controller/login_controller.dart';
+
+import 'ConnectBleutoothScreen.dart';
 
 class BleutoothScreen extends StatefulWidget {
   const BleutoothScreen({super.key});
@@ -82,11 +84,15 @@ class _BleutoothScreenState extends State<BleutoothScreen> {
                   child: CustomButtonWithoutIcon(
                     text: 'Connect with Bluetooth',
                     color: Colors.deepOrangeAccent,
-                    //width: double.infinity,
-                    width: 100.0,
-                    // MediaQuery.of(context).size.width*.8,
-                    hight: 20,
-                    onClick: () {},
+                    width: MediaQuery.of(context).size.width * .7,
+                    hight: 50,
+                    onClick: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (
+                        context,
+                      ) =>
+                              ConnectBleutoothScreen()));
+                    },
                   ),
                 ),
               ],

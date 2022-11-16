@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:knowplesy/app/widget/custom_button.dart';
 import 'package:knowplesy/app/widget/custom_input.dart';
 
-import '../../../../../app/config/app_colors.dart';
+import '../../../../../app/util/app_colors.dart';
 
 class ChangePasswordPage extends StatelessWidget {
   @override

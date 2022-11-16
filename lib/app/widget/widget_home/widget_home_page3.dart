@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:knowplesy/app/config/app_colors.dart';
-import 'package:knowplesy/app/config/text_style.dart';
+import 'package:knowplesy/app/util/app_colors.dart';
+import 'package:knowplesy/app/util/text_style.dart';
 import 'package:knowplesy/app/widget/custom_button.dart';
 import 'package:knowplesy/app/widget/widget_drawer.dart';
 import 'package:percent_indicator/percent_indicator.dart';

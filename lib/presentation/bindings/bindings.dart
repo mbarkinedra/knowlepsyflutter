@@ -4,7 +4,7 @@ import 'package:knowplesy/presentation/controllers/login_controller/login_contro
 import '../controllers/home_controller.dart';
 
 
-class HomeBinding extends Bindings {
+class AllBindings extends Bindings {
   @override
   void dependencies() {
     Get.put<LoginController>(LoginController());

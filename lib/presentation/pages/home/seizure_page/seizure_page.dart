@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:knowplesy/app/config/app_colors.dart';
-import 'package:knowplesy/app/config/text_style.dart';
+import 'package:knowplesy/app/util/app_colors.dart';
+import 'package:knowplesy/app/util/text_style.dart';
 import 'package:knowplesy/presentation/pages/home/home_page/home_page.dart';
 import 'package:table_calendar/table_calendar.dart';
 

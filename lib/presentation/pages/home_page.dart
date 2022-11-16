@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../app/config/app_colors.dart';
+import '../../app/util/app_colors.dart';
 import '../controllers/home_controller.dart';
 
 class HomePage extends GetView<HomeController> {

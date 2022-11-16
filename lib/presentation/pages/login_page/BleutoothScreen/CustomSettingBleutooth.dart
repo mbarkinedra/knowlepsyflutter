@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:knowplesy/app/config/app_colors.dart';
+import 'package:knowplesy/app/util/app_colors.dart';
 
 class CustomSettingBleutooth extends StatelessWidget {
   final String? text, text1, icon;
