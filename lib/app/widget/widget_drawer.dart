@@ -22,10 +22,11 @@ class WidgetDrawer extends StatelessWidget {
                   height: 100,
                   child: Center(
                     child: _buildDrawerItem(
+                        icon: ImageIcon(AssetImage("assets/images/icon_menu.png")),
+
                         isSelect:
                             Get.find<HomeController>().navigatorValue == 5,
                         onTap: () {},
-                        image: Icons.menu,
                         label: "Menu"),
                   )),
               Expanded(child: _buildDrawerList()),
@@ -87,28 +88,32 @@ class WidgetDrawer extends StatelessWidget {
         _buildDrawerItem(
             isSelect: Get.find<HomeController>().navigatorValue == 0,
             label: 'Home',
-            image: CupertinoIcons.home,
+            icon: ImageIcon(AssetImage("assets/images/icon_home.png")),
+
             onTap: () {
               Get.find<HomeController>().changeSelectedValue(0);
             }),
         _buildDrawerItem(
+            icon: ImageIcon(AssetImage("assets/images/icon_seizure.png")),
             isSelect: Get.find<HomeController>().navigatorValue == 1,
             label: 'Seizure',
-            image: CupertinoIcons.waveform_path,
+          //  icon: CupertinoIcons.waveform_path,
             onTap: () {
               Get.find<HomeController>().changeSelectedValue(1);
             }),
         _buildDrawerItem(
             isSelect: Get.find<HomeController>().navigatorValue == 2,
+            icon: ImageIcon(AssetImage("assets/images/icon_medecine.png")),
+
             label: 'Medecine',
-            image: CupertinoIcons.ant_fill,
             onTap: () {
               Get.find<HomeController>().changeSelectedValue(2);
             }),
         _buildDrawerItem(
+            icon: ImageIcon(AssetImage("assets/images/icon_settings.png")),
+
             isSelect: Get.find<HomeController>().navigatorValue == 3,
             label: 'Setting',
-            image: CupertinoIcons.settings,
             onTap: () {
               Get.find<HomeController>().changeSelectedValue(3);
             }),
@@ -118,8 +123,10 @@ class WidgetDrawer extends StatelessWidget {
 
   _buildDrawerItem(
       {required String label,
-      required IconData image,
-      required VoidCallback onTap,
+      //required IconData icon,
+        required ImageIcon icon,
+
+        required VoidCallback onTap,
       required bool isSelect}) {
     return Column(
       children: [
@@ -136,7 +143,7 @@ class WidgetDrawer extends StatelessWidget {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
                   ),
-                  child: Icon(image,
+                  child: ImageIcon(icon.image,
                       color: isSelect ? Colors.deepPurple : Colors.grey),
                 ),
                 Padding(
