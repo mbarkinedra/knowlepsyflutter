@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blue_plus/flutter_blue_plus.dart';
 import 'package:get/get.dart';
 import 'package:knowplesy/app/config/app_colors.dart';
 import 'package:knowplesy/app/widget/custom_button_login.dart';
@@ -9,10 +8,6 @@ import 'package:flutter/services.dart';
 
 class BraceletNotConnected extends StatefulWidget {
   // BraceletNotConnected({super.key});
-  late final String title;
-  final FlutterBluePlus flutterBlue = FlutterBluePlus.instance;
-  final List<BluetoothDevice> devicesList = <BluetoothDevice>[];
-  final Map<Guid, List<int>> readValues = <Guid, List<int>>{};
 
   @override
   State<BraceletNotConnected> createState() => _BraceletNotConnectedState();
