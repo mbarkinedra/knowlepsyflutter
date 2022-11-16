@@ -9,6 +9,8 @@ import 'package:knowplesy/presentation/pages/login_page/BleutoothScreen/ConnectB
 import 'package:knowplesy/presentation/pages/login_page/login_page.dart';
 import 'package:knowplesy/presentation/pages/login_page/reset_password/reset_password.dart';
 
+import 'app/config/app_routing.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -45,15 +47,8 @@ class MyApp extends StatelessWidget {
         splashTransition: SplashTransition.slideTransition,
         backgroundColor: AppColors.primaryColor,
       ),
-      getPages: [
-        /// "/" Start Screen
-        GetPage(
-            name: "/",
-            page: () => LoginPage(),
-            binding: AllBindings()),
-        // GetPage(name: "/", page: () => HomePage(), binding: HomeBinding()),
-        //  GetPage(name: "/", page: () => ResetPassword(), binding: HomeBinding()),
-      ],
+      getPages: AppRouting.pages,
+
     );
   }
 }
