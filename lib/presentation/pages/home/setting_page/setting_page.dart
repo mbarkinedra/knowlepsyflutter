@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:knowplesy/app/config/text_style.dart';
+import 'package:knowplesy/app/util/text_style.dart';
 import 'package:knowplesy/presentation/pages/home/setting_page/change_password_page/change_password_page.dart';
 
-import '../../../../app/config/app_colors.dart';
+import '../../../../app/util/app_colors.dart';
 import '../../../../app/widget/custom_setting.dart';
 import 'access_control_page/access_control_page.dart';
 import 'language_page/language_page.dart';

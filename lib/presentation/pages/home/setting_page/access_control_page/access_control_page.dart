@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:knowplesy/app/config/app_colors.dart';
+import 'package:knowplesy/app/util/app_colors.dart';
 
 import '../../../../../app/widget/access_and_control_item.dart';
 import 'add_caregiver/add_caregiver.dart';

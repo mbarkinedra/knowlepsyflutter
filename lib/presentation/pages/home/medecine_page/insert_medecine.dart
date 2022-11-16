@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:knowplesy/app/config/app_colors.dart';
+import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:knowplesy/presentation/pages/home/medecine_page/medecine_page.dart';
 import 'package:knowplesy/presentation/pages/home/setting_page/personal_information_page/personal_information_page.dart';
 import 'package:table_calendar/table_calendar.dart';

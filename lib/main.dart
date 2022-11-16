@@ -2,7 +2,7 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'package:knowplesy/app/config/app_colors.dart';
+import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:knowplesy/presentation/bindings/bindings.dart';
 import 'package:knowplesy/presentation/pages/home_page.dart';
 import 'package:knowplesy/presentation/pages/login_page/BleutoothScreen/ConnectBleutoothScreen.dart';
@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      initialBinding: HomeBinding(),
+      initialBinding: AllBindings(),
       home: AnimatedSplashScreen(
         duration: 3000,
         splashIconSize: 75,
@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: "/",
             page: () => LoginPage(),
-            binding: HomeBinding()),
+            binding: AllBindings()),
         // GetPage(name: "/", page: () => HomePage(), binding: HomeBinding()),
         //  GetPage(name: "/", page: () => ResetPassword(), binding: HomeBinding()),
       ],

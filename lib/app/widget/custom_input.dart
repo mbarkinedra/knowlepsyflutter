@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:knowplesy/app/config/font_size.dart';
+import 'package:knowplesy/app/util/font_size.dart';
 
-import '../config/app_colors.dart';
+import '../util/app_colors.dart';
 
 class CustomInput extends StatelessWidget {
   final String lep;
