@@ -37,7 +37,6 @@ class SettingPage extends StatelessWidget {
             SizedBox(
               height: 50,
             ),
-
             CustomSetting(
               iconProfile: Icons.perm_identity,
               text: "Personal Information",
@@ -57,8 +56,6 @@ class SettingPage extends StatelessWidget {
                 thickness: 1,
               ),
             ),
-
-
             CustomSetting(
               iconProfile: Icons.lock_outlined,
               text: "Change password",
@@ -78,7 +75,6 @@ class SettingPage extends StatelessWidget {
                 thickness: 1,
               ),
             ),
-
             CustomSetting(
               iconProfile: Icons.miscellaneous_services_outlined,
               text: "Access and control",
@@ -90,15 +86,14 @@ class SettingPage extends StatelessWidget {
                         AccessControlPage()));
               },
             ),
-            Padding(
-              padding: const EdgeInsets.only(right: 16.0, left: 16),
+            const Padding(
+              padding: EdgeInsets.only(right: 16.0, left: 16),
               child: Divider(
                 height: 1,
                 color: Colors.grey,
                 thickness: 1,
               ),
             ),
-
             CustomSetting(
               iconProfile: Icons.language,
               text: "Language",
