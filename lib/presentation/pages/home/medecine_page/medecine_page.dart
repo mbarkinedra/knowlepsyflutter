@@ -186,7 +186,7 @@ class _MedecinePageState extends State<MedecinePage> {
                     },
                     calendarFormat: CalendarFormat.week,
                     firstDay: DateTime.utc(2010, 10, 16),
-                    headerStyle: HeaderStyle(
+                    headerStyle: const HeaderStyle(
                         formatButtonVisible: false,
                         titleCentered: true,
                         formatButtonShowsNext: false,
@@ -195,7 +195,7 @@ class _MedecinePageState extends State<MedecinePage> {
                         )),
                     daysOfWeekVisible: false,
                     lastDay: DateTime.utc(2030, 3, 14),
-                    daysOfWeekStyle: DaysOfWeekStyle(
+                    daysOfWeekStyle: const DaysOfWeekStyle(
                         decoration: BoxDecoration(color: Colors.amberAccent),
                         weekdayStyle: TextStyle(
                           fontSize: 10,
@@ -218,7 +218,7 @@ class _MedecinePageState extends State<MedecinePage> {
                             builder: (
                           context,
                         ) =>
-                                InsertMedecine()));
+                                const InsertMedecine()));
                       },
                     ),
                   ),
@@ -237,11 +237,14 @@ class _MedecinePageState extends State<MedecinePage> {
                     style:
                         TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               ),
-              SizedBox(height: 8,),
+              SizedBox(
+                height: 8,
+              ),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text("Today",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
+                    style:
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
               ),
             ],
           ),
@@ -457,7 +460,8 @@ class _MedecinePageState extends State<MedecinePage> {
                                     width: 8,
                                   ),
                                   Image.asset(
-                                    "assets/images/icon_piles.png",color: AppColors.secondryColor,
+                                    "assets/images/icon_piles.png",
+                                    color: AppColors.secondryColor,
                                     height: 20,
                                     width: 20,
                                   ),
