@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -36,6 +38,10 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
+      supportedLocales: [
+        const Locale('en', ''), // English, no country code
+        const Locale('fr', ''), // Spanish, no country code
+      ],
       initialBinding: AllBindings(),
       home: AnimatedSplashScreen(
         duration: 3000,
@@ -48,7 +54,6 @@ class MyApp extends StatelessWidget {
         backgroundColor: AppColors.primaryColor,
       ),
       getPages: AppRouting.pages,
-
     );
   }
 }
