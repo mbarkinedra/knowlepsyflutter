@@ -17,6 +17,8 @@ class LoginPage extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
+    var locale = Locale('en', 'US');
+    Get.updateLocale(locale);
     return Scaffold(
         backgroundColor: AppColors.primaryColor,
         body: Center(
@@ -29,8 +31,9 @@ class LoginPage extends GetView<LoginController> {
                   padding: const EdgeInsets.fromLTRB(20, 20, 20, 70),
                   child: Image.asset("assets/images/logo_knowlepsy.png"),
                 ),
+
                 CustomInputLogin(
-                  lep: "Email :",
+                  lep: "email:".tr,
                   hint: "Exemple@gmail.com",
                 ),
                 SizedBox(
@@ -57,14 +60,13 @@ class LoginPage extends GetView<LoginController> {
                   child: CustomButtonWithoutIcon(
                     text: 'Login ',
                     color: Colors.deepOrangeAccent,
-                    width:
-                     MediaQuery.of(context).size.width*.8,
+                    width: MediaQuery.of(context).size.width * .8,
                     hight: 2,
                     onClick: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (
-                              context,
-                              ) =>
+                        context,
+                      ) =>
                               BleutoothScreen()));
                     },
                   ),
@@ -74,7 +76,8 @@ class LoginPage extends GetView<LoginController> {
                 ),
                 Center(
                   child: CustomButton(
-                    icon: ImageIcon(AssetImage("assets/images/icon_google.png")),
+                    icon:
+                        ImageIcon(AssetImage("assets/images/icon_google.png")),
                     text: 'Continue with google',
                     color: Colors.deepOrangeAccent,
                     width: double.infinity,
@@ -107,11 +110,10 @@ class LoginPage extends GetView<LoginController> {
                 Center(
                   child: InkWell(
                     onTap: () {
-
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (
-                              context,
-                              ) =>
+                        context,
+                      ) =>
                               RegisterPage()));
                     },
                     child: RichText(

@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -10,7 +9,7 @@ import 'package:knowplesy/presentation/pages/home_page.dart';
 import 'package:knowplesy/presentation/pages/login_page/BleutoothScreen/ConnectBleutoothScreen.dart';
 import 'package:knowplesy/presentation/pages/login_page/login_page.dart';
 import 'package:knowplesy/presentation/pages/login_page/reset_password/reset_password.dart';
-
+import 'package:knowplesy/world_language.dart';
 import 'app/config/app_routing.dart';
 
 void main() {
@@ -24,6 +23,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      translations: WorldLanguage(), //Language class from world_languages.dart
+      locale:
+          Locale('en', 'US'), // translations will be displayed in that locale
+      fallbackLocale: Locale('en',
+          'US'), // specify the fallback locale in case an invalid locale is selected.
+
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
@@ -38,10 +43,10 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      supportedLocales: [
-        const Locale('en', ''), // English, no country code
-        const Locale('fr', ''), // Spanish, no country code
-      ],
+      // supportedLocales: [
+      //   const Locale('en', ''), // English, no country code
+      //   const Locale('fr', ''), // Spanish, no country code
+      // ],
       initialBinding: AllBindings(),
       home: AnimatedSplashScreen(
         duration: 3000,
