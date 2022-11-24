@@ -32,7 +32,7 @@ class _BraceletNotConnectedState extends State<BraceletNotConnected> {
                   padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
                   child: Image.asset("assets/images/connectnotsucces.png"),
                 ),
-                const Align(
+                Align(
                   alignment: Alignment(0.012, 0.075),
                   child: SizedBox(
                     width: 134.0,
