@@ -31,7 +31,7 @@ class WidgetHomePage3 extends StatelessWidget {
               ),
               Center(
                   child: Text(
-                "FALSE ALARM",
+                "false_alarm".tr,
                 style: BigTextStyle(),
               )),
               SizedBox(
@@ -68,7 +68,7 @@ class WidgetHomePage3 extends StatelessWidget {
                               percent: 1 / 4,
                               animation: true,
                               circularStrokeCap: CircularStrokeCap.round,
-                              center: Text("1 \n Seizur".toString(),
+                              center: Text("1 \n seizure".tr.toString(),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 20,

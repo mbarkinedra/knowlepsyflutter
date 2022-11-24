@@ -57,14 +57,15 @@ class RegisterPage extends StatelessWidget {
                             ),
                             children: [
                               TextSpan(
-                                text: 'Welcome!\n',
+                                text: 'welcome'.tr,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
                               TextSpan(
                                 text:
-                                    'Let\'s get started with creating your  \nknowlepsy account!',
+                                    'lets_get_started_with_creating_your_knowlepsy_account'
+                                        .tr,
                                 style: TextStyle(
                                   color: const Color(0xfff2f7ff),
                                 ),
@@ -79,7 +80,8 @@ class RegisterPage extends StatelessWidget {
                           height: 28,
                         ),
                         Text(
-                          ' Please enter the information \n of the person that will use knowlepsy bracelet.',
+                          'please_enter_the_information_of_the_person_that_will_use_knowlepsy_bracelet'
+                              .tr,
                           style: TextStyle(
                             fontFamily: 'Roboto',
                             fontSize: 13,
@@ -112,8 +114,8 @@ class RegisterPage extends StatelessWidget {
               height: 25,
             ),
             CustomInput(
-              lep: "First name",
-              hint: "Enter your first name",
+              lep: "first_name".tr,
+              hint: "enter_your_first_name".tr,
             ),
             SizedBox(
               height: 8,
@@ -122,29 +124,29 @@ class RegisterPage extends StatelessWidget {
               height: 8,
             ),
             CustomInput(
-              lep: "Last name",
-              hint: "Enter your last name",
+              lep: "last_name".tr,
+              hint: "enter_your_last_name".tr,
             ),
             SizedBox(
               height: 8,
             ),
             CustomInput(
-              lep: "Email",
-              hint: "Enter your email address",
+              lep: "email".tr,
+              hint: "enter_your_email_address".tr,
             ),
             SizedBox(
               height: 8,
             ),
             CustomInput(
-              lep: "Password ",
-              hint: "Enter_password",
+              lep: "password".tr,
+              hint: "enter_password".tr,
             ),
             SizedBox(
               height: 8,
             ),
             CustomInput(
-              lep: "Confirm password",
-              hint: "Confirm password",
+              lep: "confirm_password".tr,
+              hint: "confirm_password".tr,
             ),
             SizedBox(
               height: 8,
@@ -155,7 +157,7 @@ class RegisterPage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Country of Residence",
+                    "country_of_residence".tr,
                     style: TextStyle(fontSize: 12),
                   ),
                   SizedBox(
@@ -179,7 +181,7 @@ class RegisterPage extends StatelessWidget {
                       value: dropdownValue,
                       underline: const SizedBox(),
                       isExpanded: true,
-                      hint: Text("City"),
+                      hint: Text("city".tr),
                       iconSize: 24,
                       elevation: 16,
                       // onChanged: logic.updateCity,
@@ -196,7 +198,7 @@ class RegisterPage extends StatelessWidget {
                     height: 15,
                   ),
                   Text(
-                    "Day and month and year of birth",
+                    "birthday_date".tr,
                     style: TextStyle(fontSize: 12),
                   ),
                   SizedBox(
@@ -249,7 +251,7 @@ class RegisterPage extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.all(30.0),
                       child: CustomButton(
-                        text: 'Create my account',
+                        text: 'create_my_account'.tr,
                         color: Colors.deepOrangeAccent,
                         width: double.infinity,
                         hight: 40,

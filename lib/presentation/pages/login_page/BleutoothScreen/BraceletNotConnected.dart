@@ -38,7 +38,7 @@ class _BraceletNotConnectedState extends State<BraceletNotConnected> {
                     width: 134.0,
                     height: 90.0,
                     child: Text(
-                      'Connection\nProblem\n',
+                      'connection_problem'.tr,
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: 23,
@@ -64,7 +64,8 @@ class _BraceletNotConnectedState extends State<BraceletNotConnected> {
                         children: [
                           TextSpan(
                               text:
-                                  'Turn off Bluetooth for 15 seconds or force \n the app to close and relaunch it.',
+                                  'turn_off_Bluetooth_for_15_seconds_or_force_the_app_to_close_and_relaunch_it'
+                                      .tr,
                               style: TextStyle(
                                   fontSize: 16, fontWeight: FontWeight.bold)),
                         ],

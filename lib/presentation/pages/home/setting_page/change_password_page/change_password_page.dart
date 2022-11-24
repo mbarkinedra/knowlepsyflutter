@@ -36,7 +36,7 @@ class ChangePasswordPage extends StatelessWidget {
                       ),
                     ),
                     Spacer(),
-                    Text("Change password",
+                    Text("change_password".tr,
                         style: TextStyle(color: Colors.white, fontSize: 23)),
                     Spacer(),
                   ],
@@ -58,40 +58,40 @@ class ChangePasswordPage extends StatelessWidget {
             ),
             CustomInput(
               hint: "***************",
-              lep: "Your old password",
+              lep: "your_old_password".tr,
             ),
             SizedBox(
               height: 10,
             ),
             CustomInput(
               hint: "***************",
-              lep: "New password",
+              lep: "new_password".tr,
             ),
             SizedBox(
               height: 10,
             ),
             CustomInput(
               hint: "***************",
-              lep: "Confirme your password",
+              lep: "confirme_your_password".tr,
             ),
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: CustomButton(
-                  text: 'Change',
+                  text: 'change'.tr,
                   color: AppColors.secondryColor,
                   width: double.infinity,
                   // MediaQuery.of(context).size.width*.8,
                   hight: 40,
                   onClick: () {
                     Get.defaultDialog(
-                        title: "Confirmation",
+                        title: "confirmation".tr,
                         //  middleText: "Take a new phhoto or import one from your library",
                         contentPadding: EdgeInsets.all(8),
                         titlePadding: EdgeInsets.all(16),
                         titleStyle: TextStyle(color: Colors.black),
                         middleTextStyle: TextStyle(color: Colors.black),
-                        textConfirm: "OPEN MY MAILBOX",
+                        textConfirm: "open_my_mailbox".tr,
 
                         //textCancel: "CAMERA",
                         //  cancelTextColor: Colors.blue,
@@ -104,7 +104,8 @@ class ChangePasswordPage extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                  "open your mailbox and click on the activation link in the message received"),
+                                  "open_your_mailbox_and_click_on_the_activation_link_in_the_message_you_received"
+                                      .tr),
                             )
                           ],
                         ));

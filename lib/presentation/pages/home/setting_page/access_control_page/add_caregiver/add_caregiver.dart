@@ -37,7 +37,7 @@ class Addcaregiver extends StatelessWidget {
                           color: Colors.white,
                         )),
                     Spacer(),
-                    Text("Add Caregiver",
+                    Text("add_caregiver".tr,
                         style: TextStyle(color: Colors.white, fontSize: 23)),
                     Spacer(),
                   ],
@@ -103,37 +103,37 @@ class Addcaregiver extends StatelessWidget {
               height: 10,
             ),
             CustomInput(
-              lep: "Name :",
+              lep: "name".tr,
             ),
             SizedBox(
               height: 8,
             ),
             CustomInput(
-              lep: "Email :",
+              lep: "email".tr,
             ),
             SizedBox(
               height: 8,
             ),
             CustomInput(
-              lep: "Phone number :",
+              lep: "phone_number".tr,
             ),
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: CustomButton(
-                  text: 'Add',
+                  text: 'add'.tr,
                   color: Colors.deepOrangeAccent,
                   width: double.infinity,
                   hight: 40,
                   onClick: () {
                     Get.defaultDialog(
-                        title: "Confirmation",
+                        title: "confirmation".tr,
                         //  middleText: "Take a new phhoto or import one from your library",
                         contentPadding: EdgeInsets.all(8),
                         titlePadding: EdgeInsets.all(16),
                         titleStyle: TextStyle(color: Colors.black),
                         middleTextStyle: TextStyle(color: Colors.black),
-                         textConfirm: "OPEN MY MAILBOX",
+                        textConfirm: "open_my_mailbox".tr,
 
                         //textCancel: "CAMERA",
                         //  cancelTextColor: Colors.blue,
@@ -146,7 +146,8 @@ class Addcaregiver extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Text(
-                                  "Your caregiver will receive an email to download the application and confirm the invitation as a caregiver"),
+                                  "your_caregiver_will_receive_an_email_to_download_the_application_and_confirm_the_invitation_as_a_caregiver"
+                                      .tr),
                             )
                           ],
                         ));

@@ -17,6 +17,8 @@ class LoginPage extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
+    var locale = Locale('en', 'US');
+    Get.updateLocale(locale);
     return Scaffold(
         backgroundColor: AppColors.primaryColor,
         body: Center(
@@ -29,15 +31,16 @@ class LoginPage extends GetView<LoginController> {
                   padding: const EdgeInsets.fromLTRB(20, 20, 20, 70),
                   child: Image.asset("assets/images/logo_knowlepsy.png"),
                 ),
+
                 CustomInputLogin(
-                  lep: "Email :",
+                  lep: "email".tr,
                   hint: "Exemple@gmail.com",
                 ),
                 SizedBox(
                   height: 18,
                 ),
                 CustomInputLogin(
-                  lep: "Password :",
+                  lep: "password".tr,
                   hint: "********",
                 ),
                 Align(
@@ -45,7 +48,7 @@ class LoginPage extends GetView<LoginController> {
                   child: TextButton(
                     onPressed: () {},
                     child: Text(
-                      'I forgot my password',
+                      'i_forgot_my_password'.tr,
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -55,16 +58,15 @@ class LoginPage extends GetView<LoginController> {
                 ),
                 Center(
                   child: CustomButtonWithoutIcon(
-                    text: 'Login ',
+                    text: 'login'.tr,
                     color: Colors.deepOrangeAccent,
-                    width:
-                     MediaQuery.of(context).size.width*.8,
+                    width: MediaQuery.of(context).size.width * .8,
                     hight: 2,
                     onClick: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (
-                              context,
-                              ) =>
+                        context,
+                      ) =>
                               BleutoothScreen()));
                     },
                   ),
@@ -74,11 +76,11 @@ class LoginPage extends GetView<LoginController> {
                 ),
                 Center(
                   child: CustomButton(
-                    icon: ImageIcon(AssetImage("assets/images/icon_google.png")),
-                    text: 'Continue with google',
+                    icon:
+                        ImageIcon(AssetImage("assets/images/icon_google.png")),
+                    text: 'continue_with_google'.tr,
                     color: Colors.deepOrangeAccent,
-                    width: double.infinity,
-                    // MediaQuery.of(context).size.width*.8,
+                    width: MediaQuery.of(context).size.width * .2,
                     hight: 40,
                     onClick: () {},
                   ),
@@ -107,20 +109,19 @@ class LoginPage extends GetView<LoginController> {
                 Center(
                   child: InkWell(
                     onTap: () {
-
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (
-                              context,
-                              ) =>
+                        context,
+                      ) =>
                               RegisterPage()));
                     },
                     child: RichText(
                       text: TextSpan(
-                        text: "Don’t have an account? ",
+                        text: "dont_have_an_account".tr,
                         // style: DefaultTextStyle.of(context).style,
                         children: const <TextSpan>[
                           TextSpan(
-                              text: 'Sign-Up',
+                              text: 'sign_up',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white))

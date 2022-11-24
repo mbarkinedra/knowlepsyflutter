@@ -22,8 +22,8 @@ class WidgetDrawer extends StatelessWidget {
                   height: 100,
                   child: Center(
                     child: _buildDrawerItem(
-                        icon: ImageIcon(AssetImage("assets/images/icon_menu.png")),
-
+                        icon: ImageIcon(
+                            AssetImage("assets/images/icon_menu.png")),
                         isSelect:
                             Get.find<HomeController>().navigatorValue == 5,
                         onTap: () {},
@@ -44,7 +44,7 @@ class WidgetDrawer extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("se"),
+                      Text("se".tr),
                       Text("Brigitte Marie"),
                     ],
                   )
@@ -61,7 +61,7 @@ class WidgetDrawer extends StatelessWidget {
                 height: 30,
               ),
               Text(
-                "LogOut",
+                "logout".tr,
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 18,
@@ -87,33 +87,30 @@ class WidgetDrawer extends StatelessWidget {
         ),
         _buildDrawerItem(
             isSelect: Get.find<HomeController>().navigatorValue == 0,
-            label: 'Home',
+            label: 'home'.tr,
             icon: ImageIcon(AssetImage("assets/images/icon_home.png")),
-
             onTap: () {
               Get.find<HomeController>().changeSelectedValue(0);
             }),
         _buildDrawerItem(
             icon: ImageIcon(AssetImage("assets/images/icon_seizure.png")),
             isSelect: Get.find<HomeController>().navigatorValue == 1,
-            label: 'Seizure',
-          //  icon: CupertinoIcons.waveform_path,
+            label: 'seizure'.tr,
+            //  icon: CupertinoIcons.waveform_path,
             onTap: () {
               Get.find<HomeController>().changeSelectedValue(1);
             }),
         _buildDrawerItem(
             isSelect: Get.find<HomeController>().navigatorValue == 2,
             icon: ImageIcon(AssetImage("assets/images/icon_medecine.png")),
-
-            label: 'Medecine',
+            label: 'medecine'.tr,
             onTap: () {
               Get.find<HomeController>().changeSelectedValue(2);
             }),
         _buildDrawerItem(
             icon: ImageIcon(AssetImage("assets/images/icon_settings.png")),
-
             isSelect: Get.find<HomeController>().navigatorValue == 3,
-            label: 'Setting',
+            label: 'setting'.tr,
             onTap: () {
               Get.find<HomeController>().changeSelectedValue(3);
             }),
@@ -124,9 +121,8 @@ class WidgetDrawer extends StatelessWidget {
   _buildDrawerItem(
       {required String label,
       //required IconData icon,
-        required ImageIcon icon,
-
-        required VoidCallback onTap,
+      required ImageIcon icon,
+      required VoidCallback onTap,
       required bool isSelect}) {
     return Column(
       children: [
