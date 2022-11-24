@@ -37,7 +37,7 @@ class LoginPage extends GetView<LoginController> {
                   label: "Email :",
                   hint: "Exemple@gmail.com",
                   textEditingController: controller.emailController,
-                   // validator: controller.validator.validateEmail
+                  // validator: controller.validator.validateEmail
                 ),
 
                 SizedBox(
@@ -47,7 +47,6 @@ class LoginPage extends GetView<LoginController> {
                   label: "Password :",
                   hint: "********",
                   textEditingController: controller.passwordController,
-
                 ),
                 Align(
                   //  alignment: EdgeInsets.symmetric(8.0),
@@ -68,15 +67,13 @@ class LoginPage extends GetView<LoginController> {
                     color: Colors.deepOrangeAccent,
                     width: MediaQuery.of(context).size.width * .8,
                     hight: 2,
-                    onClick: () async{
-                       await controller.login(context);
-                       Navigator.of(context).push(MaterialPageRoute(
-                           builder: (
-                               context,
-                               ) =>
-                               BleutoothScreen()));
-
-
+                    onClick: () async {
+                      await controller.login(context);
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (
+                        context,
+                      ) =>
+                              HomePage()));
                     },
                   ),
                 ),
@@ -91,8 +88,7 @@ class LoginPage extends GetView<LoginController> {
                     color: Colors.deepOrangeAccent,
                     width: MediaQuery.of(context).size.width * .2,
                     hight: 40,
-                    onClick: ()  {
-                    },
+                    onClick: () {},
                   ),
                 ),
                 // Row(

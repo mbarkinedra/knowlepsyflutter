@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:knowplesy/presentation/pages/login_page/BleutoothScreen/ConnectBleutoothScreen.dart';
 
 import '../../../app/config/app_routing.dart';
 import '../../../app/storage/secure_storage.dart';
 import '../../../data/networking/api/auth_api.dart';
 import '../../../data/networking/json/simple_json_resource.dart';
 import '../../../data/networking/json/user_json.dart';
-import '../../pages/login_page/BleutoothScreen/BleutoothScreen1.dart';
 
 class LoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
@@ -42,7 +42,7 @@ class LoginController extends GetxController {
           builder: (
         context,
       ) =>
-              BleutoothScreen()));
+              ConnectBleutoothScreen()));
     });
   }
 }
