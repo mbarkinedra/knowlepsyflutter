@@ -4,6 +4,7 @@ import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:knowplesy/app/util/text_style.dart';
 import 'package:knowplesy/app/widget/custom_button.dart';
 import 'package:knowplesy/app/widget/widget_home/widget_drawer.dart';
+import 'package:knowplesy/presentation/pages/home/seizure_page/seizure_page.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../../presentation/controllers/home_controller.dart';
