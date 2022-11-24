@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 
-import '../config/app_colors.dart';
+import '../util/app_colors.dart';
 
-class CustomInput extends StatelessWidget {
-  final String lep;
+class CustomInputLogin extends StatelessWidget {
+  final String label;
   final String hint;
+  final TextEditingController textEditingController;
 
-  CustomInput({required this.lep, this.hint = ""});
+  CustomInputLogin(
+      {required this.label, this.hint = "", required this.textEditingController});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class CustomInput extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            lep,
+            label,
             style: TextStyle(
               fontSize: 16,
               color: Colors.white,
@@ -27,13 +29,14 @@ class CustomInput extends StatelessWidget {
           ),
           Container(
             height: 50,
-            padding: EdgeInsets.all(8),
+            padding: EdgeInsets.all(5),
             decoration: BoxDecoration(
                 color: AppColors.primaryColor,
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: Colors.yellow)),
+                border: Border.all(color: Colors.white)),
             child: Center(
               child: TextField(
+                controller: textEditingController,
                 decoration: InputDecoration(
                   hintText: hint,
                   fillColor: AppColors.primaryColor,

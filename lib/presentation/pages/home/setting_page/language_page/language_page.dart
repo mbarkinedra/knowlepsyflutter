@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:knowplesy/app/config/app_colors.dart';
+import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:knowplesy/app/widget/custom_button.dart';
 import 'package:knowplesy/app/widget/custom_input.dart';
 import 'package:knowplesy/app/widget/custom_setting.dart';
@@ -15,7 +15,7 @@ class LanguagePage extends StatelessWidget {
         child: Column(
           children: [
             Container(
-                height: 100,
+                height: 80,
                 decoration: BoxDecoration(
                     color: AppColors.primaryColor,
                     borderRadius: BorderRadius.only(

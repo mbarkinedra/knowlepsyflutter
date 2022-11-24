@@ -2,12 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:knowplesy/app/config/app_colors.dart';
+import 'package:knowplesy/app/util/app_colors.dart';
 
 import '../../../../../../app/widget/custom_button.dart';
 import '../../../../../../app/widget/custom_input.dart';
+import '../../../../../controllers/setting_controller/acces_control_controller/add_caregiver_controller.dart';
 
-class Addcaregiver extends StatelessWidget {
+class Addcaregiver extends GetView<AddCaregiverController> {
   const Addcaregiver({Key? key}) : super(key: key);
 
   @override
@@ -17,7 +18,7 @@ class Addcaregiver extends StatelessWidget {
         child: Column(
           children: [
             Container(
-                height: 100,
+                height: 80,
                 decoration: BoxDecoration(
                     color: AppColors.primaryColor,
                     borderRadius: BorderRadius.only(
@@ -104,17 +105,31 @@ class Addcaregiver extends StatelessWidget {
             ),
             CustomInput(
               lep: "Name :",
+              controller: controller.firstName,
+
             ),
             SizedBox(
               height: 8,
             ),
             CustomInput(
+              controller: controller.lastName,
+
+              lep: "Last Name :",
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            CustomInput(
+              controller: controller.email,
+
               lep: "Email :",
             ),
             SizedBox(
               height: 8,
             ),
             CustomInput(
+              controller: controller.phoneNumber,
+
               lep: "Phone number :",
             ),
             Center(
@@ -126,30 +141,8 @@ class Addcaregiver extends StatelessWidget {
                   width: double.infinity,
                   hight: 40,
                   onClick: () {
-                    Get.defaultDialog(
-                        title: "Confirmation",
-                        //  middleText: "Take a new phhoto or import one from your library",
-                        contentPadding: EdgeInsets.all(8),
-                        titlePadding: EdgeInsets.all(16),
-                        titleStyle: TextStyle(color: Colors.black),
-                        middleTextStyle: TextStyle(color: Colors.black),
-                        // textConfirm: "OPEN MY MAILBOX",
+                    controller.RegisterCareGiver(context);
 
-                        //textCancel: "CAMERA",
-                        //  cancelTextColor: Colors.blue,
-                        //   confirmTextColor: Colors.blue,
-                        buttonColor: Colors.white,
-                        backgroundColor: Colors.white,
-                        radius: 10,
-                        content: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                  "Your caregiver will receive an email to download the application and confirm the invitation as a caregiver"),
-                            )
-                          ],
-                        ));
                   },
                 ),
               ),

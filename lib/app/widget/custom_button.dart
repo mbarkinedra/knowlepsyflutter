@@ -20,14 +20,14 @@ class CustomButton extends StatelessWidget {
       onTap: onClick,
       child: Container(
         decoration: BoxDecoration(
-            color: color, borderRadius: BorderRadius.circular(25)),
+            color: color, borderRadius: BorderRadius.circular(21)),
         height: hight,
         width: width,
         child: Center(
             child: Text(
           text,
           style: TextStyle(
-              color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
+              color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold),
         )),
       ),
     );

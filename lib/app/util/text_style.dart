@@ -43,5 +43,5 @@ TextStyle BigTextStyle() {
   return _style(
       fontWeight: FontWeight.bold,
       color: AppColors.white,
-      fontSize: FontSize.f16);
+      fontSize: FontSize.f20);
 }

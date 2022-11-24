@@ -6,13 +6,20 @@ import '../pages/home/home_page/home_page.dart';
 import '../pages/home/medecine_page/medecine_page.dart';
 import '../pages/home/seizure_page/seizure_page.dart';
 
-
 class HomeController extends GetxController {
+  PageController pageController = PageController();
+  int pageNumber = 0;
+
+  updatePageChaing(int i) {
+    pageNumber = i;
+    update();
+  }
+
   int _navigatorValue = 0;
   String _currentPage = 'Page1';
   late var _navigatorKey;
 
-  List<String> _pageKeys = ['Page1', 'Page2', 'Page3','Page4'];
+  List<String> _pageKeys = ['Page1', 'Page2', 'Page3', 'Page4'];
 
   get navigatorValue => _navigatorValue;
 
@@ -28,7 +35,6 @@ class HomeController extends GetxController {
     'Page2': GlobalKey<NavigatorState>(),
     'Page3': GlobalKey<NavigatorState>(),
     'Page4': GlobalKey<NavigatorState>(),
-
   };
 
   Widget currentScreen = Container();
@@ -37,7 +43,7 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     currentScreen = PageToView(
-      naigatorKey: _navigatorKeys[_pageKeys[0]]!,
+      naigatorKey: _navigatorKeys[_pageKeys[1]]!,
       tabItem: _pageKeys[0],
     ); //=HomeView();
   }
@@ -79,7 +85,7 @@ class PageToView extends StatelessWidget {
     switch (tabItem) {
       case 'Page1':
         {
-          currentScreen = HomePage();
+          currentScreen = HomePage1();
 
           break;
         }

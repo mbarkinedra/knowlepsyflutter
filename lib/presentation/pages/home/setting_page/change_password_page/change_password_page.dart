@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:knowplesy/app/widget/custom_button.dart';
 import 'package:knowplesy/app/widget/custom_input.dart';
+import 'package:knowplesy/presentation/controllers/setting_controller/change_password_controller/change_password_controller.dart';
 
-import '../../../../../app/config/app_colors.dart';
+import '../../../../../app/util/app_colors.dart';
+import '../../../../../app/widget/custom_password.dart';
 
-class ChangePasswordPage extends StatelessWidget {
+class ChangePasswordPage extends GetView<ChangePasswordViewController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +17,7 @@ class ChangePasswordPage extends StatelessWidget {
         child: Column(
           children: [
             Container(
-                height: 100,
+                height: 80,
                 decoration: BoxDecoration(
                     color: AppColors.primaryColor,
                     borderRadius: BorderRadius.only(
@@ -40,76 +42,80 @@ class ChangePasswordPage extends StatelessWidget {
                         style: TextStyle(color: Colors.white, fontSize: 23)),
                     Spacer(),
                   ],
-                )
-
-                // Align(
-                //   alignment: Alignment.center,
-                //   child: Padding(
-                //     padding: const EdgeInsets.all(8.0),
-                //     child: Text(
-                //       "Personal Information",
-                //       style: TextStyle(color: Colors.white, fontSize: 23),
-                //     ),
-                //   ),
-                // ),
+                )),
+            SizedBox(
+              height: 35,
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10.0, right: 8),
+              child: Align(
+                alignment: Alignment.center,
+                child: Text(
+                  "Changement de mot de passe:",
+                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                 ),
+              ),
+            ),
             SizedBox(
-              height: 50,
+              height: 20,
             ),
-            CustomInput(
-              hint: "***************",
-              lep: "Your old password",
-            ),
+            GetBuilder<ChangePasswordViewController>(builder: (logic) {
+              return ParametresItem(
+                label: "Old password",
+                hint: "Old Password",
+                obscureText: logic.isVisiblePassword1,
+                textEditingController: controller.oldPassword,
+                // validator: (value) {
+                //   return controller.validateServer.validate(value, 'password');
+                // },
+                suffixIcon: IconButton(
+                  onPressed: logic.showHidePassword1,
+                  icon: Icon(
+                    logic.isVisiblePassword1
+                        ? Icons.visibility_off
+                        : Icons.visibility,
+                  ),
+                ),
+              );
+            }),
             SizedBox(
               height: 10,
             ),
-            CustomInput(
-              hint: "***************",
-              lep: "New password",
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            CustomInput(
-              hint: "***************",
-              lep: "Confirme your password",
-            ),
+            GetBuilder<ChangePasswordViewController>(builder: (logic) {
+              return ParametresItem(
+                label: "New Password",
+                hint: "New password",
+                obscureText: logic.isVisiblePassword2,
+                textEditingController: controller.newPassword,
+                // validator: (value) {
+                //   return controller.validateServer.validate(value, 'password');
+                // },
+                suffixIcon: IconButton(
+                  onPressed: logic.showHidePassword2,
+                  icon: Icon(
+                    logic.isVisiblePassword2
+                        ? Icons.visibility_off
+                        : Icons.visibility,
+                  ),
+                ),
+              );
+            }),
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
-                child: CustomButton(
-                  text: 'Change',
-                  color: AppColors.secondryColor,
-                  width: double.infinity,
-                  // MediaQuery.of(context).size.width*.8,
-                  hight: 40,
-                  onClick: () {
-                    Get.defaultDialog(
-                        title: "Confirmation",
-                        //  middleText: "Take a new phhoto or import one from your library",
-                        contentPadding: EdgeInsets.all(8),
-                        titlePadding: EdgeInsets.all(16),
-                        titleStyle: TextStyle(color: Colors.black),
-                        middleTextStyle: TextStyle(color: Colors.black),
-                        textConfirm: "OPEN MY MAILBOX",
+                child: GetBuilder<ChangePasswordViewController>(builder: (logic) {
+                  return CustomButton(
+                    text: 'Change',
+                    color: AppColors.secondryColor,
+                    width: MediaQuery.of(context).size.width * .7,
+                    // MediaQuery.of(context).size.width*.8,
+                    hight: 40,
+                    onClick: () {
+                        controller.changePassword();
 
-                        //textCancel: "CAMERA",
-                        //  cancelTextColor: Colors.blue,
-                        confirmTextColor: Colors.blue,
-                        buttonColor: Colors.white,
-                        backgroundColor: Colors.white,
-                        radius: 10,
-                        content: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                  "open your mailbox and click on the activation link in the message received"),
-                            )
-                          ],
-                        ));
-                  },
-                ),
+                    },
+                  );
+                }),
               ),
             )
           ],

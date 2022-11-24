@@ -1,14 +1,25 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:get/get_navigation/src/routes/get_route.dart';
-import 'package:knowplesy/app/config/app_colors.dart';
+import 'package:get_storage/get_storage.dart';
+import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:knowplesy/presentation/bindings/bindings.dart';
 import 'package:knowplesy/presentation/pages/home_page.dart';
+import 'package:knowplesy/presentation/pages/login_page/BleutoothScreen/ConnectBleutoothScreen.dart';
 import 'package:knowplesy/presentation/pages/login_page/login_page.dart';
 import 'package:knowplesy/presentation/pages/login_page/reset_password/reset_password.dart';
 
-void main() {
+import 'app/config/app_routing.dart';
+import 'app/storage/account_info_storage.dart';
+import 'app/storage/secure_storage.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  await GetStorage.init();
+
   runApp(const MyApp());
 }
 
@@ -18,35 +29,26 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    print("*" * 10);
+    print(SecureStorage.readSecureData('token') != null);
+    print(SecureStorage.readSecureData('token'));
+    print("*" * 10);
     return GetMaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.blue,
-      ),
-    initialBinding: HomeBinding(),
-    home: AnimatedSplashScreen(
-    duration: 3000,
-    splashIconSize: 75,
-    splash: Image.asset("assets/images/logo_knowlepsy.png"),
-    nextScreen: HomePage(),
-    splashTransition: SplashTransition.slideTransition,
-    backgroundColor: AppColors.primaryColor,),
-      getPages: [
-        /// "/" Start Screen
-        GetPage(name: "/", page: () => HomePage(), binding: HomeBinding()),
-      //  GetPage(name: "/", page: () => LoginPage(), binding: HomeBinding()),
-        GetPage(name: "/", page: () => ResetPassword(), binding: HomeBinding()),
+      debugShowCheckedModeBanner: false,
+      initialBinding: AllBindings(),
+      home: AnimatedSplashScreen(
+        duration: 3000,
+        splashIconSize: 75,
+        splash: Image.asset("assets/images/logo_knowlepsy.png"),
+        nextScreen: SecureStorage.readSecureData('token') != null
+            ? HomePage()
+            : LoginPage(),
+        //nextScreen: HomePage(),
 
-      ],
+        splashTransition: SplashTransition.slideTransition,
+        backgroundColor: AppColors.primaryColor,
+      ),
+      getPages: AppRouting.pages,
     );
   }
 }

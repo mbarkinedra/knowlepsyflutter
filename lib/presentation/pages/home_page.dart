@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../app/config/app_colors.dart';
+import '../../app/util/app_colors.dart';
 import '../controllers/home_controller.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -23,13 +23,13 @@ class HomePage extends GetView<HomeController> {
             onTap: logic.changeSelectedValue,
             items: [
               BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.home), label: "Home"),
+                  icon:ImageIcon(AssetImage("assets/images/icon_home.png")), label: "Home"),
               BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.waveform_path), label: "Seizure"),
+                  icon: ImageIcon(AssetImage('assets/images/icon_seizure.png')), label: "Seizure"),
               BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.play_arrow), label: "Medecine"),
+                  icon: ImageIcon(AssetImage('assets/images/icon_medecine.png')), label: "Medecine"),
               BottomNavigationBarItem(
-                  icon: Icon(CupertinoIcons.settings), label: "Setting"),
+                  icon:  ImageIcon(AssetImage('assets/images/icon_settings.png')), label: "Setting"),
             ],
           ),
         );
