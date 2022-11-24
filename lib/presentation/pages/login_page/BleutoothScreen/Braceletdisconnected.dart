@@ -8,14 +8,14 @@ import 'package:knowplesy/presentation/controllers/login_controller/login_contro
 
 import 'ConnectBleutoothScreen.dart';
 
-class BleutoothScreen extends StatefulWidget {
-  const BleutoothScreen({super.key});
+class Braceletdisconnected extends StatefulWidget {
+  const Braceletdisconnected({super.key});
 
   @override
-  State<BleutoothScreen> createState() => _BleutoothScreenState();
+  State<Braceletdisconnected> createState() => _BleutoothScreenState();
 }
 
-class _BleutoothScreenState extends State<BleutoothScreen> {
+class _BleutoothScreenState extends State<Braceletdisconnected> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

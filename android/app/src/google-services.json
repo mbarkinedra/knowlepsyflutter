@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "651747016322",
+    "project_id": "knowlepsy-40866",
+    "storage_bucket": "knowlepsy-40866.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:651747016322:android:51e3d68234d23c192abe9b",
+        "android_client_info": {
+          "package_name": "com.example.knowplesy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "651747016322-tdfp6rtu8cnhpjisghloac3a2o2o25jm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJT5Iq0JUu00kI3efwZM4AuzCQM9jxNbg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "651747016322-tdfp6rtu8cnhpjisghloac3a2o2o25jm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

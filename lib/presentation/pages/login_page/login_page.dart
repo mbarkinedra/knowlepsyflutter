@@ -5,11 +5,11 @@ import 'package:knowplesy/app/widget/custom_button_login.dart';
 import 'package:knowplesy/app/widget/custom_button_without_icon_login.dart';
 import 'package:knowplesy/app/widget/custom_input_login.dart';
 import 'package:knowplesy/presentation/controllers/login_controller/login_controller.dart';
+import 'package:knowplesy/presentation/pages/login_page/BleutoothScreen/BraceletConnected.dart';
 import 'package:knowplesy/presentation/pages/register_page/register_page.dart';
 
 import '../home/home_page/home_page.dart';
 import '../home_page.dart';
-import 'BleutoothScreen/BleutoothScreen1.dart';
 import 'BleutoothScreen/BraceletNotConnected.dart';
 
 class LoginPage extends GetView<LoginController> {
@@ -65,8 +65,8 @@ class LoginPage extends GetView<LoginController> {
                     onClick: () {
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (
-                        context,
-                      ) =>
+                              context,
+                              ) =>
                               BleutoothScreen()));
                     },
                   ),

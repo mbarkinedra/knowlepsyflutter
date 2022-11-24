@@ -187,7 +187,7 @@ class _MedecinePageState extends State<MedecinePage> {
                     },
                     calendarFormat: CalendarFormat.week,
                     firstDay: DateTime.utc(2010, 10, 16),
-                    headerStyle: HeaderStyle(
+                    headerStyle: const HeaderStyle(
                         formatButtonVisible: false,
                         titleCentered: true,
                         formatButtonShowsNext: false,
@@ -196,7 +196,7 @@ class _MedecinePageState extends State<MedecinePage> {
                         )),
                     daysOfWeekVisible: false,
                     lastDay: DateTime.utc(2030, 3, 14),
-                    daysOfWeekStyle: DaysOfWeekStyle(
+                    daysOfWeekStyle: const DaysOfWeekStyle(
                         decoration: BoxDecoration(color: Colors.amberAccent),
                         weekdayStyle: TextStyle(
                           fontSize: 10,
@@ -219,7 +219,7 @@ class _MedecinePageState extends State<MedecinePage> {
                             builder: (
                           context,
                         ) =>
-                                InsertMedecine()));
+                                const InsertMedecine()));
                       },
                     ),
                   ),
@@ -243,9 +243,8 @@ class _MedecinePageState extends State<MedecinePage> {
               ),
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text("today".tr,
-                    style:
-                        TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
+                child: Text("Today",
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
               ),
             ],
           ),
