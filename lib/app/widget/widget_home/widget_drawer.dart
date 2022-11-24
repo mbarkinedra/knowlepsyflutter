@@ -49,7 +49,7 @@ class WidgetDrawer extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("se"),
+                      Text("se".tr),
                       Text("Brigitte Marie"),
                     ],
                   )
@@ -65,19 +65,12 @@ class WidgetDrawer extends StatelessWidget {
               SizedBox(
                 height: 30,
               ),
-              GestureDetector(
-                onTap: () async{
-                  print("vvvvvvvvvvvvvvv");
-                await Get.find<AccountInfoStorage>().logout();
-
-                },
-                child: Text(
-                  "LogOut",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: Colors.deepPurple,
-                  ),
+              Text(
+                "logout".tr,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
+                  color: Colors.deepPurple,
                 ),
               ),
               SizedBox(
@@ -99,7 +92,7 @@ class WidgetDrawer extends StatelessWidget {
         ),
         _buildDrawerItem(
             isSelect: Get.find<HomeController>().navigatorValue == 0,
-            label: 'Home',
+            label: 'home'.tr,
             icon: ImageIcon(AssetImage("assets/images/icon_home.png")),
             onTap: () {
               Get.find<HomeController>().changeSelectedValue(0);
@@ -122,7 +115,7 @@ class WidgetDrawer extends StatelessWidget {
         _buildDrawerItem(
             icon: ImageIcon(AssetImage("assets/images/icon_settings.png")),
             isSelect: Get.find<HomeController>().navigatorValue == 3,
-            label: 'Setting',
+            label: 'setting'.tr,
             onTap: () {
               Get.find<HomeController>().changeSelectedValue(3);
             }),

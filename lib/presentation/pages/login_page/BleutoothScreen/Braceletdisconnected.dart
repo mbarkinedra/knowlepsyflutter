@@ -9,14 +9,14 @@ import 'package:knowplesy/presentation/controllers/login_controller/login_contro
 import 'BraceletConnected.dart';
 import 'ConnectBleutoothScreen.dart';
 
-class BleutoothScreen extends StatefulWidget {
-  const BleutoothScreen({super.key});
+class Braceletdisconnected extends StatefulWidget {
+  const Braceletdisconnected({super.key});
 
   @override
-  State<BleutoothScreen> createState() => _BleutoothScreenState();
+  State<Braceletdisconnected> createState() => _BleutoothScreenState();
 }
 
-class _BleutoothScreenState extends State<BleutoothScreen> {
+class _BleutoothScreenState extends State<Braceletdisconnected> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +40,7 @@ class _BleutoothScreenState extends State<BleutoothScreen> {
                     alignment: Alignment(0.012, 0.075),
                     child: SizedBox(
                       child: Text(
-                        'BRACELET\nDISCONNECTED\n',
+                        'bracelet_connected'.tr,
                         style: TextStyle(
                           fontFamily: 'Roboto',
                           fontSize: 23,
@@ -67,7 +67,7 @@ class _BleutoothScreenState extends State<BleutoothScreen> {
                         children: [
                           TextSpan(
                             text:
-                                'Your Bracelet can not connect to its paired \n phone. This usually means your phone \n is not within the Bluetooth.',
+                                'not_connect_to_its_paired_phone_this_usually_means_your_phone_is_not_within_bluetooth'.tr,
                           ),
                         ],
                       ),
@@ -83,7 +83,7 @@ class _BleutoothScreenState extends State<BleutoothScreen> {
                 ),
                 Center(
                   child: CustomButtonWithoutIcon(
-                    text: 'Connect with Bluetooth',
+                    text: 'connect_with_bluetooth'.tr,
                     color: Colors.deepOrangeAccent,
                     width: MediaQuery.of(context).size.width * .7,
                     hight: 50,

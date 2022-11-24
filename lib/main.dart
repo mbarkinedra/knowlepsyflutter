@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,7 +11,7 @@ import 'package:knowplesy/presentation/pages/home_page.dart';
 import 'package:knowplesy/presentation/pages/login_page/BleutoothScreen/ConnectBleutoothScreen.dart';
 import 'package:knowplesy/presentation/pages/login_page/login_page.dart';
 import 'package:knowplesy/presentation/pages/login_page/reset_password/reset_password.dart';
-
+import 'package:knowplesy/world_language.dart';
 import 'app/config/app_routing.dart';
 import 'app/storage/account_info_storage.dart';
 import 'app/storage/secure_storage.dart';
@@ -34,6 +35,12 @@ class MyApp extends StatelessWidget {
     print(SecureStorage.readSecureData('token'));
     print("*" * 10);
     return GetMaterialApp(
+      translations: WorldLanguage(), //Language class from world_languages.dart
+      locale:
+          Locale('en', 'US'), // translations will be displayed in that locale
+      fallbackLocale: Locale('en',
+          'US'), // specify the fallback locale in case an invalid locale is selected.
+
       debugShowCheckedModeBanner: false,
       initialBinding: AllBindings(),
       home: AnimatedSplashScreen(

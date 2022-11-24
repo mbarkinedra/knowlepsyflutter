@@ -5,11 +5,12 @@ import 'package:knowplesy/app/widget/custom_button_login.dart';
 import 'package:knowplesy/app/widget/custom_button_without_icon_login.dart';
 import 'package:knowplesy/app/widget/custom_input_login.dart';
 import 'package:knowplesy/presentation/controllers/login_controller/login_controller.dart';
+import 'package:knowplesy/presentation/pages/login_page/BleutoothScreen/BraceletConnected.dart';
+import 'package:knowplesy/presentation/pages/login_page/BleutoothScreen/ConnectBleutoothScreen.dart';
 import 'package:knowplesy/presentation/pages/register_page/register_page.dart';
 
 import '../home/home_page/home_page.dart';
 import '../home_page.dart';
-import 'BleutoothScreen/BleutoothScreen1.dart';
 import 'BleutoothScreen/BraceletNotConnected.dart';
 
 class LoginPage extends GetView<LoginController> {
@@ -53,7 +54,7 @@ class LoginPage extends GetView<LoginController> {
                   child: TextButton(
                     onPressed: () {},
                     child: Text(
-                      'I forgot my password',
+                      'i_forgot_my_password'.tr,
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -63,7 +64,7 @@ class LoginPage extends GetView<LoginController> {
                 ),
                 Center(
                   child: CustomButtonWithoutIcon(
-                    text: 'Login ',
+                    text: 'login'.tr,
                     color: Colors.deepOrangeAccent,
                     width: MediaQuery.of(context).size.width * .8,
                     hight: 2,
@@ -88,8 +89,7 @@ class LoginPage extends GetView<LoginController> {
                         ImageIcon(AssetImage("assets/images/icon_google.png")),
                     text: 'Continue with google',
                     color: Colors.deepOrangeAccent,
-                    width: double.infinity,
-                    // MediaQuery.of(context).size.width*.8,
+                    width: MediaQuery.of(context).size.width * .2,
                     hight: 40,
                     onClick: ()  {
                     },
@@ -127,11 +127,11 @@ class LoginPage extends GetView<LoginController> {
                     },
                     child: RichText(
                       text: TextSpan(
-                        text: "Don’t have an account? ",
+                        text: "dont_have_an_account".tr,
                         // style: DefaultTextStyle.of(context).style,
                         children: const <TextSpan>[
                           TextSpan(
-                              text: 'Sign-Up',
+                              text: 'sign_up',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white))

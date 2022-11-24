@@ -37,7 +37,7 @@ class PersonalInformationPage extends GetView<PersonnalInformationController> {
                           color: Colors.white,
                         )),
                     Spacer(),
-                    Text("Personal Information",
+                    Text("personal_information".tr,
                         style: TextStyle(color: Colors.white, fontSize: 23)),
                     Spacer(),
                   ],
@@ -157,7 +157,8 @@ class PersonalInformationPage extends GetView<PersonnalInformationController> {
               padding: const EdgeInsets.only(left: 30.0, right: 30),
               child: Column(
                 children: [
-                  Align(alignment: Alignment.centerLeft, child: Text("phone")),
+                  Align(
+                      alignment: Alignment.centerLeft, child: Text("phone".tr)),
                   Form(
                     key: _formKey,
                     child: Column(
@@ -193,7 +194,7 @@ class PersonalInformationPage extends GetView<PersonnalInformationController> {
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: CustomButton(
-                  text: 'Confirme',
+                  text: 'confirme'.tr,
                   color: Colors.deepOrangeAccent,
                   width: double.infinity,
                   hight: 40,

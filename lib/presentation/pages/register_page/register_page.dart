@@ -61,14 +61,15 @@ class RegisterPage extends GetView<RegisterController> {
                             ),
                             children: [
                               TextSpan(
-                                text: 'Welcome!\n',
+                                text: 'welcome'.tr,
                                 style: TextStyle(
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
                               TextSpan(
                                 text:
-                                    'Let\'s get started with creating your  \nknowlepsy account!',
+                                    'lets_get_started_with_creating_your_knowlepsy_account'
+                                        .tr,
                                 style: TextStyle(
                                   color: const Color(0xfff2f7ff),
                                 ),
@@ -83,7 +84,8 @@ class RegisterPage extends GetView<RegisterController> {
                           height: 28,
                         ),
                         Text(
-                          ' Please enter the information \n of the person that will use knowlepsy bracelet.',
+                          'please_enter_the_information_of_the_person_that_will_use_knowlepsy_bracelet'
+                              .tr,
                           style: TextStyle(
                             fontFamily: 'Roboto',
                             fontSize: 13,
@@ -164,7 +166,7 @@ class RegisterPage extends GetView<RegisterController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    "Country of Residence",
+                    "country_of_residence".tr,
                     style: TextStyle(fontSize: 12),
                   ),
                   SizedBox(
@@ -185,7 +187,7 @@ class RegisterPage extends GetView<RegisterController> {
                       value: dropdownValue,
                       underline: const SizedBox(),
                       isExpanded: true,
-                      hint: Text("City"),
+                      hint: Text("city".tr),
                       iconSize: 24,
                       elevation: 16,
                       // onChanged: logic.updateCity,
@@ -269,7 +271,7 @@ class RegisterPage extends GetView<RegisterController> {
                     child: Padding(
                       padding: const EdgeInsets.all(30.0),
                       child: CustomButton(
-                        text: 'Create my account',
+                        text: 'create_my_account'.tr,
                         color: Colors.deepOrangeAccent,
                         width: double.infinity,
                         hight: 40,

@@ -8,6 +8,7 @@ import 'package:table_calendar/table_calendar.dart';
 import '../../../../app/widget/custom_button.dart';
 import '../../../../app/widget/widget_home/widget_drawer.dart';
 import '../home_page/home_page.dart';
+import 'package:get/get.dart';
 
 class InsertMedecine extends StatefulWidget {
   const InsertMedecine({Key? key}) : super(key: key);
@@ -22,7 +23,6 @@ class _InsertMedecineState extends State<InsertMedecine> {
   DateTime? _focusedDay;
   TimeOfDay _timeOfDay = TimeOfDay(hour: 8, minute: 30);
 
-
   // show time picker method
   void _showTimePicker() {
     showTimePicker(
@@ -34,6 +34,7 @@ class _InsertMedecineState extends State<InsertMedecine> {
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,7 +65,7 @@ class _InsertMedecineState extends State<InsertMedecine> {
                           color: Colors.white,
                         )),
                     Spacer(),
-                    Text("Insert Medecine",
+                    Text("insert_medecine".tr,
                         style: TextStyle(color: Colors.white, fontSize: 21)),
                     Spacer(),
                   ],
@@ -95,7 +96,7 @@ class _InsertMedecineState extends State<InsertMedecine> {
                       alignment: Alignment.centerLeft,
                       child: Padding(
                         padding: const EdgeInsets.only(top: 8.0, left: 18),
-                        child: Text("Schedule",
+                        child: Text("schedule".tr,
                             style: TextStyle(
                                 fontSize: 14, fontWeight: FontWeight.bold)),
                       ),
@@ -245,13 +246,13 @@ class _InsertMedecineState extends State<InsertMedecine> {
                   left: 28.0, top: 8, right: 28, bottom: 8),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-               // crossAxisAlignment: CrossAxisAlignment.end,
+                // crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Time",
+                        "time".tr,
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.bold,
@@ -282,7 +283,7 @@ class _InsertMedecineState extends State<InsertMedecine> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Remind me",
+                        "remind_me".tr,
                         style: TextStyle(
                           fontSize: 14,
                           fontFamily: "Poppins",
@@ -302,7 +303,7 @@ class _InsertMedecineState extends State<InsertMedecine> {
             Padding(
               padding: const EdgeInsets.only(left: 28.0, top: 8, right: 28),
               child: Text(
-                "Insert name of medecine",
+                "insert_name_of_medecine".tr,
                 style: TextStyle(
                   fontSize: 14,
                   fontFamily: "Poppins",
@@ -329,7 +330,7 @@ class _InsertMedecineState extends State<InsertMedecine> {
                   decoration: InputDecoration(
                     fillColor: AppColors.MedecineInput,
                     filled: true,
-                    hintText: "Insert name of Medecine",
+                    hintText: "insert_name_of_medecine".tr,
                     border: InputBorder.none,
                     hintStyle: TextStyle(
                         color: Colors.grey, fontFamily: "Italic", fontSize: 11),
@@ -366,7 +367,7 @@ class _InsertMedecineState extends State<InsertMedecine> {
                       children: [
                         Align(
                           alignment: Alignment.centerLeft,
-                          child: Text("Dosage",
+                          child: Text("dosage".tr,
                               style: TextStyle(
                                   fontWeight: FontWeight.bold, fontSize: 14)),
                         ),
@@ -381,32 +382,38 @@ class _InsertMedecineState extends State<InsertMedecine> {
                               borderRadius: BorderRadius.circular(20)),
                           child: Center(
                             child: Row(
-                              children: [Expanded(child: TextField( decoration: InputDecoration(
-                                fillColor: AppColors.MedecineInput,
-                                filled: true,
-                                //hintText: "Insert name of Medecine",
-                                border: InputBorder.none,
-                                hintStyle: TextStyle(
-                                    color: Colors.grey, fontFamily: "Italic", fontSize: 11),
-                                errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      20,
-                                    ),
-                                    borderSide: BorderSide(color: Colors.grey)),
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(
-                                      20,
-                                    ),
-                                    borderSide:
-                                    BorderSide(color: Colors.grey.withOpacity(.0))),
-                                enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide:
-                                    BorderSide(color: Colors.grey.withOpacity(.0))),
-                              ),
-
-
-                              )),
+                              children: [
+                                Expanded(
+                                    child: TextField(
+                                  decoration: InputDecoration(
+                                    fillColor: AppColors.MedecineInput,
+                                    filled: true,
+                                    //hintText: "Insert name of Medecine",
+                                    border: InputBorder.none,
+                                    hintStyle: TextStyle(
+                                        color: Colors.grey,
+                                        fontFamily: "Italic",
+                                        fontSize: 11),
+                                    errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          20,
+                                        ),
+                                        borderSide:
+                                            BorderSide(color: Colors.grey)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          20,
+                                        ),
+                                        borderSide: BorderSide(
+                                            color:
+                                                Colors.grey.withOpacity(.0))),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: BorderSide(
+                                            color:
+                                                Colors.grey.withOpacity(.0))),
+                                  ),
+                                )),
                                 DropdownButton<String>(
                                   hint: Text("mg"),
                                   value: null,
@@ -417,8 +424,11 @@ class _InsertMedecineState extends State<InsertMedecine> {
                                       // dropdownValue = newValue!;
                                     });
                                   },
-                                  items: <String>['mg', 'ml', ]
-                                      .map<DropdownMenuItem<String>>((String value) {
+                                  items: <String>[
+                                    'mg',
+                                    'ml',
+                                  ].map<DropdownMenuItem<String>>(
+                                      (String value) {
                                     return DropdownMenuItem<String>(
                                       value: value,
                                       child: Text(value),
@@ -431,17 +441,17 @@ class _InsertMedecineState extends State<InsertMedecine> {
                         ),
                       ],
                     )),
-                   SizedBox(
+                    SizedBox(
                       width: 6,
                     ),
-                  /*  Expanded(
+                    /*  Expanded(
                         child: Column(
                       children: [
                         Text(""),
                         SizedBox(
                           height: 12,
                         ),
-                       *//* Container(
+                       */ /* Container(
                           decoration: BoxDecoration(
                               border: Border.all(
                                   width: 1, color: AppColors.BorderInputColor),
@@ -470,7 +480,7 @@ class _InsertMedecineState extends State<InsertMedecine> {
                               }).toList(),
                             ),
                           ),
-                        ),*//*
+                        ),*/ /*
                       ],
                     )),*/
                     SizedBox(
@@ -480,14 +490,15 @@ class _InsertMedecineState extends State<InsertMedecine> {
                         child: Column(
                       children: [
                         Text(
-                          "Quantité",
+                          "quantity".tr,
                           style: TextStyle(
                               fontSize: 14, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(
                           height: 12,
                         ),
-                        Container(height: 60,
+                        Container(
+                          height: 60,
                           decoration: BoxDecoration(
                               border: Border.all(
                                   width: 1, color: AppColors.BorderInputColor),
@@ -507,8 +518,12 @@ class _InsertMedecineState extends State<InsertMedecine> {
                                   // dropdownValue = newValue!;
                                 });
                               },
-                              items: <String>['One', 'Two', 'Free', 'Four']
-                                  .map<DropdownMenuItem<String>>((String value) {
+                              items: <String>[
+                                'One'.tr,
+                                'Two'.tr,
+                                'Free'.tr,
+                                'Four'.tr,
+                              ].map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
                                   child: Text(value),
@@ -527,7 +542,7 @@ class _InsertMedecineState extends State<InsertMedecine> {
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: CustomButton(
-                  text: 'insert a medecine',
+                  text: 'insert_a_medecine'.tr,
                   color: AppColors.secondryColor,
                   width: MediaQuery.of(context).size.width * .7,
                   // MediaQuery.of(context).size.width*.8,

@@ -4,6 +4,7 @@ import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:knowplesy/app/util/text_style.dart';
 import 'package:knowplesy/presentation/pages/home/home_page/home_page.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:get/get.dart';
 
 import '../../../../app/widget/custom_button.dart';
 import '../../../../app/widget/widget_home/widget_home_page1.dart';
@@ -62,7 +63,7 @@ class _SeizurePageState extends State<SeizurePage> {
                           color: Colors.white,
                         )),
                     Spacer(),
-                    Text("LOG AN UNDETECTED \n    SEINZURE ALERT",
+                    Text("log_an_undetected_seizure_alert".tr,
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 21,
@@ -96,7 +97,7 @@ class _SeizurePageState extends State<SeizurePage> {
                       alignment: Alignment.centerLeft,
                       child: Padding(
                         padding: const EdgeInsets.only(top: 8.0, left: 18),
-                        child: Text("Schedule",
+                        child: Text("schedule".tr,
                             style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold,
@@ -289,7 +290,7 @@ class _SeizurePageState extends State<SeizurePage> {
             Padding(
               padding: const EdgeInsets.only(left: 28.0, top: 8, bottom: 8),
               child: Text(
-                "Time",
+                "time".tr,
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.bold,
@@ -324,7 +325,7 @@ class _SeizurePageState extends State<SeizurePage> {
             Padding(
               padding: const EdgeInsets.only(left: 28.0),
               child: Text(
-                "Add a comment",
+                "add_a_comment".tr,
                 style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
@@ -357,7 +358,7 @@ class _SeizurePageState extends State<SeizurePage> {
                   decoration: InputDecoration(
                     fillColor: Colors.grey.withOpacity(.1),
                     filled: true,
-                    hintText: "Add a comment ....",
+                    hintText: "add_a_comment".tr,
                     border: InputBorder.none,
                     hintStyle: TextStyle(
                         color: Colors.grey[500],
@@ -386,7 +387,7 @@ class _SeizurePageState extends State<SeizurePage> {
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: CustomButton(
-                  text: 'Save',
+                  text: 'save'.tr,
                   color: AppColors.secondryColor,
                   width: 167,
                   // MediaQuery.of(context).size.width*.8,
@@ -425,29 +426,29 @@ class DateUtils {
   //
   // static String apiDayFormat(DateTime d) => _apiDayFormat.format(d);
 
-  static const List<String> weekdays = [
-    'Mon',
-    'Tue',
-    'Wed',
-    'Thu',
-    'Fri',
-    'Sat',
-    'Sun',
+  static List<String> weekdays = [
+    'mon'.tr,
+    'tue'.tr,
+    'wed'.tr,
+    'thu'.tr,
+    'fri'.tr,
+    'sat'.tr,
+    'sun'.tr,
   ];
 
-  static const List months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
+  static List months = [
+    'january'.tr,
+    'february'.tr,
+    'march'.tr,
+    'april'.tr,
+    'may'.tr,
+    'june'.tr,
+    'july'.tr,
+    'august'.tr,
+    'september'.tr,
+    'october'.tr,
+    'november'.tr,
+    'december'.tr,
   ];
 
   /// The list of days in a given month

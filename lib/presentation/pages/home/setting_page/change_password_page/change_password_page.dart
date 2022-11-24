@@ -38,7 +38,7 @@ class ChangePasswordPage extends GetView<ChangePasswordViewController> {
                       ),
                     ),
                     Spacer(),
-                    Text("Change password",
+                    Text("change_password".tr,
                         style: TextStyle(color: Colors.white, fontSize: 23)),
                     Spacer(),
                   ],

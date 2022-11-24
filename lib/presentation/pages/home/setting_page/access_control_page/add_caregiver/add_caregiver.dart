@@ -38,7 +38,7 @@ class Addcaregiver extends GetView<AddCaregiverController> {
                           color: Colors.white,
                         )),
                     Spacer(),
-                    Text("Add Caregiver",
+                    Text("add_caregiver".tr,
                         style: TextStyle(color: Colors.white, fontSize: 23)),
                     Spacer(),
                   ],
@@ -136,7 +136,7 @@ class Addcaregiver extends GetView<AddCaregiverController> {
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: CustomButton(
-                  text: 'Add',
+                  text: 'add'.tr,
                   color: Colors.deepOrangeAccent,
                   width: double.infinity,
                   hight: 40,

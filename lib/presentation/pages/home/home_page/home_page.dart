@@ -214,6 +214,7 @@ import 'package:knowplesy/presentation/pages/home/setting_page/personal_informat
 
 import '../../../../app/widget/widget_home/widget_home_page1.dart';
 import '../../../../app/widget/widget_home/widget_home_page2.dart';
+import 'package:get/get.dart';
 
 class HomePage1 extends GetView<HomeController> {
   const HomePage1({Key? key}) : super(key: key);
@@ -227,7 +228,7 @@ class HomePage1 extends GetView<HomeController> {
           backgroundColor: AppColors.primaryColor,
           title: Row(
             children: [
-              Text("Hi,Nedra !"),
+              Text("hi".tr),
               Spacer(),
               GestureDetector(
                 onTap: () {

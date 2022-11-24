@@ -23,13 +23,19 @@ class HomePage extends GetView<HomeController> {
             onTap: logic.changeSelectedValue,
             items: [
               BottomNavigationBarItem(
-                  icon:ImageIcon(AssetImage("assets/images/icon_home.png")), label: "Home"),
+                  icon: ImageIcon(AssetImage("assets/images/icon_home.png")),
+                  label: "home".tr),
               BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage('assets/images/icon_seizure.png')), label: "Seizure"),
+                  icon: ImageIcon(AssetImage('assets/images/icon_seizure.png')),
+                  label: "seizure".tr),
               BottomNavigationBarItem(
-                  icon: ImageIcon(AssetImage('assets/images/icon_medecine.png')), label: "Medecine"),
+                  icon:
+                      ImageIcon(AssetImage('assets/images/icon_medecine.png')),
+                  label: "medecine".tr),
               BottomNavigationBarItem(
-                  icon:  ImageIcon(AssetImage('assets/images/icon_settings.png')), label: "Setting"),
+                icon: ImageIcon(AssetImage('assets/images/icon_settings.png')),
+                label: "setting".tr,
+              )
             ],
           ),
         );

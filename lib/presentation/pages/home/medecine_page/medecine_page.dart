@@ -9,6 +9,7 @@ import '../../../../app/widget/widget_home/widget_drawer.dart';
 import '../../home_page.dart';
 import '../setting_page/personal_information_page/personal_information_page.dart';
 import 'insert_medecine.dart';
+import 'package:get/get.dart';
 
 class MedecinePage extends StatefulWidget {
   const MedecinePage({Key? key}) : super(key: key);
@@ -54,7 +55,7 @@ class _MedecinePageState extends State<MedecinePage> {
                 bottomRight: Radius.circular(20)),
           ),
           child: Center(
-            child: Text(" Medecine",
+            child: Text("medecine".tr,
                 style: TextStyle(color: Colors.white, fontSize: 21)),
           ),
         ),
@@ -80,7 +81,7 @@ class _MedecinePageState extends State<MedecinePage> {
                   alignment: Alignment.centerLeft,
                   child: Padding(
                     padding: const EdgeInsets.only(top: 8.0, left: 18),
-                    child: Text("Schedule",
+                    child: Text("schedule".tr,
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold)),
                   ),
@@ -186,7 +187,7 @@ class _MedecinePageState extends State<MedecinePage> {
                     },
                     calendarFormat: CalendarFormat.week,
                     firstDay: DateTime.utc(2010, 10, 16),
-                    headerStyle: HeaderStyle(
+                    headerStyle: const HeaderStyle(
                         formatButtonVisible: false,
                         titleCentered: true,
                         formatButtonShowsNext: false,
@@ -195,7 +196,7 @@ class _MedecinePageState extends State<MedecinePage> {
                         )),
                     daysOfWeekVisible: false,
                     lastDay: DateTime.utc(2030, 3, 14),
-                    daysOfWeekStyle: DaysOfWeekStyle(
+                    daysOfWeekStyle: const DaysOfWeekStyle(
                         decoration: BoxDecoration(color: Colors.amberAccent),
                         weekdayStyle: TextStyle(
                           fontSize: 10,
@@ -218,7 +219,7 @@ class _MedecinePageState extends State<MedecinePage> {
                             builder: (
                           context,
                         ) =>
-                                InsertMedecine()));
+                                const InsertMedecine()));
                       },
                     ),
                   ),
@@ -233,11 +234,13 @@ class _MedecinePageState extends State<MedecinePage> {
             children: [
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text("Medecine",
+                child: Text("medecine".tr,
                     style:
                         TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               ),
-              SizedBox(height: 8,),
+              SizedBox(
+                height: 8,
+              ),
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text("Today",
@@ -280,7 +283,7 @@ class _MedecinePageState extends State<MedecinePage> {
                                     width: 4,
                                   ),
                                   Text(
-                                    "TEGRETOL",
+                                    "tegretol".tr,
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
@@ -330,7 +333,7 @@ class _MedecinePageState extends State<MedecinePage> {
                                             BorderRadius.circular(15)),
                                     child: Center(
                                         child: Text(
-                                      "taken",
+                                      "taken".tr,
                                       style: TextStyle(color: Colors.white),
                                     )),
                                   ),
@@ -427,7 +430,7 @@ class _MedecinePageState extends State<MedecinePage> {
           alignment: Alignment.centerLeft,
           child: Padding(
             padding: const EdgeInsets.only(top: 2.0, left: 18),
-            child: Text("Tomorrow",
+            child: Text("tomorrow".tr,
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
           ),
         ),
@@ -457,7 +460,8 @@ class _MedecinePageState extends State<MedecinePage> {
                                     width: 8,
                                   ),
                                   Image.asset(
-                                    "assets/images/icon_piles.png",color: AppColors.secondryColor,
+                                    "assets/images/icon_piles.png",
+                                    color: AppColors.secondryColor,
                                     height: 20,
                                     width: 20,
                                   ),
@@ -465,7 +469,7 @@ class _MedecinePageState extends State<MedecinePage> {
                                     width: 4,
                                   ),
                                   Text(
-                                    "TEGRETOL",
+                                    "tegretol".tr,
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
@@ -515,7 +519,7 @@ class _MedecinePageState extends State<MedecinePage> {
                                             BorderRadius.circular(15)),
                                     child: Center(
                                         child: Text(
-                                      "Pending",
+                                      "pending".tr,
                                       style: TextStyle(color: Colors.white),
                                     )),
                                   ),
@@ -639,7 +643,8 @@ class _MedecinePageState extends State<MedecinePage> {
                   height: 10,
                 ),
                 Text(
-                  "If you Don't cancel the alert, the Following \n       Caregivers will be notified.",
+                  "if_you_dont_cancel_the_alert_the_following_caregivers_will_be_notified"
+                      .tr,
                   style: TextStyle(fontSize: 14),
                 ),
                 SizedBox(

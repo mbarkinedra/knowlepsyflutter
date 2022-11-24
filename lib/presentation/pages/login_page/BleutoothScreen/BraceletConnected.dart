@@ -40,7 +40,7 @@ class _BraceletConnectedState extends State<BraceletConnected> {
                     width: 134.0,
                     height: 90.0,
                     child: Text(
-                      'BRACELET\nCONNECTED\n',
+                      'bracelet_connected'.tr,
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: 23,
@@ -65,7 +65,7 @@ class _BraceletConnectedState extends State<BraceletConnected> {
                         ),
                         children: [
                           TextSpan(
-                            text: 'Your bracelet  is connected successfully',
+                            text: 'your_bracelet_is_connected_successfully'.tr,
                           ),
                         ],
                       ),
@@ -95,7 +95,7 @@ class _BraceletConnectedState extends State<BraceletConnected> {
                             text: 'Bracelet-B2VA8MC\n',
                           ),
                           TextSpan(
-                            text: 'Connected',
+                            text: 'connected'.tr,
                             style: TextStyle(
                               fontSize: 13,
                             ),
@@ -126,7 +126,7 @@ class _BraceletConnectedState extends State<BraceletConnected> {
                         Align(
                           alignment: Alignment(0.004, -0.088),
                           child: SizedBox(
-                            width: 66.0,
+                            width: MediaQuery.of(context).size.width * .7,
                             height: 21.0,
                             child: GestureDetector(
                               onTap: () {
@@ -137,7 +137,7 @@ class _BraceletConnectedState extends State<BraceletConnected> {
                                         HomePage()));
                               },
                               child: Text(
-                                'Go Home',
+                                'go_home'.tr,
                                 style: TextStyle(
                                   fontFamily: 'Roboto',
                                   fontSize: 16,
