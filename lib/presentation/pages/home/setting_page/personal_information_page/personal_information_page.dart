@@ -35,7 +35,7 @@ class PersonalInformationPage extends StatelessWidget {
                           color: Colors.white,
                         )),
                     Spacer(),
-                    Text("Personal Information",
+                    Text("personal_information".tr,
                         style: TextStyle(color: Colors.white, fontSize: 23)),
                     Spacer(),
                   ],
@@ -72,14 +72,14 @@ class PersonalInformationPage extends StatelessWidget {
                     child: GestureDetector(
                       onTap: () {
                         Get.defaultDialog(
-                            title: "Take photo",
+                            title: "take_photo".tr,
                             //  middleText: "Take a new phhoto or import one from your library",
                             contentPadding: EdgeInsets.all(8),
                             titlePadding: EdgeInsets.all(16),
                             titleStyle: TextStyle(color: Colors.black),
                             middleTextStyle: TextStyle(color: Colors.black),
-                            textConfirm: "GALLERY",
-                            textCancel: "CAMERA",
+                            textConfirm: "gallery".tr,
+                            textCancel: "camera".tr,
                             cancelTextColor: Colors.blue,
                             confirmTextColor: Colors.blue,
                             buttonColor: Colors.white,
@@ -90,7 +90,8 @@ class PersonalInformationPage extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: Text(
-                                      "Take a new photo or import one from your library"),
+                                      "take_a_new_photo_or_import_one_from_your_library"
+                                          .tr),
                                 )
                               ],
                             ));
@@ -113,21 +114,21 @@ class PersonalInformationPage extends StatelessWidget {
               height: 25,
             ),
             CustomInput(
-              lep: "Name :",
+              lep: "name".tr,
               hint: "Nedra",
             ),
             SizedBox(
               height: 8,
             ),
             CustomInput(
-              lep: "Family Name :",
+              lep: "family_name".tr,
               hint: "Mbarki",
             ),
             SizedBox(
               height: 8,
             ),
             CustomInput(
-              lep: "Email :",
+              lep: "email".tr,
               hint: "Nedrambarki@gmail.com",
             ),
             SizedBox(
@@ -137,7 +138,8 @@ class PersonalInformationPage extends StatelessWidget {
               padding: const EdgeInsets.only(left: 30.0, right: 30),
               child: Column(
                 children: [
-                  Align(alignment: Alignment.centerLeft, child: Text("phone")),
+                  Align(
+                      alignment: Alignment.centerLeft, child: Text("phone".tr)),
                   Form(
                     key: _formKey,
                     child: Column(
@@ -146,7 +148,7 @@ class PersonalInformationPage extends StatelessWidget {
                         const SizedBox(height: 20),
                         IntlPhoneField(
                           decoration: InputDecoration(
-                            hintText: 'Phone Number',
+                            hintText: 'phone_number'.tr,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(26),
                               borderSide: BorderSide(),
@@ -156,7 +158,6 @@ class PersonalInformationPage extends StatelessWidget {
                           onChanged: (phone) {
                             print(phone.completeNumber);
                           },
-
                           onCountryChanged: (country) {
                             print('Country changed to: ' + country.name);
                           },
@@ -174,7 +175,7 @@ class PersonalInformationPage extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: CustomButton(
-                  text: 'Confirme',
+                  text: 'confirme'.tr,
                   color: Colors.deepOrangeAccent,
                   width: double.infinity,
                   hight: 40,

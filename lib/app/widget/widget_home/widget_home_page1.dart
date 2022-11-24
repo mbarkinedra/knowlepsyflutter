@@ -31,7 +31,7 @@ class WidgetHomePage1 extends StatelessWidget {
               ),
               Center(
                   child: Text(
-                "APPROVED SEIZURE",
+                "approved_seizure".tr,
                 style: BigTextStyle(),
               )),
               SizedBox(
@@ -43,7 +43,6 @@ class WidgetHomePage1 extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-
                       Expanded(
                           child: Container(
                         child: Stack(alignment: Alignment.center, children: [
@@ -69,7 +68,7 @@ class WidgetHomePage1 extends StatelessWidget {
                               percent: 2 / 4,
                               animation: true,
                               circularStrokeCap: CircularStrokeCap.round,
-                              center: Text("2 \n Seizur".toString(),
+                              center: Text("2 \n seizure".tr.toString(),
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 20,
@@ -80,21 +79,17 @@ class WidgetHomePage1 extends StatelessWidget {
                           ),
                         ]),
                       )),
-
                     ],
                   )
                 ]),
               )),
-
-
 
               //  SizedBox(height: 20,),
               Padding(
                 padding: const EdgeInsets.only(
                     top: 20.0, bottom: 20, right: 40, left: 40),
                 child: CustomButton(
-                  text: 'Log an undetected Seizure Alert',
-
+                  text: 'log_an_undetected_seizure_alert'.tr,
                   onClick: () {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (
@@ -103,33 +98,43 @@ class WidgetHomePage1 extends StatelessWidget {
                             SeizurePage()));
                   },
                   color: AppColors.secondryColor,
-                  width: MediaQuery.of(context).size.width *.8,
+                  width: MediaQuery.of(context).size.width * .8,
                   hight: 60,
                 ),
               ),
-              SizedBox(height: 8,),
-              Center(
-                child: GetBuilder<HomeController>(builder: (logic)
-                {
-                  return Row(mainAxisAlignment: MainAxisAlignment.center,children: List.generate(3, (index) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8),
-                      child: InkWell(
-                          onTap: () {
-                            logic.pageController.animateToPage(index,
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeIn);
-                          },
-                          child: CircleAvatar(
-                            radius: 5,
-                            // check if a dot is connected to the current page
-                            // if true, give it a different color
-                            backgroundColor: logic.pageNumber == index
-                                ? Colors.deepPurple
-                                : Colors.grey[400],
-                          ) )
-                  ),));}),
+              SizedBox(
+                height: 8,
               ),
-              SizedBox(height: 8,)  ]),
+              Center(
+                child: GetBuilder<HomeController>(builder: (logic) {
+                  return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        3,
+                        (index) => Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 8),
+                            child: InkWell(
+                                onTap: () {
+                                  logic.pageController.animateToPage(index,
+                                      duration:
+                                          const Duration(milliseconds: 300),
+                                      curve: Curves.easeIn);
+                                },
+                                child: CircleAvatar(
+                                  radius: 5,
+                                  // check if a dot is connected to the current page
+                                  // if true, give it a different color
+                                  backgroundColor: logic.pageNumber == index
+                                      ? Colors.deepPurple
+                                      : Colors.grey[400],
+                                ))),
+                      ));
+                }),
+              ),
+              SizedBox(
+                height: 8,
+              )
+            ]),
           ),
           SizedBox(
             height: 10,

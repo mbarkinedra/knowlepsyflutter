@@ -38,7 +38,7 @@ class _BraceletNotConnectedState extends State<BraceletUnworn> {
                     width: 134.0,
                     height: 90.0,
                     child: Text(
-                      'UNWORN\nBRACELET\n',
+                      'unworn_bracelet'.tr,
                       style: TextStyle(
                         fontFamily: 'Roboto',
                         fontSize: 23,
@@ -64,7 +64,7 @@ class _BraceletNotConnectedState extends State<BraceletUnworn> {
                         children: [
                           TextSpan(
                             text:
-                                'Please wear your bracelet \n and reconnect it.',
+                                'please_wear_your_bracelet_and_reconnect_it'.tr,
                             style: TextStyle(
                                 fontWeight: FontWeight.bold, fontSize: 16),
                           ),

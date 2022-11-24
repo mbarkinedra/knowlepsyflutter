@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:knowplesy/app/util/app_colors.dart';
+import 'package:get/get.dart';
 
 import '../../../../../app/widget/access_and_control_item.dart';
 import 'add_caregiver/add_caregiver.dart';
@@ -35,7 +36,7 @@ class AccessControlPage extends StatelessWidget {
                           color: Colors.white,
                         )),
                     Spacer(),
-                    Text("Access and control",
+                    Text("access and control".tr,
                         style: TextStyle(color: Colors.white, fontSize: 23)),
                     Spacer(),
                   ],
@@ -93,7 +94,7 @@ class AccessControlPage extends StatelessWidget {
                   SizedBox(
                     width: 8,
                   ),
-                  Text("Add Caregiver",
+                  Text("add_caregiver".tr,
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
                 ],

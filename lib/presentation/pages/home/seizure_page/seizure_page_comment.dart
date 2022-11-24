@@ -4,6 +4,7 @@ import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:knowplesy/app/util/text_style.dart';
 import 'package:knowplesy/presentation/pages/home_page.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:get/get.dart';
 
 import '../../../../app/widget/custom_button.dart';
 import '../../../../app/widget/custom_input.dart';
@@ -49,7 +50,7 @@ class _SeizurePageState extends State<SeizurePage> {
                           color: Colors.white,
                         )),
                     Spacer(),
-                    Text("the circumstance \n of the seizure",
+                    Text("the_circumstance_of_the_seizure".tr,
                         style: TextStyle(color: Colors.white, fontSize: 21)),
                     Spacer(),
                   ],
@@ -60,7 +61,7 @@ class _SeizurePageState extends State<SeizurePage> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                "Add a comment",
+                "add_a_comment".tr,
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
@@ -94,7 +95,7 @@ class _SeizurePageState extends State<SeizurePage> {
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
                 child: CustomButton(
-                  text: 'Save',
+                  text: 'save'.tr,
                   color: AppColors.secondryColor,
                   width: 167,
                   // MediaQuery.of(context).size.width*.8,
@@ -105,7 +106,6 @@ class _SeizurePageState extends State<SeizurePage> {
                       context,
                     ) =>
                             HomePage()));
-
                   },
                 ),
               ),
@@ -134,29 +134,29 @@ class DateUtils {
   //
   // static String apiDayFormat(DateTime d) => _apiDayFormat.format(d);
 
-  static const List<String> weekdays = [
-    'Mon',
-    'Tue',
-    'Wed',
-    'Thu',
-    'Fri',
-    'Sat',
-    'Sun',
+  static List<String> weekdays = [
+    'mon'.tr,
+    'tue'.tr,
+    'wed'.tr,
+    'thu'.tr,
+    'fri'.tr,
+    'sat'.tr,
+    'sun'.tr,
   ];
 
-  static const List months = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December'
+  static List months = [
+    'january'.tr,
+    'february'.tr,
+    'march'.tr,
+    'april'.tr,
+    'may'.tr,
+    'june'.tr,
+    'july'.tr,
+    'august'.tr,
+    'september'.tr,
+    'october'.tr,
+    'november'.tr,
+    'december'.tr,
   ];
 
   /// The list of days in a given month

@@ -33,14 +33,14 @@ class LoginPage extends GetView<LoginController> {
                 ),
 
                 CustomInputLogin(
-                  lep: "email:".tr,
+                  lep: "email".tr,
                   hint: "Exemple@gmail.com",
                 ),
                 SizedBox(
                   height: 18,
                 ),
                 CustomInputLogin(
-                  lep: "Password :",
+                  lep: "password".tr,
                   hint: "********",
                 ),
                 Align(
@@ -48,7 +48,7 @@ class LoginPage extends GetView<LoginController> {
                   child: TextButton(
                     onPressed: () {},
                     child: Text(
-                      'I forgot my password',
+                      'i_forgot_my_password'.tr,
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -58,7 +58,7 @@ class LoginPage extends GetView<LoginController> {
                 ),
                 Center(
                   child: CustomButtonWithoutIcon(
-                    text: 'Login ',
+                    text: 'login'.tr,
                     color: Colors.deepOrangeAccent,
                     width: MediaQuery.of(context).size.width * .8,
                     hight: 2,
@@ -78,10 +78,9 @@ class LoginPage extends GetView<LoginController> {
                   child: CustomButton(
                     icon:
                         ImageIcon(AssetImage("assets/images/icon_google.png")),
-                    text: 'Continue with google',
+                    text: 'continue_with_google'.tr,
                     color: Colors.deepOrangeAccent,
-                    width: double.infinity,
-                    // MediaQuery.of(context).size.width*.8,
+                    width: MediaQuery.of(context).size.width * .2,
                     hight: 40,
                     onClick: () {},
                   ),
@@ -118,11 +117,11 @@ class LoginPage extends GetView<LoginController> {
                     },
                     child: RichText(
                       text: TextSpan(
-                        text: "Don’t have an account? ",
+                        text: "dont_have_an_account".tr,
                         // style: DefaultTextStyle.of(context).style,
                         children: const <TextSpan>[
                           TextSpan(
-                              text: 'Sign-Up',
+                              text: 'sign_up',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
                                   color: Colors.white))

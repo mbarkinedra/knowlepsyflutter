@@ -4,7 +4,10 @@ import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:knowplesy/app/widget/custom_button.dart';
 import 'package:knowplesy/app/widget/custom_input.dart';
 import 'package:knowplesy/app/widget/custom_setting.dart';
+import 'package:get/get.dart';
+
 enum SingingCharacter { English, French }
+
 class LanguagePage extends StatelessWidget {
   // const LanguagePage({Key? key}) : super(key: key);
   SingingCharacter? lan = SingingCharacter.English;
@@ -35,18 +38,21 @@ class LanguagePage extends StatelessWidget {
                           color: Colors.white,
                         )),
                     Spacer(),
-                    Text("Language",
+                    Text("language".tr,
                         style: TextStyle(color: Colors.white, fontSize: 23)),
                     Spacer(),
                   ],
                 )),
-            SizedBox(height: 20,),
-            ListTile(dense: true,
+            SizedBox(
+              height: 20,
+            ),
+            ListTile(
+              dense: true,
               onTap: () {
-              lan=SingingCharacter.English;
+                lan = SingingCharacter.English;
               },
-
-              leading: Text("English",style: TextStyle(fontWeight: FontWeight.bold)),
+              leading: Text("english".tr,
+                  style: TextStyle(fontWeight: FontWeight.bold)),
               trailing: Radio(
                 value: SingingCharacter.English,
                 groupValue: lan,
@@ -57,24 +63,31 @@ class LanguagePage extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(right: 20.0,left: 20),
-              child: Divider(thickness: 1,color: Colors.grey,),
-            )
-         ,    ListTile(dense: true,
+              padding: const EdgeInsets.only(right: 20.0, left: 20),
+              child: Divider(
+                thickness: 1,
+                color: Colors.grey,
+              ),
+            ),
+            ListTile(
+              dense: true,
               onTap: () {
-           lan=SingingCharacter.French;
+                lan = SingingCharacter.French;
               },
-
-              leading: Text("French",style: TextStyle(fontWeight: FontWeight.bold),),
+              leading: Text(
+                "french".tr,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
               trailing: Radio(
                 value: SingingCharacter.French,
                 groupValue: lan,
-                activeColor:Colors.green,
+                activeColor: Colors.green,
                 onChanged: (SingingCharacter? value) {
                   lan = value!;
                 },
               ),
-            ), ],
+            ),
+          ],
         ),
       ),
     );
