@@ -1,16 +1,28 @@
-class UserJson {
+import 'package:knowplesy/data/networking/json/abstract__json_resource.dart';
+
+class UserJson extends AbstractJsonResource{
   int? status;
   String? tokenType;
   User? user;
   String? token;
+  String? refreshToken;
+  String? expiredAt;
 
-  UserJson({this.status, this.tokenType, this.user, this.token});
+  UserJson(
+      {this.status,
+        this.tokenType,
+        this.user,
+        this.token,
+        this.refreshToken,
+        this.expiredAt});
 
   UserJson.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     tokenType = json['token_type'];
     user = json['user'] != null ? new User.fromJson(json['user']) : null;
     token = json['token'];
+    refreshToken = json['refresh_token'];
+    expiredAt = json['expired_at'];
   }
 
   Map<String, dynamic> toJson() {
@@ -21,6 +33,8 @@ class UserJson {
       data['user'] = this.user!.toJson();
     }
     data['token'] = this.token;
+    data['refresh_token'] = this.refreshToken;
+    data['expired_at'] = this.expiredAt;
     return data;
   }
 }
@@ -31,12 +45,15 @@ class User {
   String? lastName;
   String? imageUrl;
   String? email;
-  Null? emailVerifiedAt;
+  String? emailVerifiedAt;
   int? verifiedMail;
   String? role;
   int? enabled;
+  int? trueAlert;
+  int? falseAlert;
   String? phoneNumber;
   String? dateOfBirth;
+  String? filedoctor;
   String? country;
   String? createdAt;
   String? updatedAt;
@@ -51,8 +68,11 @@ class User {
         this.verifiedMail,
         this.role,
         this.enabled,
+        this.trueAlert,
+        this.falseAlert,
         this.phoneNumber,
         this.dateOfBirth,
+        this.filedoctor,
         this.country,
         this.createdAt,
         this.updatedAt});
@@ -67,8 +87,11 @@ class User {
     verifiedMail = json['verified_mail'];
     role = json['role'];
     enabled = json['enabled'];
+    trueAlert = json['trueAlert'];
+    falseAlert = json['falseAlert'];
     phoneNumber = json['phone_number'];
     dateOfBirth = json['date_of_birth'];
+    filedoctor = json['filedoctor'];
     country = json['country'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
@@ -85,8 +108,11 @@ class User {
     data['verified_mail'] = this.verifiedMail;
     data['role'] = this.role;
     data['enabled'] = this.enabled;
+    data['trueAlert'] = this.trueAlert;
+    data['falseAlert'] = this.falseAlert;
     data['phone_number'] = this.phoneNumber;
     data['date_of_birth'] = this.dateOfBirth;
+    data['filedoctor'] = this.filedoctor;
     data['country'] = this.country;
     data['created_at'] = this.createdAt;
     data['updated_at'] = this.updatedAt;

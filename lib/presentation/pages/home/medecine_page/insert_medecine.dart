@@ -6,7 +6,7 @@ import 'package:knowplesy/presentation/pages/home/setting_page/personal_informat
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../../app/widget/custom_button.dart';
-import '../../../../app/widget/widget_drawer.dart';
+import '../../../../app/widget/widget_home/widget_drawer.dart';
 import '../home_page/home_page.dart';
 
 class InsertMedecine extends StatefulWidget {

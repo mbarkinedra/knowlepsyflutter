@@ -6,6 +6,7 @@ import 'package:knowplesy/app/widget/custom_button_without_icon_login.dart';
 import 'package:knowplesy/app/widget/custom_input_login.dart';
 import 'package:knowplesy/presentation/controllers/login_controller/login_controller.dart';
 
+import 'BraceletConnected.dart';
 import 'ConnectBleutoothScreen.dart';
 
 class BleutoothScreen extends StatefulWidget {
@@ -91,7 +92,7 @@ class _BleutoothScreenState extends State<BleutoothScreen> {
                           builder: (
                         context,
                       ) =>
-                              ConnectBleutoothScreen()));
+                              BraceletConnected()));
                     },
                   ),
                 ),

@@ -6,8 +6,8 @@ import '../util/app_colors.dart';
 class CustomInput extends StatelessWidget {
   final String lep;
   final String hint;
-
-  CustomInput({required this.lep, this.hint = ""});
+  TextEditingController? controller;
+  CustomInput({required this.lep, this.hint = "",  this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class CustomInput extends StatelessWidget {
                 borderRadius: BorderRadius.circular(26),
                 border: Border.all(color: Colors.black38)),
             child: Center(
-              child: TextField(
+              child: TextField(controller:controller ,
                 decoration: InputDecoration(
                   hintText: hint,
                   fillColor: Colors.white,

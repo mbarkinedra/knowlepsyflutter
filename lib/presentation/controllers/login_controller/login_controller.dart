@@ -1,39 +1,48 @@
- import 'package:flutter/material.dart';
- import 'package:get/get.dart';
-//
- class LoginController extends GetxController  {
-   TextEditingController emailController = TextEditingController();
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../app/config/app_routing.dart';
+import '../../../app/storage/secure_storage.dart';
+import '../../../data/networking/api/auth_api.dart';
+import '../../../data/networking/json/simple_json_resource.dart';
+import '../../../data/networking/json/user_json.dart';
+import '../../pages/login_page/BleutoothScreen/BleutoothScreen1.dart';
+
+class LoginController extends GetxController {
+  TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-// //  final UserApi _userApi = UserApi();
-   bool isVisiblePassword = true;
-//   //GlobalKey<FormState> signInFormKey;
-   RxBool isLoading = false.obs;
-// //  ValidatorSignIn validator = ValidatorSignIn();
-//
-//   RxString error = ''.obs;
-//
-//   void showHidePassword() {
-//     isVisiblePassword = !isVisiblePassword;
-//     update();
-//   }
-//
-//   login() async {
-//     error.value = '';
-//     isLoading.value = true;
-//     try {
-//      // SimpleJsonResource jsonResource =
-//       await _userApi.login(emailController.text, passwordController.text);
-//       isLoading.value = false;
-//       if (jsonResource != null) {
-//         if (jsonResource.code == 200) {
-//           Get.toNamed(AppRouting.loginSuccess);
-//         } else {
-//           error.value = jsonResource.message;
-//         }
-//       }
-//     } catch (e) {
-//       isLoading.value = false;
-//       throw e;
-//     }
-//   }
+  final UserApi _userApi = UserApi();
+  UserJson? userJson;
+  bool isVisiblePassword = true;
+  late GlobalKey<FormState> signInFormKey;
+  RxBool isLoading = false.obs;
+
+// ValidatorSignIn validator = ValidatorSignIn();
+
+  RxString error = ''.obs;
+
+  void showHidePassword() {
+    isVisiblePassword = !isVisiblePassword;
+    update();
+  }
+
+  login(context) async {
+    _userApi.postData({
+      "email": emailController.text,
+      "password": passwordController.text
+    }).then((value) {
+      userJson = value as UserJson;
+      print("*" * 50);
+      print(value);
+      print(userJson?.token);
+      print("*" * 50);
+      SecureStorage.writeSecureData(key: 'token', value: userJson!.token!);
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (
+        context,
+      ) =>
+              BleutoothScreen()));
+    });
+  }
 }

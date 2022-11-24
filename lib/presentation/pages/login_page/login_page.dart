@@ -17,6 +17,8 @@ class LoginPage extends GetView<LoginController> {
 
   @override
   Widget build(BuildContext context) {
+    GlobalKey<FormState> globalKey = GlobalKey<FormState>();
+    controller.signInFormKey = globalKey;
     return Scaffold(
         backgroundColor: AppColors.primaryColor,
         body: Center(
@@ -29,16 +31,22 @@ class LoginPage extends GetView<LoginController> {
                   padding: const EdgeInsets.fromLTRB(20, 20, 20, 70),
                   child: Image.asset("assets/images/logo_knowlepsy.png"),
                 ),
+
                 CustomInputLogin(
-                  lep: "Email :",
+                  label: "Email :",
                   hint: "Exemple@gmail.com",
+                  textEditingController: controller.emailController,
+                   // validator: controller.validator.validateEmail
                 ),
+
                 SizedBox(
                   height: 18,
                 ),
                 CustomInputLogin(
-                  lep: "Password :",
+                  label: "Password :",
                   hint: "********",
+                  textEditingController: controller.passwordController,
+
                 ),
                 Align(
                   //  alignment: EdgeInsets.symmetric(8.0),
@@ -57,15 +65,17 @@ class LoginPage extends GetView<LoginController> {
                   child: CustomButtonWithoutIcon(
                     text: 'Login ',
                     color: Colors.deepOrangeAccent,
-                    width:
-                     MediaQuery.of(context).size.width*.8,
+                    width: MediaQuery.of(context).size.width * .8,
                     hight: 2,
-                    onClick: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (
-                              context,
-                              ) =>
-                              BleutoothScreen()));
+                    onClick: () async{
+                       await controller.login(context);
+                       Navigator.of(context).push(MaterialPageRoute(
+                           builder: (
+                               context,
+                               ) =>
+                               BleutoothScreen()));
+
+
                     },
                   ),
                 ),
@@ -74,13 +84,15 @@ class LoginPage extends GetView<LoginController> {
                 ),
                 Center(
                   child: CustomButton(
-                    icon: ImageIcon(AssetImage("assets/images/icon_google.png")),
+                    icon:
+                        ImageIcon(AssetImage("assets/images/icon_google.png")),
                     text: 'Continue with google',
                     color: Colors.deepOrangeAccent,
                     width: double.infinity,
                     // MediaQuery.of(context).size.width*.8,
                     hight: 40,
-                    onClick: () {},
+                    onClick: ()  {
+                    },
                   ),
                 ),
                 // Row(
@@ -107,11 +119,10 @@ class LoginPage extends GetView<LoginController> {
                 Center(
                   child: InkWell(
                     onTap: () {
-
                       Navigator.of(context).push(MaterialPageRoute(
                           builder: (
-                              context,
-                              ) =>
+                        context,
+                      ) =>
                               RegisterPage()));
                     },
                     child: RichText(

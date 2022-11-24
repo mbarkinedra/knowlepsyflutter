@@ -1,3 +1,4 @@
+import 'package:country_code_picker/country_code.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -6,6 +7,8 @@ import 'package:knowplesy/app/widget/custom_input.dart';
 import 'package:knowplesy/presentation/pages/login_page/login_page.dart';
 
 import '../../../../../app/util/app_colors.dart';
+import '../../../app/widget/login_item.dart';
+import '../../controllers/register_controller/register_controller.dart';
 
 const List<String> listcountry = <String>[
   'Tunsia',
@@ -14,9 +17,10 @@ const List<String> listcountry = <String>[
   'Amercia'
 ];
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends GetView<RegisterController> {
   String dropdownValue = listcountry.first;
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColors.BackgroundColor,
@@ -112,6 +116,7 @@ class RegisterPage extends StatelessWidget {
               height: 25,
             ),
             CustomInput(
+              controller: controller.firstName,
               lep: "First name",
               hint: "Enter your first name",
             ),
@@ -122,6 +127,7 @@ class RegisterPage extends StatelessWidget {
               height: 8,
             ),
             CustomInput(
+              controller: controller.lastName,
               lep: "Last name",
               hint: "Enter your last name",
             ),
@@ -129,6 +135,7 @@ class RegisterPage extends StatelessWidget {
               height: 8,
             ),
             CustomInput(
+              controller: controller.email,
               lep: "Email",
               hint: "Enter your email address",
             ),
@@ -136,6 +143,7 @@ class RegisterPage extends StatelessWidget {
               height: 8,
             ),
             CustomInput(
+              controller: controller.password,
               lep: "Password ",
               hint: "Enter_password",
             ),
@@ -143,6 +151,7 @@ class RegisterPage extends StatelessWidget {
               height: 8,
             ),
             CustomInput(
+              controller: controller.confirmPassword,
               lep: "Confirm password",
               hint: "Confirm password",
             ),
@@ -170,10 +179,7 @@ class RegisterPage extends StatelessWidget {
                         border: Border.all(color: Colors.black38)),
                     child: DropdownButton<String>(
                       onChanged: (String? value) {
-                        //     // This is called when the user selects an item.
-                        //     // setState(() {
-                        //     //   dropdownValue = value!;
-                        //     // });
+                        controller.country.text = value!;
                       },
 
                       value: dropdownValue,
@@ -196,54 +202,68 @@ class RegisterPage extends StatelessWidget {
                     height: 15,
                   ),
                   Text(
-                    "Day and month and year of birth",
+                    "Day of birth",
                     style: TextStyle(fontSize: 12),
                   ),
                   SizedBox(
                     height: 15,
                   ),
-                  Container(
-                    padding: const EdgeInsets.only(left: 30.0, right: 30),
-                    height: 50,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(26),
-                        border: Border.all(color: Colors.black38)),
-                    child: TextField(
-                      //controller: dateInput,
-                      //editing controller of this TextField
-                      decoration: InputDecoration(
-                        icon: Icon(
-                          Icons.calendar_today,
-                          color: AppColors.primaryColor,
-                        ), //icon of text field
-                        //labelText: "Enter Date" //label text of field
-                        border: InputBorder.none,
-                      ),
-                      readOnly: true,
-                      //set it true, so that user will not able to edit text
-                      onTap: () async {
-                        DateTime? pickedDate = await showDatePicker(
-                            context: context,
-                            initialDate: DateTime.now(),
-                            firstDate: DateTime(1950),
-                            //DateTime.now() - not to allow to choose before today.
-                            lastDate: DateTime(2100));
+                  GetBuilder<RegisterController>(builder: (logic) {
+                    return Container(
+                      padding: const EdgeInsets.only(left: 30.0, right: 30),
+                      height: 50,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(26),
+                          border: Border.all(color: Colors.black38)),
+                      child: TextField(
+                        // enabled: false,
+                        controller: controller.dateOfBirth,
+                        //editing controller of this TextField
+                        decoration: InputDecoration(
+                          icon: Icon(
+                            Icons.calendar_today,
+                            color: AppColors.primaryColor,
+                          ), //icon of text field
+                          border: InputBorder.none,
+                        ),
+                        readOnly: true,
+                        //set it true, so that user will not able to edit text
+                        onTap: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(1950),
+                              //DateTime.now() - not to allow to choose before today.
+                              lastDate: DateTime(2100));
 
-                        if (pickedDate != null) {
-                          print(
-                              pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                          String formattedDate =
-                              DateFormat('yyyy-MM-dd').format(pickedDate);
-                          print(
-                              formattedDate); //formatted date output using intl package =>  2021-03-16
-                          // setState(() {
-                          //   dateInput.text =
-                          //       formattedDate; //set output date to TextField value.
-                          // });
-                        } else {}
+                          if (pickedDate != null) {
+                            print(
+                                pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
+                            String formattedDate =
+                                DateFormat('yyyy-MM-dd').format(pickedDate);
+                            controller.dateOfBirth.text = formattedDate;
+                            print(formattedDate);
+
+                            logic.update();
+                          } else {}
+                        },
+                      ),
+                    );
+                  }),
+                  LogInItem(
+                    textEditingController: controller.phoneNumber,
+                    label: "N° de Téléphone",
+                    //   hint: Environment.phonePlaceholder,
+                    icon: Icons.add_call,
+                    //  validator: controller.validator.validatePhone,
+                    suffixIcon: IconButton(
+                      icon: const Icon(Icons.clear_outlined),
+                      onPressed: () {
+                        controller.phoneNumber.clear();
                       },
                     ),
+                    clearText: true,
                   ),
                   Center(
                     child: Padding(
@@ -254,6 +274,8 @@ class RegisterPage extends StatelessWidget {
                         width: double.infinity,
                         hight: 40,
                         onClick: () {
+                          controller.postRegister(context);
+
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (
                             context,

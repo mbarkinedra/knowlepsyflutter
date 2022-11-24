@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 import '../util/app_colors.dart';
 
 class CustomInputLogin extends StatelessWidget {
-  final String lep;
+  final String label;
   final String hint;
+  final TextEditingController textEditingController;
 
-  CustomInputLogin({required this.lep, this.hint = ""});
+  CustomInputLogin(
+      {required this.label, this.hint = "", required this.textEditingController});
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class CustomInputLogin extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            lep,
+            label,
             style: TextStyle(
               fontSize: 16,
               color: Colors.white,
@@ -34,6 +36,7 @@ class CustomInputLogin extends StatelessWidget {
                 border: Border.all(color: Colors.white)),
             child: Center(
               child: TextField(
+                controller: textEditingController,
                 decoration: InputDecoration(
                   hintText: hint,
                   fillColor: AppColors.primaryColor,

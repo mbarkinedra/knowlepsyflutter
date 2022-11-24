@@ -66,6 +66,7 @@ class AccessControlPage extends StatelessWidget {
                           right: 0,
                           child: GestureDetector(
                             onTap: () {
+
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (
                                 context,

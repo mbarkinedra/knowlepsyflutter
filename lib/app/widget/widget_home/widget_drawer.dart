@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:knowplesy/data/networking/api/auth_api.dart';
 import 'package:knowplesy/presentation/controllers/home_controller.dart';
+import 'package:knowplesy/presentation/pages/login_page/login_page.dart';
+
+import '../../../data/networking/api/log_out_api.dart';
+import '../../storage/account_info_storage.dart';
 
 class WidgetDrawer extends StatelessWidget {
   @override
@@ -22,8 +27,8 @@ class WidgetDrawer extends StatelessWidget {
                   height: 100,
                   child: Center(
                     child: _buildDrawerItem(
-                        icon: ImageIcon(AssetImage("assets/images/icon_menu.png")),
-
+                        icon: ImageIcon(
+                            AssetImage("assets/images/icon_menu.png")),
                         isSelect:
                             Get.find<HomeController>().navigatorValue == 5,
                         onTap: () {},
@@ -60,12 +65,19 @@ class WidgetDrawer extends StatelessWidget {
               SizedBox(
                 height: 30,
               ),
-              Text(
-                "LogOut",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                  color: Colors.deepPurple,
+              GestureDetector(
+                onTap: () async{
+                  print("vvvvvvvvvvvvvvv");
+                await Get.find<AccountInfoStorage>().logout();
+
+                },
+                child: Text(
+                  "LogOut",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                    color: Colors.deepPurple,
+                  ),
                 ),
               ),
               SizedBox(
@@ -89,7 +101,6 @@ class WidgetDrawer extends StatelessWidget {
             isSelect: Get.find<HomeController>().navigatorValue == 0,
             label: 'Home',
             icon: ImageIcon(AssetImage("assets/images/icon_home.png")),
-
             onTap: () {
               Get.find<HomeController>().changeSelectedValue(0);
             }),
@@ -97,21 +108,19 @@ class WidgetDrawer extends StatelessWidget {
             icon: ImageIcon(AssetImage("assets/images/icon_seizure.png")),
             isSelect: Get.find<HomeController>().navigatorValue == 1,
             label: 'Seizure',
-          //  icon: CupertinoIcons.waveform_path,
+            //  icon: CupertinoIcons.waveform_path,
             onTap: () {
               Get.find<HomeController>().changeSelectedValue(1);
             }),
         _buildDrawerItem(
             isSelect: Get.find<HomeController>().navigatorValue == 2,
             icon: ImageIcon(AssetImage("assets/images/icon_medecine.png")),
-
             label: 'Medecine',
             onTap: () {
               Get.find<HomeController>().changeSelectedValue(2);
             }),
         _buildDrawerItem(
             icon: ImageIcon(AssetImage("assets/images/icon_settings.png")),
-
             isSelect: Get.find<HomeController>().navigatorValue == 3,
             label: 'Setting',
             onTap: () {
@@ -124,9 +133,8 @@ class WidgetDrawer extends StatelessWidget {
   _buildDrawerItem(
       {required String label,
       //required IconData icon,
-        required ImageIcon icon,
-
-        required VoidCallback onTap,
+      required ImageIcon icon,
+      required VoidCallback onTap,
       required bool isSelect}) {
     return Column(
       children: [
