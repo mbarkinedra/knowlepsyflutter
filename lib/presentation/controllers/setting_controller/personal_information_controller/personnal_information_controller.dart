@@ -44,6 +44,7 @@ class PersonnalInformationController extends GetxController {
   }
 
   updateUserData() async {
+    print("object");
     updateData = true;
     String fileName = "";
     if (img != null) {
@@ -51,18 +52,33 @@ class PersonnalInformationController extends GetxController {
     }
 
     Map<String, dynamic> data = {
-      "first_name": firstName,
-      "image_url":
-          await di.MultipartFile.fromFile(img!.path, filename: fileName),
-      "last_name": lastName,
-      "phone_number": phoneNumber,
+      "first_name": firstName.text,
+        "image_url":
+           await di.MultipartFile.fromFile(img!.path, filename: fileName),
+      "last_name": lastName.text,
+      "phone_number": phoneNumber.text,
     };
+   di. FormData formData =   di.FormData.fromMap({
+     "first_name": firstName.text,
+
+     "phone_number": phoneNumber.text,
+
+     "last_name": lastName.text,
+     "image_url":
+
+        await di.MultipartFile.fromFile(img!.path, filename: fileName ),
+        "type": "image/png"
+
+    });
     _editUserProfileApi.securePost(dataToPost: data).then(
-      (value) {
+      (value) {print("*"*20);
+        print(value);
+      print("*"*20);
       //  Get.find<AccountInfoStorage>().saveFirstName(user.firstName ?? "");
       //  Get.find<AccountInfoStorage>().saveLastName(user.lastName ?? "");
       },
     ).catchError((e) {
+      print(e.toString());
       updateData = false;
       update();
     });

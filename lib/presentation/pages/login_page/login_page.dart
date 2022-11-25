@@ -34,6 +34,7 @@ class LoginPage extends GetView<LoginController> {
                 ),
 
                 CustomInputLogin(
+
                   label: "Email :",
                   hint: "Exemple@gmail.com",
                   textEditingController: controller.emailController,

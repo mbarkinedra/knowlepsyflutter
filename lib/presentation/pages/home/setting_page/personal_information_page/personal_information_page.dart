@@ -64,11 +64,13 @@ class PersonalInformationPage extends GetView<PersonnalInformationController> {
                     GestureDetector(
                       onTap: controller.pickImage,
                       child: ClipRRect(
-
                         borderRadius: BorderRadius.circular(22.0),
                         child: controller.img != null
-                            ? Image.file(controller.img!, width: 150,
-                          height: 110,)
+                            ? Image.file(
+                                controller.img!,
+                                width: 180,
+                                height: 110,
+                              )
                             : Image.asset(
                                 "assets/images/avatar.png",
                                 width: 150,
@@ -135,20 +137,20 @@ class PersonalInformationPage extends GetView<PersonnalInformationController> {
               height: 25,
             ),
             CustomInput(
-                lep: "Name :", hint: "Nedra", controller: controller.firstName),
+                lep: "Name :", hint: "", controller: controller.firstName),
             SizedBox(
               height: 8,
             ),
             CustomInput(
                 lep: "Family Name :",
-                hint: "Mbarki",
+                hint: "",
                 controller: controller.lastName),
             SizedBox(
               height: 8,
             ),
             CustomInput(
                 lep: "Email :",
-                hint: "Nedrambarki@gmail.com",
+                hint: "",
                 controller: controller.email),
             SizedBox(
               height: 10,
@@ -167,7 +169,7 @@ class PersonalInformationPage extends GetView<PersonnalInformationController> {
                         const SizedBox(height: 20),
                         IntlPhoneField(
                             decoration: InputDecoration(
-                              hintText: 'Phone Number',
+                              hintText: '',
                               border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(26),
                                 borderSide: BorderSide(),

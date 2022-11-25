@@ -79,7 +79,7 @@ abstract class ApiManager {
     return dioSingleton.dio
         .post(
       apiUrl(),
-      data: jsonEncode(dataToPost),
+      data: dataToPost,
       options: Options(
           headers: {
             ...defaultHeaders,

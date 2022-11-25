@@ -8,6 +8,7 @@ import '../../../app/storage/secure_storage.dart';
 import '../../../data/networking/api/auth_api.dart';
 import '../../../data/networking/json/simple_json_resource.dart';
 import '../../../data/networking/json/user_json.dart';
+import '../../../domain/validator/validator_signIn.dart';
 
 class LoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
@@ -18,7 +19,7 @@ class LoginController extends GetxController {
   late GlobalKey<FormState> signInFormKey;
   RxBool isLoading = false.obs;
 
-// ValidatorSignIn validator = ValidatorSignIn();
+ ValidatorSignIn validator = ValidatorSignIn();
 
   RxString error = ''.obs;
 
