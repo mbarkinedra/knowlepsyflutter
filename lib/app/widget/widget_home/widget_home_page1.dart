@@ -1,20 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:knowplesy/app/storage/account_info_storage.dart';
 import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:knowplesy/app/util/text_style.dart';
 import 'package:knowplesy/app/widget/custom_button.dart';
 import 'package:knowplesy/app/widget/widget_home/widget_drawer.dart';
 import 'package:knowplesy/app/widget/widget_home/widget_home_page2.dart';
+import 'package:knowplesy/presentation/controllers/seizure_controller/seizure_controller.dart';
 import 'package:knowplesy/presentation/pages/home/seizure_page/seizure_page.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../../presentation/controllers/home_controller.dart';
+import '../custom_dialogue_delete.dart';
 
-class WidgetHomePage1 extends StatelessWidget {
+class WidgetHomePage1 extends GetView<SeizureController> {
   const WidgetHomePage1({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    controller.getAlertByType();
     return Scaffold(
       body: Column(
         children: [
@@ -68,7 +72,10 @@ class WidgetHomePage1 extends StatelessWidget {
                               percent: 2 / 4,
                               animation: true,
                               circularStrokeCap: CircularStrokeCap.round,
-                              center: Text("2 \n seizure".tr.toString(),
+                              center: Text(
+                                  "${AccountInfoStorage.readTrueAlert()} \n seizure"
+                                      .tr
+                                      ,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 20,
@@ -91,11 +98,7 @@ class WidgetHomePage1 extends StatelessWidget {
                 child: CustomButton(
                   text: 'log_an_undetected_seizure_alert'.tr,
                   onClick: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (
-                      context,
-                    ) =>
-                            SeizurePage()));
+                  controller.showMyDialog(context);
                   },
                   color: AppColors.secondryColor,
                   width: MediaQuery.of(context).size.width * .8,
@@ -115,7 +118,7 @@ class WidgetHomePage1 extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: InkWell(
                                 onTap: () {
-                                  logic.pageController.animateToPage(index,
+                                  logic.pageController!.animateToPage(index,
                                       duration:
                                           const Duration(milliseconds: 300),
                                       curve: Curves.easeIn);
@@ -174,12 +177,16 @@ class WidgetHomePage1 extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 13, fontWeight: FontWeight.w600),
                           ),
-                          Text(
-                            "I whatching tv my favorite TV.....",
-                            style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.grey[500]),
+                          Row(
+                            children: [
+                              Text(
+                                "I whatching tv my favorite TV.....",
+                                style: TextStyle(
+                                    fontSize: 11,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.grey[500]),
+                              ),
+                            ],
                           )
                         ],
                       ),

@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:animated_splash_screen/animated_splash_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
@@ -18,7 +19,7 @@ import 'app/storage/secure_storage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+await Firebase.initializeApp();
   await GetStorage.init();
 
   runApp(const MyApp());
@@ -35,11 +36,12 @@ class MyApp extends StatelessWidget {
     print(SecureStorage.readSecureData('token'));
     print("*" * 10);
     return GetMaterialApp(
-      translations: WorldLanguage(), //Language class from world_languages.dart
-      locale:
-          Locale('en', 'US'), // translations will be displayed in that locale
-      fallbackLocale: Locale('en',
-          'US'), // specify the fallback locale in case an invalid locale is selected.
+      translations: WorldLanguage(),
+      //Language class from world_languages.dart
+      locale: Locale('en', 'US'),
+      // translations will be displayed in that locale
+      fallbackLocale: Locale('en', 'US'),
+      // specify the fallback locale in case an invalid locale is selected.
 
       debugShowCheckedModeBanner: false,
       initialBinding: AllBindings(),

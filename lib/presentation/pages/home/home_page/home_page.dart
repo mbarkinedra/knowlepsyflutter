@@ -206,6 +206,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:knowplesy/app/storage/secure_storage.dart';
 import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:knowplesy/app/widget/widget_home/widget_drawer.dart';
 import 'package:knowplesy/app/widget/widget_home/widget_home_page3.dart';
@@ -216,11 +217,24 @@ import '../../../../app/widget/widget_home/widget_home_page1.dart';
 import '../../../../app/widget/widget_home/widget_home_page2.dart';
 import 'package:get/get.dart';
 
-class HomePage1 extends GetView<HomeController> {
-  const HomePage1({Key? key}) : super(key: key);
+class HomePage1 extends StatefulWidget {
+
+  @override
+  State<HomePage1> createState() => _HomePage1State();
+}
+
+class _HomePage1State extends State<HomePage1> {
+  HomeController controller=Get.find<HomeController>();
+
+  @override
+  void initState() {
+    super.initState();
+    controller.pageController=PageController(initialPage:controller.initialPage);
+  }
 
   @override
   Widget build(BuildContext context) {
+    //controller.pageController.jumpToPage(controller.initialPage);
     return Scaffold(
         drawer: WidgetDrawer(),
         appBar: AppBar(
@@ -228,7 +242,7 @@ class HomePage1 extends GetView<HomeController> {
           backgroundColor: AppColors.primaryColor,
           title: Row(
             children: [
-              Text("hi".tr),
+              Text("${"hi".tr}${SecureStorage.readSecureData( 'firstName')}"),
               Spacer(),
               GestureDetector(
                 onTap: () {
@@ -250,10 +264,17 @@ class HomePage1 extends GetView<HomeController> {
             ],
           ),
         ),
-        body: PageView(controller:controller.pageController ,onPageChanged: controller.updatePageChaing,
+        body:
+
+
+
+
+
+
+        PageView(controller:controller.pageController ,onPageChanged: controller.updatePageChaing,
           children: const <Widget>[
             WidgetHomePage1(),
-            widgetHomePage2(),
+            WidgetHomePage2(),
             WidgetHomePage3()
           ],
         ));

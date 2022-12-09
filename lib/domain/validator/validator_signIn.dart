@@ -7,25 +7,23 @@ class ValidatorSignIn {
   bool validationType = false;
   ServerValidator validatorServer = ServerValidator();
 
-  String validateEmail(String value) {
+
+  String? validateEmail(String value) {
     if (!validationType) {
+      //client
       if (!GetUtils.isEmail(value)) {
         return "Veuillez saisir votre email";
       }
     } else {
+      //server
       return validatorServer.validate(value, 'email');
     }
-    return "";
+    return null;
   }
 
-  String validatePassword(String value) {
-    if (!validationType) {
-      if (value.isEmpty || value.length < 5) {
-        return "Veuillez saisir  votre mot de passe";
-      }
-    } else {
-      return validatorServer.validate(value, "password");
+  String? validatePassword(String value) {
+    if (value!.isEmpty || value!.length < 6) {
+      return "Veuillez saisir  votre mot de passe";
     }
-    return "";
   }
 }

@@ -33,7 +33,7 @@ class ParametresItem extends StatelessWidget {
           label!,
           style: TextStyle(
             color: AppColors.textColor,
-            fontSize: 12,
+            fontSize: 13,
           ),
         ),
         SizedBox(
@@ -53,7 +53,9 @@ class ParametresItem extends StatelessWidget {
                 icon: Icon(icon),
                 border: InputBorder.none,
                 iconColor: Colors.black26,
-                hintText: hint,
+                hintText: hint, hintStyle: TextStyle(fontSize: 13)
+
+                ,
                 suffixIcon: suffixIcon),
           ),
         ),

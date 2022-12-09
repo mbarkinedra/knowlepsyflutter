@@ -13,7 +13,7 @@ abstract class ApiManager {
   // Dio dio = Dio();
 
   Map<String, dynamic> defaultHeaders = {
-   // 'accept': 'application/json',
+    // 'accept': 'application/json',
     'Content-Type': 'application/json; charset=UTF-8',
     "authorization": "Bearer ${SecureStorage.readSecureData('token')}"
   };
@@ -46,12 +46,18 @@ abstract class ApiManager {
   }
 
   ///Get Data from Server with token
-  Future secureGetData() async {
+  Future secureGetData({data}) async {
+    Map<String, dynamic> defaultHeaders = {
+      'Content-Type': 'application/json; charset=UTF-8',
+      "authorization": "Bearer ${SecureStorage.readSecureData('token')}"
+    };
     AbstractJsonResource? json;
+
     var data;
     return dioSingleton.dio
         .get(
       apiUrl(),
+      queryParameters: data,
       options: Options(
           headers: {
             ...defaultHeaders,
@@ -62,7 +68,6 @@ abstract class ApiManager {
           }),
     )
         .then((value) {
-      print(value);
       data = value.data;
       json = fromJson(data);
       return json;
@@ -75,7 +80,13 @@ abstract class ApiManager {
   ///Post Data to Server with token
 
   Future securePost({dataToPost}) async {
-    print(jsonEncode(dataToPost));
+    Map<String, dynamic> defaultHeaders = {
+      'Content-Type': 'application/json; charset=UTF-8',
+      "authorization": "Bearer ${SecureStorage.readSecureData('token')}"
+    };
+
+    AbstractJsonResource? json;
+    var data;
     return dioSingleton.dio
         .post(
       apiUrl(),
@@ -91,7 +102,10 @@ abstract class ApiManager {
     )
         .then((value) {
       //  validateResponseStatusCode(value);
-      return value;
+
+      data = value.data;
+      json = fromJson(data);
+      return json;
     }).catchError((error, stackTrace) {
       //   processServerError(error);
     });
@@ -99,10 +113,15 @@ abstract class ApiManager {
 
   ///Delete Data  from Server with token
 
-  Future secureDelete() async {
+  Future secureDelete({data}) async {
+    Map<String, dynamic> defaultHeaders = {
+      'Content-Type': 'application/json; charset=UTF-8',
+      "authorization": "Bearer ${SecureStorage.readSecureData('token')}"
+    };
     return dioSingleton.dio
         .delete(
       apiUrl(),
+      queryParameters: data,
       options: Options(
           headers: {
             ...defaultHeaders,

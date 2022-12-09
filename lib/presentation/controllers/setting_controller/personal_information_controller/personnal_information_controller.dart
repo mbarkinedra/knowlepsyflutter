@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../app/storage/account_info_storage.dart';
+import '../../../../app/util/app_colors.dart';
 import '../../../../data/networking/api/user_profile_api.dart';
 import '../../../../data/networking/json/getuserprofilejson.dart';
 import '../../../../data/networking/json/user_json.dart';
@@ -18,18 +20,16 @@ class PersonnalInformationController extends GetxController {
   TextEditingController email = TextEditingController();
   TextEditingController dateOfBirth = TextEditingController();
   TextEditingController country = TextEditingController();
-
-  //final localisation = Get.find<LocController>();
+  List<File> images = [];
+  GetUserProfilejson? getUserProfilejson;
   bool updateData = false;
-
-  // ServerValidator validateServer = ServerValidator();
-  AccountInfoStorage _storage = AccountInfoStorage();
-  GetUserProfileApi _getUserProfileApi = GetUserProfileApi();
-  EditUserProfileApi _editUserProfileApi = EditUserProfileApi();
+  final GetUserProfileApi _getUserProfileApi = GetUserProfileApi();
+  final EditUserProfileApi _editUserProfileApi = EditUserProfileApi();
   User user = User();
   final ImagePicker _picker = ImagePicker();
   File? img;
 
+  /// Image Picker
   Future pickImage() async {
     XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (image == null) return;
@@ -43,6 +43,7 @@ class PersonnalInformationController extends GetxController {
     getUserData();
   }
 
+  ///Update User from server
   updateUserData() async {
     print("object");
     updateData = true;
@@ -50,32 +51,33 @@ class PersonnalInformationController extends GetxController {
     if (img != null) {
       fileName = img!.path.split('/').last;
     }
+    di.FormData formData = di.FormData.fromMap({});
+    if (img != null) {
+      formData = di.FormData.fromMap({
+        "first_name": firstName.text,
+        "phone_number": phoneNumber.text,
+        "last_name": lastName.text,
+        "image_url": await di.MultipartFile.fromFile(img?.path ?? "",
+            filename: fileName, contentType: new MediaType('image', 'png'))
+      });
+    } else {
+      formData = di.FormData.fromMap({
+        "first_name": firstName.text,
+        "phone_number": phoneNumber.text,
+        "last_name": lastName.text,
+      });
+    }
+    _editUserProfileApi.securePost(dataToPost: formData).then(
+      (value) {
 
-    Map<String, dynamic> data = {
-      "first_name": firstName.text,
-        "image_url":
-           await di.MultipartFile.fromFile(img!.path, filename: fileName),
-      "last_name": lastName.text,
-      "phone_number": phoneNumber.text,
-    };
-   di. FormData formData =   di.FormData.fromMap({
-     "first_name": firstName.text,
-
-     "phone_number": phoneNumber.text,
-
-     "last_name": lastName.text,
-     "image_url":
-
-        await di.MultipartFile.fromFile(img!.path, filename: fileName ),
-        "type": "image/png"
-
-    });
-    _editUserProfileApi.securePost(dataToPost: data).then(
-      (value) {print("*"*20);
-        print(value);
-      print("*"*20);
-      //  Get.find<AccountInfoStorage>().saveFirstName(user.firstName ?? "");
-      //  Get.find<AccountInfoStorage>().saveLastName(user.lastName ?? "");
+        GetUserProfilejson getUserProfilejson=value as GetUserProfilejson;
+        print(" Get.snackbar(");
+        Get.snackbar(
+          "",
+          getUserProfilejson.message ?? "",
+          backgroundColor: AppColors.secondryColor,
+          colorText: Colors.white,
+        );
       },
     ).catchError((e) {
       print(e.toString());
@@ -84,60 +86,22 @@ class PersonnalInformationController extends GetxController {
     });
   }
 
-  GetUserProfilejson? getUserProfilejson;
-
+  /// Get User information from server
   getUserData() {
-    print(
-        "iam startttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
-    // _editUserProfileApi. = Get.find<AccountInfoStorage>().readUserId();
-    firstName.text = _storage.readFirstName() ?? "";
-    lastName.text = _storage.readLastName() ?? "";
-
+    firstName.text = AccountInfoStorage.readFirstName() ?? "";
+    lastName.text = AccountInfoStorage.readLastName() ?? "";
     //"image_url":"avatar.png"
-    email.text = _storage.readEmail() ?? "";
-    phoneNumber.text = _storage.readPhone() ?? "";
-
+    email.text = AccountInfoStorage.readEmail() ?? "";
+    phoneNumber.text = AccountInfoStorage.readPhone() ?? "";
     _getUserProfileApi.secureGetData().then((value) {
       getUserProfilejson = value as GetUserProfilejson;
-
       print(getUserProfilejson?.data?.toJson());
       firstName.text = getUserProfilejson?.data?.firstName ?? "";
       lastName.text = getUserProfilejson?.data?.lastName ?? "";
       phoneNumber.text = getUserProfilejson?.data?.phoneNumber ?? "";
       email.text = getUserProfilejson?.data?.email ?? "";
-      Get.find<AccountInfoStorage>()
-          .saveUserId(getUserProfilejson!.data!.id.toString());
+      AccountInfoStorage.saveUserId(getUserProfilejson!.data!.id.toString());
       update();
-      //Get.find<TapHomeViewController>().setUserName(user.username);
-
-      // localisation.cities.forEach((element) {
-      //   if (element.id == user.city.id) {
-      //     localisation.updateCity(element);
-      //     update();
-      //   }
-      // });
-      //_userApi.id = null;
     });
   }
-//
-// /// Open Camera from Emelator
-// void openCamera() async {
-//   var imgCamera = await _picker.pickImage(source: ImageSource.camera);
-//   if (imgCamera != null) {
-//     images.add(File(imgCamera.path));
-//     update();
-//   }
-//   update();
-// }
-//
-// /// Open Camera from Emelator
-//
-// void openGallery() async {
-//   final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
-//   if (pickedFile != null) {
-//     img.add(File(pickedFile.path));
-//     update();
-//   }
-//   update();
-// }
 }

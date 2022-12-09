@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:knowplesy/app/util/text_style.dart';
+import 'package:knowplesy/presentation/controllers/seizure_controller/seizure_controller.dart';
 import 'package:knowplesy/presentation/pages/home/home_page/home_page.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:get/get.dart';
@@ -10,28 +11,7 @@ import '../../../../app/widget/custom_button.dart';
 import '../../../../app/widget/widget_home/widget_home_page1.dart';
 import '../../home_page.dart';
 
-class SeizurePage extends StatefulWidget {
-  @override
-  State<SeizurePage> createState() => _SeizurePageState();
-}
-
-class _SeizurePageState extends State<SeizurePage> {
-  DateTime? _selectedDay;
-  TimeOfDay _timeOfDay = TimeOfDay(hour: 8, minute: 30);
-
-  DateTime? _focusedDay;
-
-  // show time picker method
-  void _showTimePicker() {
-    showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-    ).then((value) {
-      setState(() {
-        _timeOfDay = value!;
-      });
-    });
-  }
+class SeizurePage extends GetView<SeizureController> {
 
   @override
   Widget build(BuildContext context) {
@@ -108,179 +88,140 @@ class _SeizurePageState extends State<SeizurePage> {
                       height: 8,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TableCalendar(
-                        calendarBuilders: CalendarBuilders(
-                            todayBuilder: (context, _datetime, focusedDay) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                color: focusedDay == _datetime
-                                    ? Colors.amberAccent
-                                    : Theme.of(context).scaffoldBackgroundColor,
-                                borderRadius: BorderRadius.circular(4.0)),
-                            margin: EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 0.0),
-                            child: focusedDay == _datetime
-                                ? Center(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          DateUtils
-                                              .weekdays[_datetime.weekday - 1],
-                                          style: TextStyle(color: Colors.black),
+                        padding: const EdgeInsets.all(8.0),
+                        child: GetBuilder<SeizureController>(builder: (logic) {
+                          return TableCalendar(
+                            calendarBuilders: CalendarBuilders(
+                                todayBuilder: (context, _datetime, focusedDay) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                    color: focusedDay == _datetime
+                                        ? Colors.amberAccent
+                                        : Theme.of(context)
+                                            .scaffoldBackgroundColor,
+                                    borderRadius: BorderRadius.circular(4.0)),
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 0.0),
+                                child: focusedDay == _datetime
+                                    ? Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text(
+                                              DateUtils.weekdays[
+                                                  _datetime.weekday - 1],
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                _datetime.day.toString(),
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 12),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            _datetime.day.toString(),
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 15),
-                                          ),
+                                      )
+                                    : Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text(
+                                              DateUtils.weekdays[
+                                                  _datetime.weekday - 1],
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                _datetime.day.toString(),
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 15),
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                      ],
-                                    ),
-                                  )
-                                : Center(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          DateUtils
-                                              .weekdays[_datetime.weekday - 1],
-                                          style: TextStyle(color: Colors.black),
+                                      ),
+                              );
+                            }, selectedBuilder:
+                                    (context, _datetime, focusedDay) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.amberAccent,
+                                    borderRadius: BorderRadius.circular(4.0)),
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 0.0),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text(
+                                        DateUtils
+                                            .weekdays[_datetime.weekday - 1],
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          _datetime.day.toString(),
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 10),
                                         ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            _datetime.day.toString(),
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 15),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                          );
-                        }, selectedBuilder: (context, _datetime, focusedDay) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                color: Colors.amberAccent,
-                                borderRadius: BorderRadius.circular(4.0)),
-                            margin: EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 0.0),
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    DateUtils.weekdays[_datetime.weekday - 1],
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      _datetime.day.toString(),
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 15),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                                ),
+                              );
+                            }),
+                            selectedDayPredicate: (day) {
+                              return isSameDay(logic.selectedDay, day);
+                            },
+                            calendarStyle: const CalendarStyle(
+                              canMarkersOverflow: true,
                             ),
+                            onDaySelected: (selectedDay, focusedDay) {
+                              logic.selectedDay = selectedDay;
+                              logic.focusedDay =
+                                  focusedDay; // update `_focusedDay` here as well
+                              logic.update();
+                            },
+                            calendarFormat: CalendarFormat.week,
+                            firstDay: DateTime.utc(2010, 10, 16),
+                            headerStyle: const HeaderStyle(
+                                formatButtonVisible: false,
+                                titleCentered: true,
+                                formatButtonShowsNext: false,
+                                titleTextStyle: TextStyle(
+                                  fontSize: 12,
+                                )),
+                            daysOfWeekVisible: false,
+                            lastDay: DateTime.utc(2030, 3, 14),
+                            daysOfWeekStyle: const DaysOfWeekStyle(
+                                decoration:
+                                    BoxDecoration(color: Colors.amberAccent),
+                                weekdayStyle: TextStyle(
+                                  fontSize: 10,
+                                )),
+                            focusedDay: controller.selectedDay == null
+                                ? DateTime.now()
+                                : controller.selectedDay!,
                           );
-                        }),
-                        selectedDayPredicate: (day) {
-                          return isSameDay(_selectedDay, day);
-                        },
-                        calendarStyle: CalendarStyle(
-                          canMarkersOverflow: true,
-                        ),
-                        onDaySelected: (selectedDay, focusedDay) {
-                          setState(() {
-                            _selectedDay = selectedDay;
-                            _focusedDay =
-                                focusedDay; // update `_focusedDay` here as well
-                          });
-                        },
-                        calendarFormat: CalendarFormat.week,
-                        firstDay: DateTime.utc(2010, 10, 16),
-                        headerStyle: HeaderStyle(
-                            formatButtonVisible: false,
-                            titleCentered: true,
-                            formatButtonShowsNext: false,
-                            titleTextStyle: TextStyle(
-                              fontSize: 12,
-                            )),
-                        daysOfWeekVisible: false,
-                        lastDay: DateTime.utc(2030, 3, 14),
-                        daysOfWeekStyle: DaysOfWeekStyle(
-                            decoration:
-                                BoxDecoration(color: Colors.amberAccent),
-                            weekdayStyle: TextStyle(
-                              fontSize: 10,
-                            )),
-                        focusedDay: _selectedDay == null
-                            ? DateTime.now()
-                            : _selectedDay!,
-                      ),
-                    ),
+                        })),
                   ],
                 ),
               ),
             ),
-            /*   Padding(
-              padding: const EdgeInsets.only(left: 28.0, top: 8, bottom: 8),
-              child: Text(
-                "Time",
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.left,
-              ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 18.0),
-              child: Container(
-                height: 40,
-                width: 100,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(width: 1, color: Colors.black26),
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-                child: TextField(
-                  decoration: InputDecoration(
-                    fillColor: Colors.grey.withOpacity(.1),
-                    filled: true,
-                    border: InputBorder.none,
-                    hintStyle: TextStyle(color: Colors.grey),
-                    errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(
-                          20,
-                        ),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(
-                          20,
-                        ),
-                        borderSide:
-                            BorderSide(color: Colors.grey.withOpacity(.0))),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            BorderSide(color: Colors.grey.withOpacity(.0))),
-                  ),
-                ),
-              ),
-            ),*/
             // create TimeOfDay variable
 
             // show time picker method
@@ -298,26 +239,30 @@ class _SeizurePageState extends State<SeizurePage> {
                 textAlign: TextAlign.left,
               ),
             ),
+
             Padding(
-              padding: const EdgeInsets.only(left: 28.0, top: 8, bottom: 8),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(width: 1, color: Colors.black26),
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-                child: MaterialButton(
-                  onPressed: _showTimePicker,
-                  child: Padding(
-                    padding: EdgeInsets.all(20.0),
-                    child: Text(
-                      _timeOfDay.format(context).toString(),
-                      style: TextStyle(fontSize: 18),
+                padding: const EdgeInsets.only(left: 28.0, top: 8, bottom: 8),
+                child: GetBuilder<SeizureController>(builder: (logic) {
+                  return GestureDetector(
+                    onTap: () {
+                      controller.showMyTimePicker(context);
+                    },
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        border: Border.all(width: 1, color: Colors.black26),
+                        borderRadius: BorderRadius.all(Radius.circular(20)),
+                      ),
+                      child: Padding(
+                        padding: EdgeInsets.all(20.0),
+                        child: Text(
+                          "${controller.timeOfDay.hour} : ${controller.timeOfDay.minute}",
+                          style: TextStyle(fontSize: 18),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
-            ),
+                  );
+                })),
 
             SizedBox(
               height: 8,
@@ -353,34 +298,38 @@ class _SeizurePageState extends State<SeizurePage> {
                     ),
                   ],
                 ),
-                child: TextField(
-                  maxLines: 6,
-                  decoration: InputDecoration(
-                    fillColor: Colors.grey.withOpacity(.1),
-                    filled: true,
-                    hintText: "add_a_comment".tr,
-                    border: InputBorder.none,
-                    hintStyle: TextStyle(
-                        color: Colors.grey[500],
-                        fontSize: 10,
-                        fontFamily: "Italic"),
-                    errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(
-                          20,
-                        ),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(
-                          20,
-                        ),
-                        borderSide:
-                            BorderSide(color: Colors.grey.withOpacity(.0))),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            BorderSide(color: Colors.grey.withOpacity(.0))),
-                  ),
-                ),
+
+                child: GetBuilder<SeizureController>(builder: (logic) {
+                  return TextField(
+                    controller: controller.comment,
+                    maxLines: 6,
+                    decoration: InputDecoration(
+                      fillColor: Colors.grey.withOpacity(.1),
+                      filled: true,
+                      hintText: "add_a_comment".tr,
+                      border: InputBorder.none,
+                      hintStyle: TextStyle(
+                          color: Colors.grey[500],
+                          fontSize: 10,
+                          fontFamily: "Italic"),
+                      errorBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(
+                            20,
+                          ),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(
+                            20,
+                          ),
+                          borderSide:
+                              BorderSide(color: Colors.grey.withOpacity(.0))),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              BorderSide(color: Colors.grey.withOpacity(.0))),
+                    ),
+                  );
+                }),
               ),
             ),
             Center(
@@ -393,11 +342,8 @@ class _SeizurePageState extends State<SeizurePage> {
                   // MediaQuery.of(context).size.width*.8,
                   hight: 40,
                   onClick: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (
-                      context,
-                    ) =>
-                            HomePage1()));
+                    print("00000000000000000000000000000000000000000000000000");
+                    controller.createUndetectedAlert(context);
                   },
                 ),
               ),

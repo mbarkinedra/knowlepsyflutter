@@ -4,17 +4,21 @@ import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:knowplesy/app/util/text_style.dart';
 import 'package:knowplesy/app/widget/custom_button.dart';
 import 'package:knowplesy/app/widget/widget_home/widget_drawer.dart';
+import 'package:knowplesy/presentation/controllers/seizure_controller/seizure_controller.dart';
 import 'package:knowplesy/presentation/pages/home/seizure_page/seizure_page.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../../presentation/controllers/home_controller.dart';
+import '../../storage/account_info_storage.dart';
+import '../custom_dialogue_delete.dart';
 import 'widget_home_page3.dart';
 
-class widgetHomePage2 extends StatelessWidget {
-  const widgetHomePage2({Key? key}) : super(key: key);
+class WidgetHomePage2 extends GetView<SeizureController> {
+  const WidgetHomePage2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    controller.getUndetectedAlert();
     return Scaffold(
       drawer: WidgetDrawer(),
       body: Column(
@@ -69,7 +73,9 @@ class widgetHomePage2 extends StatelessWidget {
                               percent: 1 / 4,
                               animation: true,
                               circularStrokeCap: CircularStrokeCap.round,
-                              center: Text("2 \n seizure".tr.toString(),
+                              center: Text(
+                                  "${AccountInfoStorage.readNbrUndetectedAlert()} \n seizure"
+                                      .tr,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 20,
@@ -116,7 +122,7 @@ class widgetHomePage2 extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: InkWell(
                                 onTap: () {
-                                  logic.pageController.animateToPage(index,
+                                  logic.pageController!.animateToPage(index,
                                       duration:
                                           const Duration(milliseconds: 300),
                                       curve: Curves.easeIn);
@@ -140,61 +146,111 @@ class widgetHomePage2 extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          Expanded(
-              child: ListView.separated(
-            itemCount: 50,
-            itemBuilder: (context, index) {
-              return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 15,
-                      width: 15,
-                      decoration: BoxDecoration(
-                          color: AppColors.CercleBlue, shape: BoxShape.circle),
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Convulsve senzure",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
+          Expanded(child: GetBuilder<SeizureController>(builder: (logic) {
+            return logic.getUndetectedAlertJson == null
+                ? Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : Card(
+                    child: ListView.separated(
+                      itemCount: logic.getUndetectedAlertJson!.data!.length,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 15,
+                                width: 15,
+                                decoration: BoxDecoration(
+                                    color: AppColors.CercleBlue,
+                                    shape: BoxShape.circle),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Convulsive seinzure",
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Text(
+                                      "${logic.getUndetectedAlertJson?.data?[index].time}",
+                                      style: TextStyle(
+                                          fontSize: 13,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                    Text(
+                                      "${logic.getUndetectedAlertJson?.data?[index].comment}",
+                                      style: TextStyle(
+                                          fontSize: 11,
+                                          fontWeight: FontWeight.w600,
+                                          color: Colors.grey[500]),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                      "${logic.getUndetectedAlertJson?.data?[index].time}"),
+                                  InkWell(
+                                    onTap: () async {
+                                      await showDialog<bool>(
+                                          context: context,
+                                          builder: (context) {
+                                            return CustomDialogueDelete(
+                                              okFunction: () async {
+                                                controller.deleteUndetectedAlert(
+                                                    undetectedAlert: logic
+                                                        .getUndetectedAlertJson!
+                                                        .data![index]);
+                                                logic.getUndetectedAlertJson!
+                                                    .data!
+                                                    .remove(logic
+                                                        .getUndetectedAlertJson!
+                                                        .data![index]);
+                                                logic.update();
+                                                Navigator.of(context).pop(true);
+                                              },
+                                              text2: " ",
+                                              title: "Confirmation",
+                                              function: () async {
+                                                Navigator.of(context).pop(true);
+                                              },
+                                              buttonText2: "Cancel",
+                                              description:
+                                                  "Are you sure you want to delete your ad?",
+                                              buttonText: "Ok",
+                                              phone: false,
+                                            );
+                                          });
+                                    },
+                                    child: const Icon(Icons.delete,
+                                        size: 20, color: Colors.grey),
+                                  ),
+                                ],
+                              ),
+                            ],
                           ),
-                          Text(
-                            "15 sec",
-                            style: TextStyle(
-                                fontSize: 13, fontWeight: FontWeight.w600),
-                          ),
-                          Text(
-                            "I whatching tv my favorite TV.....",
-                            style: TextStyle(
-                                fontSize: 11,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.grey[500]),
-                          )
-                        ],
-                      ),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return Divider();
+                      },
                     ),
-                    Text(
-                      "3:20 AM",
-                    ),
-                  ],
-                ),
-              );
-            },
-            separatorBuilder: (context, index) {
-              return Divider();
-            },
-          ))
+                  );
+          }))
         ],
       ),
     );

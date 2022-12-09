@@ -1,19 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:knowplesy/app/storage/account_info_storage.dart';
 import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:knowplesy/app/util/text_style.dart';
 import 'package:knowplesy/app/widget/custom_button.dart';
 import 'package:knowplesy/app/widget/widget_home/widget_drawer.dart';
+import 'package:knowplesy/presentation/controllers/seizure_controller/seizure_controller.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../../presentation/controllers/home_controller.dart';
 import '../../../presentation/pages/home/seizure_page/seizure_page.dart';
 
-class WidgetHomePage3 extends StatelessWidget {
+class WidgetHomePage3 extends GetView<SeizureController> {
   const WidgetHomePage3({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
+    controller.getAlertByType();
     return Scaffold(
       drawer: WidgetDrawer(),
       body: Column(
@@ -68,7 +71,7 @@ class WidgetHomePage3 extends StatelessWidget {
                               percent: 1 / 4,
                               animation: true,
                               circularStrokeCap: CircularStrokeCap.round,
-                              center: Text("1 \n seizure".tr.toString(),
+                              center: Text("${AccountInfoStorage.readFalseAlert()}\n seizure".tr,
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
                                       fontSize: 20,
@@ -115,7 +118,7 @@ class WidgetHomePage3 extends StatelessWidget {
                             padding: const EdgeInsets.symmetric(horizontal: 8),
                             child: InkWell(
                                 onTap: () {
-                                  logic.pageController.animateToPage(index,
+                                  logic.pageController!.animateToPage(index,
                                       duration:
                                           const Duration(milliseconds: 300),
                                       curve: Curves.easeIn);

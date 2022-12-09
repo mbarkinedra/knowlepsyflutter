@@ -3,30 +3,31 @@ import 'package:knowplesy/presentation/controllers/login_controller/login_contro
 
 import '../../app/storage/account_info_storage.dart';
 import '../controllers/home_controller.dart';
+import '../controllers/medecine_controller/medecine_controller.dart';
 import '../controllers/register_controller/register_controller.dart';
-import '../controllers/setting_controller/acces_control_controller/add_caregiver_controller.dart';
+import '../controllers/reset_password_controller/reset_password_controller.dart';
+import '../controllers/seizure_controller/seizure_controller.dart';
+import '../controllers/setting_controller/acces_control_controller/acces_control_controller.dart';
 import '../controllers/setting_controller/change_password_controller/change_password_controller.dart';
 import '../controllers/setting_controller/personal_information_controller/personnal_information_controller.dart';
 
 class AllBindings extends Bindings {
   @override
   void dependencies() async {
+    Get.put(AccountInfoStorage());
 
-    Get.put( AccountInfoStorage());
-
-
-    Get.put<LoginController>(LoginController());
+    Get.put<LoginController>(LoginController(),permanent: true);
     Get.put<RegisterController>(RegisterController());
+    Get.put<MedecineController>(MedecineController());
+
 
     Get.put<HomeController>(HomeController());
     Get.lazyPut(() => PersonnalInformationController());
+    Get.put<SeizureController>(SeizureController() );
 
+    Get.put<LoginPasswordController>(LoginPasswordController() );
 
-    Get.put<AddCaregiverController>(AddCaregiverController());
+    Get.put<AccesControlController>(AccesControlController());
     Get.put<ChangePasswordViewController>(ChangePasswordViewController());
-
-
-
-
   }
 }

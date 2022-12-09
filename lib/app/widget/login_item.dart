@@ -7,25 +7,23 @@ class LogInItem extends StatelessWidget {
   final String? hint;
   final bool? obscureText;
 
-  final  IconData? icon;
-  final Function? validator;
+  final IconData? icon;
+  final Function validator;
   final Function? onChanged;
   final IconButton? suffixIcon;
   RxBool? showSuffixIcon = true.obs;
   bool dynamicSuffixIcon = false;
 
   LogInItem(
-      {
-        bool clearText = false,
-        required this.label,
-        required this.textEditingController,
-        this.hint,
-        this.obscureText = false,
-        required this.icon,
-        this.validator,
-        this.suffixIcon,
-        this.onChanged})
-       {
+      {bool clearText = false,
+      required this.label,
+      required this.textEditingController,
+      this.hint,
+      this.obscureText = false,
+      required this.icon,
+      required this.validator,
+      this.suffixIcon,
+      this.onChanged}) {
     dynamicSuffixIcon = clearText;
     _setSuffixIcon();
   }
@@ -43,12 +41,14 @@ class LogInItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(15)),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)),
       child: TextFormField(
         controller: textEditingController,
         autovalidateMode: AutovalidateMode.onUserInteraction,
-        //validator: validator,
-       // obscureText: obscureText,
+        validator: (v) {
+          return validator(v);
+        },
+        // obscureText: obscureText,
         decoration: InputDecoration(
           errorMaxLines: 3,
           icon: Icon(icon),

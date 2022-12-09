@@ -128,6 +128,8 @@
   "change": "Change",
   "activated": "Activated",
   "add_caregiver": "Add caregiver",
+  "add_doctor": "Add doctor",
+
   "add": "Add",
   "not_confirmed": "not confirmed",
   "your_caregiver_will_receive_an_email_to_download_the_application_and_confirm_the_invitation_as_a_caregiver": "your caregiver will receive an email to download the application and confirm the invitation as a caregiver.",

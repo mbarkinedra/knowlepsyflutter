@@ -6,9 +6,20 @@ class CustomInputLogin extends StatelessWidget {
   final String label;
   final String hint;
   final TextEditingController textEditingController;
+  final bool? obscureText;
+  final IconButton? suffixIcon;
+  final IconData? icon;
+  final Function validator;
+  final Color color;
 
   CustomInputLogin(
-      {required this.label, this.hint = "", required this.textEditingController});
+      {required this.label,this.color=Colors.black,
+      this.icon,
+      this.hint = "",
+      required this.textEditingController,
+      required this.validator,
+      this.obscureText,
+      this.suffixIcon});
 
   @override
   Widget build(BuildContext context) {
@@ -28,26 +39,30 @@ class CustomInputLogin extends StatelessWidget {
             height: 15,
           ),
           Container(
-            height: 50,
+            //height: 50,
             padding: EdgeInsets.all(5),
             decoration: BoxDecoration(
                 color: AppColors.primaryColor,
                 borderRadius: BorderRadius.circular(20),
                 border: Border.all(color: Colors.white)),
             child: Center(
-              child: TextField(
+              child: TextFormField(style: TextStyle(color:Colors.white ),
+                validator: (v) {
+                  return validator(v);
+                },
                 controller: textEditingController,
+                // obscureText: obscureText!,
                 decoration: InputDecoration(
                   hintText: hint,
+                  icon: Icon(
+                    icon,
+                    color: Colors.white,
+                  ),
+                  suffixIcon: suffixIcon,
                   fillColor: AppColors.primaryColor,
                   filled: true,
                   border: InputBorder.none,
                   hintStyle: TextStyle(color: Colors.white),
-                  errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        0,
-                      ),
-                      borderSide: BorderSide(color: Colors.white)),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(0),
                       borderSide:

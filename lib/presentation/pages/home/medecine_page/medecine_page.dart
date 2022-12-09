@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:knowplesy/presentation/controllers/medecine_controller/medecine_controller.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../../../app/util/app_colors.dart';
@@ -11,14 +12,7 @@ import '../setting_page/personal_information_page/personal_information_page.dart
 import 'insert_medecine.dart';
 import 'package:get/get.dart';
 
-class MedecinePage extends StatefulWidget {
-  const MedecinePage({Key? key}) : super(key: key);
-
-  @override
-  State<MedecinePage> createState() => _MedecinePageState();
-}
-
-class _MedecinePageState extends State<MedecinePage> {
+class MedecinePage extends GetView<MedecineController> {
   DateTime _selectedDay = DateTime.now();
 
   DateTime? _focusedDay;
@@ -26,10 +20,8 @@ class _MedecinePageState extends State<MedecinePage> {
   Map<DateTime, List<Event>> selectedEvents = {};
 
   @override
-  void initState() {}
-
-  @override
   Widget build(BuildContext context) {
+    controller.getMedecation();
     List<Event> e = [];
     selectedEvents = {_selectedDay: e};
 
@@ -164,7 +156,7 @@ class _MedecinePageState extends State<MedecinePage> {
                                 child: Text(
                                   _datetime.day.toString(),
                                   style: TextStyle(
-                                      color: Colors.white, fontSize: 15),
+                                      color: Colors.white, fontSize: 12),
                                 ),
                               ),
                             ],
@@ -179,11 +171,9 @@ class _MedecinePageState extends State<MedecinePage> {
                       canMarkersOverflow: true,
                     ),
                     onDaySelected: (selectedDay, focusedDay) {
-                      setState(() {
-                        _selectedDay = selectedDay;
-                        _focusedDay =
-                            focusedDay; // update `_focusedDay` here as well
-                      });
+                      _selectedDay = selectedDay;
+                      _focusedDay =
+                          focusedDay; // update `_focusedDay` here as well
                     },
                     calendarFormat: CalendarFormat.week,
                     firstDay: DateTime.utc(2010, 10, 16),
@@ -219,7 +209,7 @@ class _MedecinePageState extends State<MedecinePage> {
                             builder: (
                           context,
                         ) =>
-                                const InsertMedecine()));
+                                const InsertMedecinePage()));
                       },
                     ),
                   ),
@@ -244,7 +234,8 @@ class _MedecinePageState extends State<MedecinePage> {
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text("Today",
-                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
+                    style:
+                        TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
               ),
             ],
           ),
@@ -252,368 +243,241 @@ class _MedecinePageState extends State<MedecinePage> {
         SizedBox(
           height: 10,
         ),
-        Expanded(
-            child: ListView.builder(
-                itemCount: _getEventsForDay(_selectedDay).length,
-                itemBuilder: (context, pos) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      padding: EdgeInsets.only(left: 10),
+        Expanded(child: GetBuilder<MedecineController>(builder: (logic) {
+          return logic.getMedecationJson == null
+              ? Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ListView.builder(
+                  itemCount: logic.getMedecationJson?.data?.length,
+                  itemBuilder: (context, pos) {
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
                       child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(15),
-                                  bottomRight: Radius.circular(15))),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                  Image.asset(
-                                    "assets/images/icon_piles.png",
-                                    height: 20,
-                                    width: 20,
-                                  ),
-                                  SizedBox(
-                                    width: 4,
-                                  ),
-                                  Text(
-                                    "tegretol".tr,
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  Spacer(),
-                                  Image.asset(
-                                    "assets/images/icon_time.png",
-                                    height: 20,
-                                    width: 20,
-                                  ),
-                                  Text("12:23"),
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                  Image.asset(
-                                    "assets/images/icon_medecine.png",
-                                    height: 20,
-                                    width: 20,
-                                  ),
-                                  Text(
-                                    "2 piles",
-                                    style: TextStyle(),
-                                  ),
-                                  Spacer(),
-                                  Image.asset(
-                                    "assets/images/icon_dosage.png",
-                                    height: 20,
-                                    width: 20,
-                                  ),
-                                  SizedBox(
-                                    width: 4,
-                                  ),
-                                  Text("200: mg"),
-                                  Spacer(),
-                                  Container(
-                                    height: 30,
-                                    width: 70,
-                                    decoration: BoxDecoration(
-                                        color: Colors.deepPurpleAccent,
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    child: Center(
-                                        child: Text(
-                                      "taken".tr,
-                                      style: TextStyle(color: Colors.white),
-                                    )),
-                                  ),
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                ],
-                              )
-                            ],
-                          )),
-                      height: 70,
-                      decoration: BoxDecoration(
-                          color: Colors.deepPurpleAccent,
-                          borderRadius: BorderRadius.circular(15)),
-                    ),
-                  );
-
-                  // return Padding(
-                  //   padding: const EdgeInsets.all(8.0),
-                  //   child: Container(
-                  //     height: 150,
-                  //     decoration: BoxDecoration(
-                  //         borderRadius: BorderRadius.circular(10),
-                  //         color: Colors.white.withOpacity(1)),
-                  //     child: IntrinsicHeight(
-                  //       child: Row(
-                  //         children: [
-                  //           Padding(
-                  //             padding: const EdgeInsets.all(8.0),
-                  //             child: Container(
-                  //                 height: double.infinity,
-                  //                 width: 40,
-                  //                 decoration: BoxDecoration(
-                  //                   borderRadius: BorderRadius.circular(5),
-                  //                   color: Colors.deepPurpleAccent[100],
-                  //                 ),
-                  //                 child: Align(
-                  //                     alignment: Alignment.topCenter,
-                  //                     child: Padding(
-                  //                       padding:
-                  //                           const EdgeInsets.only(top: 8.0),
-                  //                       child: Icon(Icons.add),
-                  //                     ))),
-                  //           ),
-                  //           Padding(
-                  //             padding:
-                  //                 const EdgeInsets.only(top: 8.0, bottom: 8),
-                  //             child: Column(
-                  //                 crossAxisAlignment: CrossAxisAlignment.start,
-                  //                 children: [
-                  //                   Text(
-                  //                       _getEventsForDay(_selectedDay)[pos]
-                  //                           .name,
-                  //                       style: TextStyle(
-                  //                           fontWeight: FontWeight.bold,
-                  //                           fontSize: 16)),
-                  //                   Text(_getEventsForDay(_selectedDay)[pos]
-                  //                       .des),
-                  //                   Spacer(),
-                  //                   Text(_getEventsForDay(_selectedDay)[pos]
-                  //                       .time)
-                  //                 ]),
-                  //           ),
-                  //           Spacer(),
-                  //           Align(
-                  //             alignment: Alignment.topRight,
-                  //             child: GestureDetector(
-                  //               onTap: () {
-                  //                 //     Navigator.of(context).push(MaterialPageRoute(
-                  //                 //        builder: (
-                  //                 //           context,
-                  //                 //          ) =>
-                  //                 //         PopUpAlert()));
-                  //
-                  //                 _showMyDialog();
-                  //               },
-                  //               child: Image.asset(
-                  //                 "assets/images/chek_medecine.png",
-                  //                 width: 40,
-                  //                 height: 40,
-                  //               ),
-                  //             ),
-                  //           )
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ),
-                  // );
-                })),
+                        padding: EdgeInsets.only(left: 10),
+                        child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(15),
+                                    bottomRight: Radius.circular(15))),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    Image.asset(
+                                      "assets/images/icon_piles.png",
+                                      height: 20,
+                                      width: 20,
+                                    ),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Text(
+                                      "${logic.getMedecationJson?.data?[pos].name}",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Spacer(),
+                                    Image.asset(
+                                      "assets/images/icon_time.png",
+                                      height: 20,
+                                      width: 20,
+                                    ),
+                                    Text(
+                                      "${logic.getMedecationJson?.data?[pos].time}",
+                                    ),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                    Image.asset(
+                                      "assets/images/icon_medecine.png",
+                                      height: 20,
+                                      width: 20,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "${logic.getMedecationJson?.data?[pos].dosage}",
+                                          style: TextStyle(),
+                                        ),
+                                        Text("${logic.getMedecationJson?.data?[pos].typeDosage}")
+                                      ],
+                                    ),
+                                    Spacer(),
+                                    Image.asset(
+                                      "assets/images/icon_dosage.png",
+                                      height: 20,
+                                      width: 20,
+                                    ),
+                                    SizedBox(
+                                      width: 4,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text("${logic.getMedecationJson?.data?[pos].quantity}"),
+                                        Text("${logic.getMedecationJson?.data?[pos].typeQuantity}"),
+                                      ],
+                                    ),
+                                    Spacer(),
+                                    Container(
+                                      height: 30,
+                                      width: 70,
+                                      decoration: BoxDecoration(
+                                          color: Colors.deepPurpleAccent,
+                                          borderRadius:
+                                              BorderRadius.circular(15)),
+                                      child: Center(
+                                          child: Text(
+                                        "taken".tr,
+                                        style: TextStyle(color: Colors.white),
+                                      )),
+                                    ),
+                                    SizedBox(
+                                      width: 8,
+                                    ),
+                                  ],
+                                )
+                              ],
+                            )),
+                        height: 70,
+                        decoration: BoxDecoration(
+                            color: Colors.deepPurpleAccent,
+                            borderRadius: BorderRadius.circular(15)),
+                      ),
+                    );
+                  });
+        })),
         SizedBox(
           height: 8,
         ),
-        Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: const EdgeInsets.only(top: 2.0, left: 18),
-            child: Text("tomorrow".tr,
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
-          ),
-        ),
+        // Align(
+        //   alignment: Alignment.centerLeft,
+        //   child: Padding(
+        //     padding: const EdgeInsets.only(top: 2.0, left: 18),
+        //     child: Text("tomorrow".tr,
+        //         style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
+        //   ),
+        // ),
         SizedBox(
           height: 8,
         ),
-        Expanded(
-            child: ListView.builder(
-                itemCount: _getEventsForDay(_selectedDay).length,
-                itemBuilder: (context, pos) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Container(
-                      padding: EdgeInsets.only(left: 10),
-                      child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(15),
-                                  bottomRight: Radius.circular(15))),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                  Image.asset(
-                                    "assets/images/icon_piles.png",
-                                    color: AppColors.secondryColor,
-                                    height: 20,
-                                    width: 20,
-                                  ),
-                                  SizedBox(
-                                    width: 4,
-                                  ),
-                                  Text(
-                                    "tegretol".tr,
-                                    style:
-                                        TextStyle(fontWeight: FontWeight.bold),
-                                  ),
-                                  Spacer(),
-                                  Image.asset(
-                                    "assets/images/icon_time.png",
-                                    height: 20,
-                                    width: 20,
-                                  ),
-                                  Text("12:23"),
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                children: [
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                  Image.asset(
-                                    "assets/images/icon_medecine.png",
-                                    height: 20,
-                                    width: 20,
-                                  ),
-                                  Text(
-                                    "2 piles",
-                                    style: TextStyle(),
-                                  ),
-                                  Spacer(),
-                                  Image.asset(
-                                    "assets/images/icon_dosage.png",
-                                    height: 20,
-                                    width: 20,
-                                  ),
-                                  SizedBox(
-                                    width: 4,
-                                  ),
-                                  Text("200: mg"),
-                                  Spacer(),
-                                  Container(
-                                    height: 30,
-                                    width: 70,
-                                    decoration: BoxDecoration(
-                                        color: AppColors.secondryColor,
-                                        borderRadius:
-                                            BorderRadius.circular(15)),
-                                    child: Center(
-                                        child: Text(
-                                      "pending".tr,
-                                      style: TextStyle(color: Colors.white),
-                                    )),
-                                  ),
-                                  SizedBox(
-                                    width: 8,
-                                  ),
-                                ],
-                              )
-                            ],
-                          )),
-                      height: 70,
-                      decoration: BoxDecoration(
-                          color: AppColors.secondryColor,
-                          borderRadius: BorderRadius.circular(15)),
-                    ),
-                  );
-
-                  // return Padding(
-                  //   padding: const EdgeInsets.all(8.0),
-                  //   child: Container(
-                  //     height: 150,
-                  //     decoration: BoxDecoration(
-                  //         borderRadius: BorderRadius.circular(10),
-                  //         color: Colors.white.withOpacity(1)),
-                  //     child: IntrinsicHeight(
-                  //       child: Row(
-                  //         children: [
-                  //           Padding(
-                  //             padding: const EdgeInsets.all(8.0),
-                  //             child: Container(
-                  //                 height: double.infinity,
-                  //                 width: 40,
-                  //                 decoration: BoxDecoration(
-                  //                   borderRadius: BorderRadius.circular(5),
-                  //                   color: Colors.deepPurpleAccent[100],
-                  //                 ),
-                  //                 child: Align(
-                  //                     alignment: Alignment.topCenter,
-                  //                     child: Padding(
-                  //                       padding:
-                  //                           const EdgeInsets.only(top: 8.0),
-                  //                       child: Icon(Icons.add),
-                  //                     ))),
-                  //           ),
-                  //           Padding(
-                  //             padding:
-                  //                 const EdgeInsets.only(top: 8.0, bottom: 8),
-                  //             child: Column(
-                  //                 crossAxisAlignment: CrossAxisAlignment.start,
-                  //                 children: [
-                  //                   Text(
-                  //                       _getEventsForDay(_selectedDay)[pos]
-                  //                           .name,
-                  //                       style: TextStyle(
-                  //                           fontWeight: FontWeight.bold,
-                  //                           fontSize: 16)),
-                  //                   Text(_getEventsForDay(_selectedDay)[pos]
-                  //                       .des),
-                  //                   Spacer(),
-                  //                   Text(_getEventsForDay(_selectedDay)[pos]
-                  //                       .time)
-                  //                 ]),
-                  //           ),
-                  //           Spacer(),
-                  //           Align(
-                  //             alignment: Alignment.topRight,
-                  //             child: GestureDetector(
-                  //               onTap: () {
-                  //                 //     Navigator.of(context).push(MaterialPageRoute(
-                  //                 //        builder: (
-                  //                 //           context,
-                  //                 //          ) =>
-                  //                 //         PopUpAlert()));
-                  //
-                  //                 _showMyDialog();
-                  //               },
-                  //               child: Image.asset(
-                  //                 "assets/images/chek_medecine.png",
-                  //                 width: 40,
-                  //                 height: 40,
-                  //               ),
-                  //             ),
-                  //           )
-                  //         ],
-                  //       ),
-                  //     ),
-                  //   ),
-                  // );
-                }))
+        // Expanded(
+        //     child: ListView.builder(
+        //         itemCount: _getEventsForDay(_selectedDay).length,
+        //         itemBuilder: (context, pos) {
+        //           return Padding(
+        //             padding: const EdgeInsets.all(8.0),
+        //             child: Container(
+        //               padding: EdgeInsets.only(left: 10),
+        //               child: Container(
+        //                   decoration: BoxDecoration(
+        //                       color: Colors.white,
+        //                       borderRadius: BorderRadius.only(
+        //                           topRight: Radius.circular(15),
+        //                           bottomRight: Radius.circular(15))),
+        //                   child: Column(
+        //                     mainAxisAlignment: MainAxisAlignment.spaceAround,
+        //                     children: [
+        //                       Row(
+        //                         children: [
+        //                           SizedBox(
+        //                             width: 8,
+        //                           ),
+        //                           Image.asset(
+        //                             "assets/images/icon_piles.png",
+        //                             color: AppColors.secondryColor,
+        //                             height: 20,
+        //                             width: 20,
+        //                           ),
+        //                           SizedBox(
+        //                             width: 4,
+        //                           ),
+        //                           Text(
+        //                             "tegretol".tr,
+        //                             style:
+        //                                 TextStyle(fontWeight: FontWeight.bold),
+        //                           ),
+        //                           Spacer(),
+        //                           Image.asset(
+        //                             "assets/images/icon_time.png",
+        //                             height: 20,
+        //                             width: 20,
+        //                           ),
+        //                           Text("12:23"),
+        //                           SizedBox(
+        //                             width: 8,
+        //                           ),
+        //                         ],
+        //                       ),
+        //                       Row(
+        //                         children: [
+        //                           SizedBox(
+        //                             width: 8,
+        //                           ),
+        //                           Image.asset(
+        //                             "assets/images/icon_medecine.png",
+        //                             height: 20,
+        //                             width: 20,
+        //                           ),
+        //                           Text(
+        //                             "2 piles",
+        //                             style: TextStyle(),
+        //                           ),
+        //                           Spacer(),
+        //                           Image.asset(
+        //                             "assets/images/icon_dosage.png",
+        //                             height: 20,
+        //                             width: 20,
+        //                           ),
+        //                           SizedBox(
+        //                             width: 4,
+        //                           ),
+        //                           Text("200: mg"),
+        //                           Spacer(),
+        //                           Container(
+        //                             height: 30,
+        //                             width: 70,
+        //                             decoration: BoxDecoration(
+        //                                 color: AppColors.secondryColor,
+        //                                 borderRadius:
+        //                                     BorderRadius.circular(15)),
+        //                             child: Center(
+        //                                 child: Text(
+        //                               "pending".tr,
+        //                               style: TextStyle(color: Colors.white),
+        //                             )),
+        //                           ),
+        //                           SizedBox(
+        //                             width: 8,
+        //                           ),
+        //                         ],
+        //                       )
+        //                     ],
+        //                   )),
+        //               height: 70,
+        //               decoration: BoxDecoration(
+        //                   color: AppColors.secondryColor,
+        //                   borderRadius: BorderRadius.circular(15)),
+        //             ),
+        //           );
+        //         }))
       ]),
     );
   }
 
-  Future<void> _showMyDialog() async {
+  Future<void> _showMyDialog(context) async {
     return showDialog<void>(
       context: context,
       //    barrierDismissible: false,
@@ -706,12 +570,10 @@ class _MedecinePageState extends State<MedecinePage> {
 
   void _onDaySelected(DateTime selectedDay, DateTime focusedDay) {
     if (!isSameDay(_selectedDay, selectedDay)) {
-      setState(() {
-        _focusedDay = focusedDay;
-        _selectedDay = selectedDay;
-        _selectedEvents = _getEventsForDay(selectedDay);
-        print(_selectedEvents);
-      });
+      _focusedDay = focusedDay;
+      _selectedDay = selectedDay;
+      _selectedEvents = _getEventsForDay(selectedDay);
+      print(_selectedEvents);
     }
   }
 

@@ -1,6 +1,6 @@
 import 'package:knowplesy/data/networking/json/abstract__json_resource.dart';
 
-class UserJson extends AbstractJsonResource{
+class UserJson extends AbstractJsonResource {
   int? status;
   String? tokenType;
   User? user;
@@ -10,11 +10,11 @@ class UserJson extends AbstractJsonResource{
 
   UserJson(
       {this.status,
-        this.tokenType,
-        this.user,
-        this.token,
-        this.refreshToken,
-        this.expiredAt});
+      this.tokenType,
+      this.user,
+      this.token,
+      this.refreshToken,
+      this.expiredAt});
 
   UserJson.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -45,37 +45,39 @@ class User {
   String? lastName;
   String? imageUrl;
   String? email;
-  String? emailVerifiedAt;
+  Null? emailVerifiedAt;
   int? verifiedMail;
   String? role;
   int? enabled;
   int? trueAlert;
   int? falseAlert;
+  int? nbrUndetectedAlert;
   String? phoneNumber;
   String? dateOfBirth;
-  String? filedoctor;
+  Null? filedoctor;
   String? country;
   String? createdAt;
   String? updatedAt;
 
   User(
       {this.id,
-        this.firstName,
-        this.lastName,
-        this.imageUrl,
-        this.email,
-        this.emailVerifiedAt,
-        this.verifiedMail,
-        this.role,
-        this.enabled,
-        this.trueAlert,
-        this.falseAlert,
-        this.phoneNumber,
-        this.dateOfBirth,
-        this.filedoctor,
-        this.country,
-        this.createdAt,
-        this.updatedAt});
+      this.firstName,
+      this.lastName,
+      this.imageUrl,
+      this.email,
+      this.emailVerifiedAt,
+      this.verifiedMail,
+      this.role,
+      this.enabled,
+      this.trueAlert,
+      this.falseAlert,
+      this.nbrUndetectedAlert,
+      this.phoneNumber,
+      this.dateOfBirth,
+      this.filedoctor,
+      this.country,
+      this.createdAt,
+      this.updatedAt});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -89,6 +91,7 @@ class User {
     enabled = json['enabled'];
     trueAlert = json['trueAlert'];
     falseAlert = json['falseAlert'];
+    nbrUndetectedAlert = json['nbr_undetectedAlert'];
     phoneNumber = json['phone_number'];
     dateOfBirth = json['date_of_birth'];
     filedoctor = json['filedoctor'];
@@ -110,6 +113,7 @@ class User {
     data['enabled'] = this.enabled;
     data['trueAlert'] = this.trueAlert;
     data['falseAlert'] = this.falseAlert;
+    data['nbr_undetectedAlert'] = this.nbrUndetectedAlert;
     data['phone_number'] = this.phoneNumber;
     data['date_of_birth'] = this.dateOfBirth;
     data['filedoctor'] = this.filedoctor;

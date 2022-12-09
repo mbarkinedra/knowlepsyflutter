@@ -47,22 +47,25 @@ class ChangePasswordPage extends GetView<ChangePasswordViewController> {
               height: 35,
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10.0, right: 8),
+              padding: const EdgeInsets.all(25.0),
               child: Align(
-                alignment: Alignment.center,
+                alignment: Alignment.centerLeft,
                 child: Text(
-                  "Changement de mot de passe:",
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  "Password change:",
+                  style: TextStyle(
+                      fontSize: 15,
+                      color: AppColors.textColor,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
             ),
             SizedBox(
-              height: 20,
+              height: 10,
             ),
             GetBuilder<ChangePasswordViewController>(builder: (logic) {
               return ParametresItem(
                 label: "Old password",
-                hint: "Old Password",
+                hint: "Old password  ",
                 obscureText: logic.isVisiblePassword1,
                 textEditingController: controller.oldPassword,
                 // validator: (value) {
@@ -84,9 +87,10 @@ class ChangePasswordPage extends GetView<ChangePasswordViewController> {
             GetBuilder<ChangePasswordViewController>(builder: (logic) {
               return ParametresItem(
                 label: "New Password",
-                hint: "New password",
+                hint: "New password" ,
                 obscureText: logic.isVisiblePassword2,
                 textEditingController: controller.newPassword,
+
                 // validator: (value) {
                 //   return controller.validateServer.validate(value, 'password');
                 // },
@@ -103,7 +107,8 @@ class ChangePasswordPage extends GetView<ChangePasswordViewController> {
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(30.0),
-                child: GetBuilder<ChangePasswordViewController>(builder: (logic) {
+                child:
+                    GetBuilder<ChangePasswordViewController>(builder: (logic) {
                   return CustomButton(
                     text: 'Change',
                     color: AppColors.secondryColor,
@@ -111,8 +116,7 @@ class ChangePasswordPage extends GetView<ChangePasswordViewController> {
                     // MediaQuery.of(context).size.width*.8,
                     hight: 40,
                     onClick: () {
-                        controller.changePassword();
-
+                      controller.changePassword(context);
                     },
                   );
                 }),

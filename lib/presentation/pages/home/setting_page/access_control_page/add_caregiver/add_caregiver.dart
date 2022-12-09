@@ -6,9 +6,10 @@ import 'package:knowplesy/app/util/app_colors.dart';
 
 import '../../../../../../app/widget/custom_button.dart';
 import '../../../../../../app/widget/custom_input.dart';
-import '../../../../../controllers/setting_controller/acces_control_controller/add_caregiver_controller.dart';
+import '../../../../../controllers/setting_controller/acces_control_controller/acces_control_controller.dart';
+import '../access_control_page.dart';
 
-class Addcaregiver extends GetView<AddCaregiverController> {
+class Addcaregiver extends GetView<AccesControlController> {
   const Addcaregiver({Key? key}) : super(key: key);
 
   @override
@@ -104,32 +105,21 @@ class Addcaregiver extends GetView<AddCaregiverController> {
               height: 10,
             ),
             CustomInput(
-              lep: "Name :",
-              controller: controller.firstName,
-
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            CustomInput(
-              controller: controller.lastName,
-
-              lep: "Last Name :",
+              lep: "Caregiver's name  :",
+              controller: controller.caregiverName,
             ),
             SizedBox(
               height: 8,
             ),
             CustomInput(
               controller: controller.email,
-
-              lep: "Email :",
+              lep: "Mail :",
             ),
             SizedBox(
               height: 8,
             ),
             CustomInput(
               controller: controller.phoneNumber,
-
               lep: "Phone number :",
             ),
             Center(
@@ -141,8 +131,35 @@ class Addcaregiver extends GetView<AddCaregiverController> {
                   width: double.infinity,
                   hight: 40,
                   onClick: () {
-                    controller.RegisterCareGiver(context);
-
+                    controller.addCaregiver(context);
+                    Get.defaultDialog(
+                        title: "Confirmation",
+                        //  middleText: "Take a new phhoto or import one from your library",
+                        contentPadding: EdgeInsets.all(8),
+                        titlePadding: EdgeInsets.all(16),
+                        titleStyle: TextStyle(color: Colors.black),
+                        middleTextStyle: TextStyle(color: Colors.black),
+                        textConfirm: "Confirm",
+                        onConfirm: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (
+                            context,
+                          ) =>
+                                  AccessControlPage()));
+                          Get.back();
+                        },
+                        buttonColor: Colors.white,
+                        backgroundColor: Colors.white,
+                        radius: 10,
+                        content: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                  "Your caregiver will receive an email\nto download the application\nand confirm the invitation\n as a caregiver"),
+                            )
+                          ],
+                        ));
                   },
                 ),
               ),

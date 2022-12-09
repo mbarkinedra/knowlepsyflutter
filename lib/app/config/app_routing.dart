@@ -94,11 +94,11 @@ class AppRouting {
         binding: AllBindings()),
     GetPage(
         name: insertmedecine,
-        page: () => const InsertMedecine(),
+        page: () => const InsertMedecinePage(),
         binding: AllBindings()),
     GetPage(
         name: medecine,
-        page: () => const MedecinePage(),
+        page: () =>  MedecinePage(),
         binding: AllBindings()),
     GetPage(
         name: seizurepage, page: () => SeizurePage(), binding: AllBindings()),

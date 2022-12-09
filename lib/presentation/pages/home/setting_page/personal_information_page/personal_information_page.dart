@@ -42,17 +42,6 @@ class PersonalInformationPage extends GetView<PersonnalInformationController> {
                     Spacer(),
                   ],
                 )
-
-                // Align(
-                //   alignment: Alignment.center,
-                //   child: Padding(
-                //     padding: const EdgeInsets.all(8.0),
-                //     child: Text(
-                //       "Personal Information",
-                //       style: TextStyle(color: Colors.white, fontSize: 23),
-                //     ),
-                //   ),
-                // ),
                 ),
             SizedBox(
               height: 10,
@@ -66,11 +55,8 @@ class PersonalInformationPage extends GetView<PersonnalInformationController> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(22.0),
                         child: controller.img != null
-                            ? Image.file(
-                                controller.img!,
-                                width: 180,
-                                height: 110,
-                              )
+                            ?
+                        CircleAvatar(maxRadius: 60,backgroundImage: FileImage(controller.img!,),)
                             : Image.asset(
                                 "assets/images/avatar.png",
                                 width: 150,
@@ -79,44 +65,11 @@ class PersonalInformationPage extends GetView<PersonnalInformationController> {
                       ),
                     ),
                     Positioned(
-                      top: -2,
+                      top: -5,
                       right: -2,
                       child: GestureDetector(
                         onTap: () {
                           controller.pickImage();
-                          // Future<void> showOptionsDialog(BuildContext context) {
-                          //   return showDialog(
-                          //       context: context,
-                          //       builder: (BuildContext context) {
-                          //         return AlertDialog(
-                          //           title: Text(
-                          //             "Selectionner votre options :",
-                          //             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                          //           ),
-                          //           content: SingleChildScrollView(
-                          //             child: ListBody(
-                          //               children: [
-                          //                 GestureDetector(
-                          //                   child: Text("Prendre une photo"),
-                          //                   onTap: () async {
-                          //                     controller.openCamera();
-                          //                     Navigator.pop(context);
-                          //                   },
-                          //                 ),
-                          //                 Padding(padding: EdgeInsets.all(10)),
-                          //                 GestureDetector(
-                          //                   child: Text("Choisir une image"),
-                          //                   onTap: () async {
-                          //                     controller.openGallery();
-                          //                     Navigator.pop(context);
-                          //                   },
-                          //                 ),
-                          //               ],
-                          //             ),
-                          //           ),
-                          //         );
-                          //       });
-                          // }
                         },
                         child: Container(
                             width: 90,
@@ -148,10 +101,7 @@ class PersonalInformationPage extends GetView<PersonnalInformationController> {
             SizedBox(
               height: 8,
             ),
-            CustomInput(
-                lep: "Email :",
-                hint: "",
-                controller: controller.email),
+            CustomInput(lep: "Email :", hint: "", controller: controller.email,des: false),
             SizedBox(
               height: 10,
             ),

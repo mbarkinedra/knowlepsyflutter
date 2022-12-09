@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,7 +8,6 @@ import '../../../../data/networking/api/auth_api.dart';
 import '../../../../data/networking/api/change_password_api.dart';
 import '../../../pages/login_page/login_page.dart';
 
-
 class ChangePasswordViewController extends GetxController {
   final changePasswordFormKey = GlobalKey<FormState>();
   TextEditingController newPassword = TextEditingController();
@@ -18,11 +16,11 @@ class ChangePasswordViewController extends GetxController {
   bool isVisiblePassword1 = true;
   bool isVisiblePassword2 = true;
   ChangePasswordApi changePasswordApi = ChangePasswordApi();
+  late BuildContext context;
 
   RxBool isLoading = false.obs;
 
-
- // ValidatorPassword validator = ValidatorPassword();
+  // ValidatorPassword validator = ValidatorPassword();
   AccountInfoStorage accountInfoStorage = AccountInfoStorage();
 
   //final UserApi _userApi = UserApi();
@@ -40,15 +38,19 @@ class ChangePasswordViewController extends GetxController {
     update();
   }
 
+  clearAllData() {
+    newPassword.text = "";
+    oldPassword.text = "";
+    update();
+  }
 
-
-  changePassword() {
-    Map<String, dynamic>data = {
+  changePassword(con) {
+    Map<String, dynamic> data = {
       "oldPassword": oldPassword.text,
       "newPassword": newPassword.text,
     };
 
-    changePasswordApi.securePost(dataToPost: data).then((value) {
+    changePasswordApi.securePost(dataToPost: data).then((value) async {
       print("*" * 20);
       print(value);
       print("*" * 20);
@@ -60,7 +62,10 @@ class ChangePasswordViewController extends GetxController {
           titleStyle: TextStyle(color: Colors.black),
           middleTextStyle: TextStyle(color: Colors.black),
           textConfirm: "Confirm",
-
+          onConfirm: () {
+            Get.back();
+            clearAllData();
+          },
           buttonColor: Colors.white,
           backgroundColor: Colors.white,
           radius: 10,
@@ -68,15 +73,11 @@ class ChangePasswordViewController extends GetxController {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text(
-                    "votre mot de passe et changé"),
+                child: Text("votre mot de passe et changé"),
               )
             ],
           ));
-
     });
     update();
-
   }
-
-  }
+}

@@ -7,7 +7,13 @@ class CustomInput extends StatelessWidget {
   final String lep;
   final String hint;
   TextEditingController? controller;
-  CustomInput({required this.lep, this.hint = "",  this.controller});
+  bool des;
+
+  CustomInput(
+      {required this.lep,
+      this.hint = "",
+      this.controller,
+      this.des = true});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +40,9 @@ class CustomInput extends StatelessWidget {
                 borderRadius: BorderRadius.circular(26),
                 border: Border.all(color: Colors.black38)),
             child: Center(
-              child: TextField(controller:controller ,
+              child: TextFormField(
+                controller: controller,
+                enabled: des,
                 decoration: InputDecoration(
                   hintText: hint,
                   fillColor: Colors.white,

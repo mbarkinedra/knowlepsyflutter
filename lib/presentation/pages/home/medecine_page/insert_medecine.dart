@@ -1,39 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:knowplesy/app/util/app_colors.dart';
-import 'package:knowplesy/presentation/pages/home/medecine_page/medecine_page.dart';
-import 'package:knowplesy/presentation/pages/home/setting_page/personal_information_page/personal_information_page.dart';
+import 'package:knowplesy/presentation/controllers/medecine_controller/medecine_controller.dart';
 import 'package:table_calendar/table_calendar.dart';
-
 import '../../../../app/widget/custom_button.dart';
-import '../../../../app/widget/widget_home/widget_drawer.dart';
-import '../home_page/home_page.dart';
 import 'package:get/get.dart';
 
-class InsertMedecine extends StatefulWidget {
-  const InsertMedecine({Key? key}) : super(key: key);
+import '../../../controllers/seizure_controller/seizure_controller.dart';
 
-  @override
-  State<InsertMedecine> createState() => _InsertMedecineState();
-}
-
-class _InsertMedecineState extends State<InsertMedecine> {
-  DateTime? _selectedDay;
-
-  DateTime? _focusedDay;
-  TimeOfDay _timeOfDay = TimeOfDay(hour: 8, minute: 30);
-
-  // show time picker method
-  void _showTimePicker() {
-    showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.now(),
-    ).then((value) {
-      setState(() {
-        _timeOfDay = value!;
-      });
-    });
-  }
+class InsertMedecinePage extends GetView<MedecineController> {
+  const InsertMedecinePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -105,138 +81,136 @@ class _InsertMedecineState extends State<InsertMedecine> {
                       height: 8,
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: TableCalendar(
-                        calendarBuilders: CalendarBuilders(
-                            todayBuilder: (context, _datetime, focusedDay) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: focusedDay == _datetime
-                                  ? Colors.amberAccent
-                                  : Theme.of(context).scaffoldBackgroundColor,
-                              borderRadius: BorderRadius.circular(4.0),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.3),
-                                  spreadRadius: 5,
-                                  blurRadius: 7,
-                                  offset: Offset(
-                                      0, 3), // changes position of shadow
+                        padding: const EdgeInsets.all(8.0),
+                        child: GetBuilder<SeizureController>(builder: (logic) {
+                          return TableCalendar(
+                            calendarBuilders: CalendarBuilders(
+                                todayBuilder: (context, _datetime, focusedDay) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                    color: focusedDay == _datetime
+                                        ? Colors.amberAccent
+                                        : Theme.of(context)
+                                            .scaffoldBackgroundColor,
+                                    borderRadius: BorderRadius.circular(4.0)),
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 0.0),
+                                child: focusedDay == _datetime
+                                    ? Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text(
+                                              DateUtils.weekdays[
+                                                  _datetime.weekday - 1],
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                _datetime.day.toString(),
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 12),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    : Center(
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Text(
+                                              DateUtils.weekdays[
+                                                  _datetime.weekday - 1],
+                                              style: TextStyle(
+                                                  color: Colors.black),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: Text(
+                                                _datetime.day.toString(),
+                                                style: TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 15),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                              );
+                            }, selectedBuilder:
+                                    (context, _datetime, focusedDay) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.amberAccent,
+                                    borderRadius: BorderRadius.circular(4.0)),
+                                margin: EdgeInsets.symmetric(
+                                    vertical: 0, horizontal: 0.0),
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Text(
+                                        DateUtils
+                                            .weekdays[_datetime.weekday - 1],
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(
+                                          _datetime.day.toString(),
+                                          style: const TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 15),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
-                              ],
+                              );
+                            }),
+                            selectedDayPredicate: (day) {
+                              return isSameDay(logic.selectedDay, day);
+                            },
+                            calendarStyle: const CalendarStyle(
+                              canMarkersOverflow: true,
                             ),
-                            margin: EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 0.0),
-                            child: focusedDay == _datetime
-                                ? Center(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          DateUtils
-                                              .weekdays[_datetime.weekday - 1],
-                                          style: TextStyle(color: Colors.black),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            _datetime.day.toString(),
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 15),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                : Center(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        Text(
-                                          DateUtils
-                                              .weekdays[_datetime.weekday - 1],
-                                          style: TextStyle(color: Colors.black),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Text(
-                                            _datetime.day.toString(),
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 15),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                            onDaySelected: (selectedDay, focusedDay) {
+                              logic.selectedDay = selectedDay;
+                              logic.focusedDay =
+                                  focusedDay; // update `_focusedDay` here as well
+                              logic.update();
+                            },
+                            calendarFormat: CalendarFormat.week,
+                            firstDay: DateTime.utc(2010, 10, 16),
+                            headerStyle: const HeaderStyle(
+                                formatButtonVisible: false,
+                                titleCentered: true,
+                                formatButtonShowsNext: false,
+                                titleTextStyle: TextStyle(
+                                  fontSize: 12,
+                                )),
+                            daysOfWeekVisible: false,
+                            lastDay: DateTime.utc(2030, 3, 14),
+                            daysOfWeekStyle: const DaysOfWeekStyle(
+                                decoration:
+                                    BoxDecoration(color: Colors.amberAccent),
+                                weekdayStyle: TextStyle(
+                                  fontSize: 10,
+                                )),
+                            focusedDay: controller.selectedDay == null
+                                ? DateTime.now()
+                                : controller.selectedDay!,
                           );
-                        }, selectedBuilder: (context, _datetime, focusedDay) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                color: Colors.amberAccent,
-                                borderRadius: BorderRadius.circular(4.0)),
-                            margin: EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 0.0),
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Text(
-                                    DateUtils.weekdays[_datetime.weekday - 1],
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Text(
-                                      _datetime.day.toString(),
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 15),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
-                        }),
-                        selectedDayPredicate: (day) {
-                          return isSameDay(_selectedDay, day);
-                        },
-                        calendarStyle: CalendarStyle(
-                          canMarkersOverflow: true,
-                        ),
-                        onDaySelected: (selectedDay, focusedDay) {
-                          setState(() {
-                            _selectedDay = selectedDay;
-                            _focusedDay =
-                                focusedDay; // update `_focusedDay` here as well
-                          });
-                        },
-                        calendarFormat: CalendarFormat.week,
-                        firstDay: DateTime.utc(2010, 10, 16),
-                        headerStyle: HeaderStyle(
-                            formatButtonVisible: false,
-                            titleCentered: true,
-                            formatButtonShowsNext: false,
-                            titleTextStyle: TextStyle(
-                              fontSize: 12,
-                            )),
-                        daysOfWeekVisible: false,
-                        lastDay: DateTime.utc(2030, 3, 14),
-                        daysOfWeekStyle: DaysOfWeekStyle(
-                            decoration:
-                                BoxDecoration(color: Colors.amberAccent),
-                            weekdayStyle: TextStyle(
-                              fontSize: 10,
-                            )),
-                        focusedDay: _selectedDay == null
-                            ? DateTime.now()
-                            : _selectedDay!,
-                      ),
-                    ),
+                        })),
                   ],
                 ),
               ),
@@ -262,20 +236,29 @@ class _InsertMedecineState extends State<InsertMedecine> {
                       SizedBox(
                         height: 8,
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          border: Border.all(width: 1, color: Colors.black26),
-                          borderRadius: BorderRadius.all(Radius.circular(20)),
-                        ),
-                        child: MaterialButton(
-                          onPressed: _showTimePicker,
-                          child: Text(
-                            _timeOfDay.format(context).toString(),
-                            style: TextStyle(fontSize: 16),
+                      GetBuilder<MedecineController>(builder: (logic) {
+                        return GestureDetector(
+                          onTap: () {
+                            controller.showMyTimePicker(context);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              border:
+                                  Border.all(width: 1, color: Colors.black26),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20)),
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.all(20.0),
+                              child: Text(
+                                "${controller.timeOfDay.hour} : ${controller.timeOfDay.minute}",
+                                style: TextStyle(fontSize: 18),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
+                        );
+                      }),
                     ],
                   ),
                   Spacer(),
@@ -327,6 +310,7 @@ class _InsertMedecineState extends State<InsertMedecine> {
                   borderRadius: BorderRadius.all(Radius.circular(20)),
                 ),
                 child: TextField(
+                  controller: controller.name,
                   decoration: InputDecoration(
                     fillColor: AppColors.MedecineInput,
                     filled: true,
@@ -385,6 +369,7 @@ class _InsertMedecineState extends State<InsertMedecine> {
                               children: [
                                 Expanded(
                                     child: TextField(
+                                  controller: controller.dosage,
                                   decoration: InputDecoration(
                                     fillColor: AppColors.MedecineInput,
                                     filled: true,
@@ -414,27 +399,29 @@ class _InsertMedecineState extends State<InsertMedecine> {
                                                 Colors.grey.withOpacity(.0))),
                                   ),
                                 )),
-                                DropdownButton<String>(
-                                  hint: Text("mg"),
-                                  value: null,
-                                  elevation: 16,
-                                  underline: SizedBox(),
-                                  onChanged: (String? newValue) {
-                                    setState(() {
-                                      // dropdownValue = newValue!;
-                                    });
-                                  },
-                                  items: <String>[
-                                    'mg',
-                                    'ml',
-                                  ].map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                    return DropdownMenuItem<String>(
-                                      value: value,
-                                      child: Text(value),
-                                    );
-                                  }).toList(),
-                                ),
+                                GetBuilder<MedecineController>(
+                                    builder: (logic) {
+                                  return DropdownButton<String>(
+                                    hint: Text("mg"),
+                                    value: controller.type_dosage,
+                                    elevation: 16,
+                                    underline: SizedBox(),
+                                    onChanged: (String? newValue) {
+                                      controller.type_dosage = newValue ?? "";
+                                      logic.update();
+                                    },
+                                    items: <String>[
+                                      'mg',
+                                      'ml',
+                                    ].map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                  );
+                                }),
                               ],
                             ),
                           ),
@@ -444,91 +431,83 @@ class _InsertMedecineState extends State<InsertMedecine> {
                     SizedBox(
                       width: 6,
                     ),
-                    /*  Expanded(
-                        child: Column(
-                      children: [
-                        Text(""),
-                        SizedBox(
-                          height: 12,
-                        ),
-                       */ /* Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 1, color: AppColors.BorderInputColor),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Center(
-                            child: DropdownButton<String>(
-                              hint: Text("- - ml"),
-                              value: null,
-                              // icon: const Icon(Icons.arrow_downward),
-                              iconSize: 24,
-                              elevation: 16,
-                              //style: const TextStyle(color: Colors.deepPurple),
-                              underline: SizedBox(),
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  // dropdownValue = newValue!;
-                                });
-                              },
-                              items: <String>['One', 'Two', 'Free', 'Four']
-                                  .map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                            ),
-                          ),
-                        ),*/ /*
-                      ],
-                    )),*/
-                    SizedBox(
-                      width: 4,
-                    ),
                     Expanded(
                         child: Column(
                       children: [
-                        Text(
-                          "quantity".tr,
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text("quantity".tr,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 14)),
                         ),
                         SizedBox(
                           height: 12,
                         ),
                         Container(
-                          height: 60,
                           decoration: BoxDecoration(
                               border: Border.all(
                                   width: 1, color: AppColors.BorderInputColor),
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(20)),
                           child: Center(
-                            child: DropdownButton<String>(
-                              hint: Text("- -"),
-                              value: null,
-                              // icon: const Icon(Icons.arrow_downward),
-                              iconSize: 24,
-                              elevation: 16,
-                              //style: const TextStyle(color: Colors.deepPurple),
-                              underline: SizedBox(),
-                              onChanged: (String? newValue) {
-                                setState(() {
-                                  // dropdownValue = newValue!;
-                                });
-                              },
-                              items: <String>[
-                                'One'.tr,
-                                'Two'.tr,
-                                'Free'.tr,
-                                'Four'.tr,
-                              ].map<DropdownMenuItem<String>>((String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    child: TextField(
+                                  controller: controller.quantity,
+                                  decoration: InputDecoration(
+                                    fillColor: AppColors.MedecineInput,
+                                    filled: true,
+                                    //hintText: "Insert name of Medecine",
+                                    border: InputBorder.none,
+                                    hintStyle: TextStyle(
+                                        color: Colors.grey,
+                                        fontFamily: "Italic",
+                                        fontSize: 11),
+                                    errorBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          20,
+                                        ),
+                                        borderSide:
+                                            BorderSide(color: Colors.grey)),
+                                    focusedBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(
+                                          20,
+                                        ),
+                                        borderSide: BorderSide(
+                                            color:
+                                                Colors.grey.withOpacity(.0))),
+                                    enabledBorder: OutlineInputBorder(
+                                        borderRadius: BorderRadius.circular(10),
+                                        borderSide: BorderSide(
+                                            color:
+                                                Colors.grey.withOpacity(.0))),
+                                  ),
+                                )),
+                                GetBuilder<MedecineController>(
+                                    builder: (logic) {
+                                  return DropdownButton<String>(
+                                    hint: Text("pilules"),
+                                    value: controller.type_quantity,
+                                    elevation: 20,
+                                    underline: SizedBox(),
+                                    onChanged: (String? newValue) {
+                                      controller.type_quantity = newValue ?? "";
+                                      logic.update();
+                                    },
+                                    items: <String>[
+                                      'pilules',
+                                      'injection',
+                                    ].map<DropdownMenuItem<String>>(
+                                        (String value) {
+                                      return DropdownMenuItem<String>(
+                                        value: value,
+                                        child: Text(value),
+                                      );
+                                    }).toList(),
+                                  );
+                                }),
+                              ],
                             ),
                           ),
                         ),
@@ -548,11 +527,7 @@ class _InsertMedecineState extends State<InsertMedecine> {
                   // MediaQuery.of(context).size.width*.8,
                   hight: 60,
                   onClick: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (
-                      context,
-                    ) =>
-                            MedecinePage()));
+                    controller.addMedication(context);
                   },
                 ),
               ),
