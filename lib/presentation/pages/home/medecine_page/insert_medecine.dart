@@ -9,530 +9,563 @@ import 'package:get/get.dart';
 import '../../../controllers/seizure_controller/seizure_controller.dart';
 
 class InsertMedecinePage extends GetView<MedecineController> {
-  const InsertMedecinePage({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.BackgroundColor,
       body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-                height: 80,
-                decoration: BoxDecoration(
-                  color: AppColors.primaryColor,
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(20)),
-                ),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      width: 8,
-                    ),
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                        )),
-                    Spacer(),
-                    Text("insert_medecine".tr,
-                        style: TextStyle(color: Colors.white, fontSize: 21)),
-                    Spacer(),
-                  ],
-                )),
-            SizedBox(
-              height: 20,
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(vertical: 10.0, horizontal: 18.0),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.2),
-                      spreadRadius: 3,
-                      blurRadius: 10,
-                      offset: Offset(0, 3), // changes position of shadow
-                    ),
-                  ],
-                ),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 8.0, left: 18),
-                        child: Text("schedule".tr,
-                            style: TextStyle(
-                                fontSize: 14, fontWeight: FontWeight.bold)),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 8,
-                    ),
-                    Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: GetBuilder<SeizureController>(builder: (logic) {
-                          return TableCalendar(
-                            calendarBuilders: CalendarBuilders(
-                                todayBuilder: (context, _datetime, focusedDay) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                    color: focusedDay == _datetime
-                                        ? Colors.amberAccent
-                                        : Theme.of(context)
-                                            .scaffoldBackgroundColor,
-                                    borderRadius: BorderRadius.circular(4.0)),
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 0, horizontal: 0.0),
-                                child: focusedDay == _datetime
-                                    ? Center(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Text(
-                                              DateUtils.weekdays[
-                                                  _datetime.weekday - 1],
-                                              style: TextStyle(
-                                                  color: Colors.black),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                _datetime.day.toString(),
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 12),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    : Center(
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                          children: [
-                                            Text(
-                                              DateUtils.weekdays[
-                                                  _datetime.weekday - 1],
-                                              style: TextStyle(
-                                                  color: Colors.black),
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: Text(
-                                                _datetime.day.toString(),
-                                                style: TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 15),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                              );
-                            }, selectedBuilder:
-                                    (context, _datetime, focusedDay) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                    color: Colors.amberAccent,
-                                    borderRadius: BorderRadius.circular(4.0)),
-                                margin: EdgeInsets.symmetric(
-                                    vertical: 0, horizontal: 0.0),
-                                child: Center(
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Text(
-                                        DateUtils
-                                            .weekdays[_datetime.weekday - 1],
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(
-                                          _datetime.day.toString(),
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 15),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              );
-                            }),
-                            selectedDayPredicate: (day) {
-                              return isSameDay(logic.selectedDay, day);
-                            },
-                            calendarStyle: const CalendarStyle(
-                              canMarkersOverflow: true,
-                            ),
-                            onDaySelected: (selectedDay, focusedDay) {
-                              logic.selectedDay = selectedDay;
-                              logic.focusedDay =
-                                  focusedDay; // update `_focusedDay` here as well
-                              logic.update();
-                            },
-                            calendarFormat: CalendarFormat.week,
-                            firstDay: DateTime.utc(2010, 10, 16),
-                            headerStyle: const HeaderStyle(
-                                formatButtonVisible: false,
-                                titleCentered: true,
-                                formatButtonShowsNext: false,
-                                titleTextStyle: TextStyle(
-                                  fontSize: 12,
-                                )),
-                            daysOfWeekVisible: false,
-                            lastDay: DateTime.utc(2030, 3, 14),
-                            daysOfWeekStyle: const DaysOfWeekStyle(
-                                decoration:
-                                    BoxDecoration(color: Colors.amberAccent),
-                                weekdayStyle: TextStyle(
-                                  fontSize: 10,
-                                )),
-                            focusedDay: controller.selectedDay == null
-                                ? DateTime.now()
-                                : controller.selectedDay!,
-                          );
-                        })),
-                  ],
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 28.0, top: 8, right: 28, bottom: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                // crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+        child: Form(
+          key: controller.medecineKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                  height: 80,
+                  decoration: BoxDecoration(
+                    color: AppColors.primaryColor,
+                    borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(20),
+                        bottomRight: Radius.circular(20)),
+                  ),
+                  child: Row(
                     children: [
-                      Text(
-                        "time".tr,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
+                      SizedBox(
+                        width: 8,
+                      ),
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: Icon(
+                            Icons.arrow_back,
+                            color: Colors.white,
+                          )),
+                      Spacer(),
+                      Text("insert_medecine".tr,
+                          style: TextStyle(color: Colors.white, fontSize: 21)),
+                      Spacer(),
+                    ],
+                  )),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    vertical: 10.0, horizontal: 18.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        spreadRadius: 3,
+                        blurRadius: 10,
+                        offset: Offset(0, 3), // changes position of shadow
+                      ),
+                    ],
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: const EdgeInsets.only(top: 8.0, left: 18),
+                          child: Text("schedule".tr,
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.bold)),
                         ),
-                        textAlign: TextAlign.left,
                       ),
                       SizedBox(
                         height: 8,
                       ),
-                      GetBuilder<MedecineController>(builder: (logic) {
-                        return GestureDetector(
-                          onTap: () {
-                            controller.showMyTimePicker(context);
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              border:
-                                  Border.all(width: 1, color: Colors.black26),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20)),
+                      Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child:
+                              GetBuilder<SeizureController>(builder: (logic) {
+                            return TableCalendar(
+                              calendarBuilders: CalendarBuilders(todayBuilder:
+                                  (context, _datetime, focusedDay) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                      color: focusedDay == _datetime
+                                          ? Colors.amberAccent
+                                          : Theme.of(context)
+                                              .scaffoldBackgroundColor,
+                                      borderRadius: BorderRadius.circular(4.0)),
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: 0, horizontal: 0.0),
+                                  child: focusedDay == _datetime
+                                      ? Center(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Text(
+                                                DateUtils.weekdays[
+                                                    _datetime.weekday - 1],
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  _datetime.day.toString(),
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 12),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        )
+                                      : Center(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
+                                            children: [
+                                              Text(
+                                                DateUtils.weekdays[
+                                                    _datetime.weekday - 1],
+                                                style: TextStyle(
+                                                    color: Colors.black),
+                                              ),
+                                              Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8.0),
+                                                child: Text(
+                                                  _datetime.day.toString(),
+                                                  style: TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 15),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                );
+                              }, selectedBuilder:
+                                  (context, _datetime, focusedDay) {
+                                return Container(
+                                  decoration: BoxDecoration(
+                                      color: Colors.amberAccent,
+                                      borderRadius: BorderRadius.circular(4.0)),
+                                  margin: EdgeInsets.symmetric(
+                                      vertical: 0, horizontal: 0.0),
+                                  child: Center(
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Text(
+                                          DateUtils
+                                              .weekdays[_datetime.weekday - 1],
+                                          style: TextStyle(color: Colors.white),
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: Text(
+                                            _datetime.day.toString(),
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 15),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }),
+                              selectedDayPredicate: (day) {
+                                return isSameDay(logic.selectedDay, day);
+                              },
+                              calendarStyle: const CalendarStyle(
+                                canMarkersOverflow: true,
+                              ),
+                              onDaySelected: (selectedDay, focusedDay) {
+                                logic.selectedDay = selectedDay;
+                                logic.focusedDay =
+                                    focusedDay; // update `_focusedDay` here as well
+                                logic.update();
+                              },
+                              calendarFormat: CalendarFormat.week,
+                              firstDay: DateTime.utc(2010, 10, 16),
+                              headerStyle: const HeaderStyle(
+                                  formatButtonVisible: false,
+                                  titleCentered: true,
+                                  formatButtonShowsNext: false,
+                                  titleTextStyle: TextStyle(
+                                    fontSize: 12,
+                                  )),
+                              daysOfWeekVisible: false,
+                              lastDay: DateTime.utc(2030, 3, 14),
+                              daysOfWeekStyle: const DaysOfWeekStyle(
+                                  decoration:
+                                      BoxDecoration(color: Colors.amberAccent),
+                                  weekdayStyle: TextStyle(
+                                    fontSize: 10,
+                                  )),
+                              focusedDay: controller.selectedDay == null
+                                  ? DateTime.now()
+                                  : controller.selectedDay!,
+                            );
+                          })),
+                    ],
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 28.0, top: 8, right: 28, bottom: 8),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  // crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "time".tr,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        GetBuilder<MedecineController>(builder: (logic) {
+                          return GestureDetector(
+                            onTap: () {
+                              controller.showMyTimePicker(context);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                border:
+                                    Border.all(width: 1, color: Colors.black26),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                              ),
+                              child: Padding(
+                                padding: EdgeInsets.all(20.0),
+                                child: Text(
+                                  "${controller.timeOfDay.hour} : ${controller.timeOfDay.minute}",
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                              ),
                             ),
-                            child: Padding(
-                              padding: EdgeInsets.all(20.0),
-                              child: Text(
-                                "${controller.timeOfDay.hour} : ${controller.timeOfDay.minute}",
-                                style: TextStyle(fontSize: 18),
+                          );
+                        }),
+                      ],
+                    ),
+                    Spacer(),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "remind_me".tr,
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontFamily: "Poppins",
+                            fontWeight: FontWeight.bold,
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                        GetBuilder<MedecineController>(builder: (logic) {
+                          return CupertinoSwitch(
+                              value: logic.reminder,
+                              onChanged: (v) {
+                                logic.updateReminder(v);
+                              });
+                        }),
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 28.0, top: 8, right: 28),
+                child: Text(
+                  "insert_name_of_medecine".tr,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontFamily: "Poppins",
+                    fontWeight: FontWeight.bold,
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+              ),
+              SizedBox(
+                height: 8,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 28.0, right: 28),
+                child: Container(
+                  height: 50,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border:
+                        Border.all(width: 1, color: AppColors.BorderInputColor),
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  child: TextFormField(
+                    validator: (value) {
+                      return controller.validator.validateName(value!);
+                    },
+                    controller: controller.name,
+                    decoration: InputDecoration(
+                      fillColor: AppColors.MedecineInput,
+                      filled: true,
+                      hintText: "insert_name_of_medecine".tr,
+                      border: InputBorder.none,
+                      hintStyle: TextStyle(
+                          color: Colors.grey,
+                          fontFamily: "Italic",
+                          fontSize: 11),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(
+                            20,
+                          ),
+                          borderSide:
+                              BorderSide(color: Colors.grey.withOpacity(.0))),
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide:
+                              BorderSide(color: Colors.grey.withOpacity(.0))),
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 28.0, right: 28, top: 8, bottom: 8),
+                child: SizedBox(
+                  child: Row(
+                    children: [
+                      Expanded(
+                          child: Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("dosage".tr,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 14)),
+                          ),
+                          SizedBox(
+                            height: 12,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 1,
+                                    color: AppColors.BorderInputColor),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Center(
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                      child: TextFormField(
+                                    validator: (value) {
+                                      return controller.validator
+                                          .validateDosage(value!);
+                                    },
+                                    keyboardType: TextInputType.number,
+                                    controller: controller.dosage,
+                                    decoration: InputDecoration(
+                                      fillColor: AppColors.MedecineInput,
+                                      filled: true,
+                                      //hintText: "Insert name of Medecine",
+                                      border: InputBorder.none,
+                                      hintStyle: TextStyle(
+                                          color: Colors.grey,
+                                          fontFamily: "Italic",
+                                          fontSize: 11),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            20,
+                                          ),
+                                          borderSide: BorderSide(
+                                              color:
+                                                  Colors.grey.withOpacity(.0))),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                              color:
+                                                  Colors.grey.withOpacity(.0))),
+                                    ),
+                                  )),
+                                ],
                               ),
                             ),
                           ),
-                        );
-                      }),
-                    ],
-                  ),
-                  Spacer(),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "remind_me".tr,
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontFamily: "Poppins",
-                          fontWeight: FontWeight.bold,
-                        ),
-                        textAlign: TextAlign.left,
-                      ),
+                        ],
+                      )),
                       SizedBox(
-                        height: 8,
+                        width: 6,
                       ),
-                      CupertinoSwitch(value: true, onChanged: (v) {}),
+                      Expanded(
+                          child: Column(
+                        children: [
+                          Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text("quantity".tr,
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 14)),
+                          ),
+                          SizedBox(
+                            height: 12,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                border: Border.all(
+                                    width: 1,
+                                    color: AppColors.BorderInputColor),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Center(
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                      child: TextFormField(
+                                    validator: (value) {
+                                      return controller.validator
+                                          .validateQuantity(value!);
+                                    },
+                                    keyboardType: TextInputType.number,
+                                    controller: controller.quantity,
+                                    decoration: InputDecoration(
+                                      fillColor: AppColors.MedecineInput,
+                                      filled: true,
+                                      //hintText: "Insert name of Medecine",
+                                      border: InputBorder.none,
+                                      hintStyle: TextStyle(
+                                          color: Colors.grey,
+                                          fontFamily: "Italic",
+                                          fontSize: 11),
+                                      // errorBorder: OutlineInputBorder(
+                                      //     borderRadius: BorderRadius.circular(
+                                      //       20,
+                                      //     ),
+                                      //     borderSide:
+                                      //         BorderSide(color: Colors.grey)),
+                                      focusedBorder: OutlineInputBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            20,
+                                          ),
+                                          borderSide: BorderSide(
+                                              color:
+                                                  Colors.grey.withOpacity(.0))),
+                                      enabledBorder: OutlineInputBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          borderSide: BorderSide(
+                                              color:
+                                                  Colors.grey.withOpacity(.0))),
+                                    ),
+                                  )),
+                                  // GetBuilder<MedecineController>(
+                                  //     builder: (logic) {
+                                  //   return DropdownButton<String>(
+                                  //     hint: Text("Type"),
+                                  //     value: controller.type_quantity,
+                                  //     elevation: 20,
+                                  //     underline: SizedBox(),
+                                  //     onChanged: (String? newValue) {
+                                  //       controller.type_quantity = newValue ?? "";
+                                  //       logic.update();
+                                  //     },
+                                  //     items: <String>[
+                                  //       'pilules',
+                                  //       'injection',
+                                  //     ].map<DropdownMenuItem<String>>(
+                                  //         (String value) {
+                                  //       return DropdownMenuItem<String>(
+                                  //         value: value,
+                                  //         child: Text(value),
+                                  //       );
+                                  //     }).toList(),
+                                  //   );
+                                  // }),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      )),
                     ],
-                  )
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 28.0, top: 8, right: 28),
-              child: Text(
-                "insert_name_of_medecine".tr,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontFamily: "Poppins",
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.left,
-              ),
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 28.0, right: 28),
-              child: Container(
-                height: 50,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  border:
-                      Border.all(width: 1, color: AppColors.BorderInputColor),
-                  borderRadius: BorderRadius.all(Radius.circular(20)),
-                ),
-                child: TextField(
-                  controller: controller.name,
-                  decoration: InputDecoration(
-                    fillColor: AppColors.MedecineInput,
-                    filled: true,
-                    hintText: "insert_name_of_medecine".tr,
-                    border: InputBorder.none,
-                    hintStyle: TextStyle(
-                        color: Colors.grey, fontFamily: "Italic", fontSize: 11),
-                    errorBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(
-                          20,
-                        ),
-                        borderSide: BorderSide(color: Colors.grey)),
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(
-                          20,
-                        ),
-                        borderSide:
-                            BorderSide(color: Colors.grey.withOpacity(.0))),
-                    enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide:
-                            BorderSide(color: Colors.grey.withOpacity(.0))),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 28.0, right: 28, top: 8, bottom: 8),
-              child: SizedBox(
-                child: Row(
-                  children: [
-                    Expanded(
-                        child: Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text("dosage".tr,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 14)),
-                        ),
-                        SizedBox(
-                          height: 12,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 1, color: AppColors.BorderInputColor),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Center(
-                            child: Row(
-                              children: [
-                                Expanded(
-                                    child: TextField(
-                                  controller: controller.dosage,
-                                  decoration: InputDecoration(
-                                    fillColor: AppColors.MedecineInput,
-                                    filled: true,
-                                    //hintText: "Insert name of Medecine",
-                                    border: InputBorder.none,
-                                    hintStyle: TextStyle(
-                                        color: Colors.grey,
-                                        fontFamily: "Italic",
-                                        fontSize: 11),
-                                    errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          20,
-                                        ),
-                                        borderSide:
-                                            BorderSide(color: Colors.grey)),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          20,
-                                        ),
-                                        borderSide: BorderSide(
-                                            color:
-                                                Colors.grey.withOpacity(.0))),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(
-                                            color:
-                                                Colors.grey.withOpacity(.0))),
-                                  ),
-                                )),
-                                GetBuilder<MedecineController>(
-                                    builder: (logic) {
-                                  return DropdownButton<String>(
-                                    hint: Text("mg"),
-                                    value: controller.type_dosage,
-                                    elevation: 16,
-                                    underline: SizedBox(),
-                                    onChanged: (String? newValue) {
-                                      controller.type_dosage = newValue ?? "";
-                                      logic.update();
-                                    },
-                                    items: <String>[
-                                      'mg',
-                                      'ml',
-                                    ].map<DropdownMenuItem<String>>(
-                                        (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(value),
-                                      );
-                                    }).toList(),
-                                  );
-                                }),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    )),
-                    SizedBox(
-                      width: 6,
-                    ),
-                    Expanded(
-                        child: Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text("quantity".tr,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 14)),
-                        ),
-                        SizedBox(
-                          height: 12,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 1, color: AppColors.BorderInputColor),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Center(
-                            child: Row(
-                              children: [
-                                Expanded(
-                                    child: TextField(
-                                  controller: controller.quantity,
-                                  decoration: InputDecoration(
-                                    fillColor: AppColors.MedecineInput,
-                                    filled: true,
-                                    //hintText: "Insert name of Medecine",
-                                    border: InputBorder.none,
-                                    hintStyle: TextStyle(
-                                        color: Colors.grey,
-                                        fontFamily: "Italic",
-                                        fontSize: 11),
-                                    errorBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          20,
-                                        ),
-                                        borderSide:
-                                            BorderSide(color: Colors.grey)),
-                                    focusedBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(
-                                          20,
-                                        ),
-                                        borderSide: BorderSide(
-                                            color:
-                                                Colors.grey.withOpacity(.0))),
-                                    enabledBorder: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(10),
-                                        borderSide: BorderSide(
-                                            color:
-                                                Colors.grey.withOpacity(.0))),
-                                  ),
-                                )),
-                                GetBuilder<MedecineController>(
-                                    builder: (logic) {
-                                  return DropdownButton<String>(
-                                    hint: Text("pilules"),
-                                    value: controller.type_quantity,
-                                    elevation: 20,
-                                    underline: SizedBox(),
-                                    onChanged: (String? newValue) {
-                                      controller.type_quantity = newValue ?? "";
-                                      logic.update();
-                                    },
-                                    items: <String>[
-                                      'pilules',
-                                      'injection',
-                                    ].map<DropdownMenuItem<String>>(
-                                        (String value) {
-                                      return DropdownMenuItem<String>(
-                                        value: value,
-                                        child: Text(value),
-                                      );
-                                    }).toList(),
-                                  );
-                                }),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
-                    )),
-                  ],
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child: CustomButton(
+                    text: 'insert_a_medecine'.tr,
+                    color: AppColors.secondryColor,
+                    width: MediaQuery.of(context).size.width * .7,
+                    // MediaQuery.of(context).size.width*.8,
+                    hight: 60,
+                    onClick: () {
+                      // controller.validator.validationType = false;
+                      // if (!controller.medecineKey.currentState!
+                      //     .validate()) {
+                      //   print("validation scuuss");
+                      //   //if client validations fails
+                      //   //show a snackbar to fix the client errors.
+                      //   Get.snackbar("Oups !",
+                      //       "Merci de corriger les erreurs ci-dessous.");
+                      // } else {
+                      //   controller.validator.validationType = true;
+                      //   //send data to server and get errors
+                      //   if (controller.isUpdate) {
+                      //     print("update scuuss");
+                      //
+                      //     controller.updateMedication(context);
+                      //   } else {
+                      //     print("add scuuss");
+                      //
+                      //     controller.addMedication(context);
+                      //   }
+                      controller.validator.validationType = false;
+                      if (!controller.medecineKey.currentState!.validate()) {
+                        ///if client validations fails
+                        ///show a snackbar to fix the client errors.
+                        Get.snackbar("Oups !",
+                            "Merci de corriger les erreurs ci-dessous.",
+                            backgroundColor: Colors.deepOrangeAccent,
+                            colorText: Colors.white);
+                        return;
+                      }
+                      controller.validator.validationType = true;
+                      //send data to server and get errors
+                      if(controller.isUpdate){
+                        controller.updateMedication(context);
+
+                      }else{
+                        controller.addMedication(context);
+
+                      }
+
+
+                    },
+                  ),
                 ),
-              ),
-            ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: CustomButton(
-                  text: 'insert_a_medecine'.tr,
-                  color: AppColors.secondryColor,
-                  width: MediaQuery.of(context).size.width * .7,
-                  // MediaQuery.of(context).size.width*.8,
-                  hight: 60,
-                  onClick: () {
-                    controller.addMedication(context);
-                  },
-                ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );

@@ -1,26 +1,14 @@
-import 'package:country_code_picker/country_code.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:knowplesy/app/widget/custom_button.dart';
-import 'package:knowplesy/app/widget/custom_input.dart';
 import 'package:knowplesy/presentation/pages/login_page/login_page.dart';
-
 import '../../../../../app/util/app_colors.dart';
 import '../../../app/widget/custom_register.dart';
-import '../../../app/widget/login_item.dart';
 import '../../controllers/register_controller/register_controller.dart';
 
-const List<String> listcountry = <String>[
-  'Tunsia',
-  'India',
-  'France',
-  'Amercia'
-];
-
 class RegisterPage extends GetView<RegisterController> {
-  String dropdownValue = listcountry.first;
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   @override
@@ -32,7 +20,7 @@ class RegisterPage extends GetView<RegisterController> {
           child: SingleChildScrollView(
             child: Column(children: [
               Container(
-                  height: 250,
+                  height: 200,
                   decoration: BoxDecoration(
                       color: AppColors.primaryColor,
                       borderRadius: BorderRadius.only(
@@ -71,14 +59,14 @@ class RegisterPage extends GetView<RegisterController> {
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                TextSpan(
-                                  text:
-                                      'lets_get_started_with_creating_your_knowlepsy_account'
-                                          .tr,
-                                  style: TextStyle(
-                                    color: const Color(0xfff2f7ff),
-                                  ),
-                                ),
+                                // TextSpan(
+                                //   text:
+                                //       'lets_get_started_with_creating_your_knowlepsy_account'
+                                //           .tr,
+                                //   style: TextStyle(
+                                //     color: const Color(0xfff2f7ff),
+                                //   ),
+                                // ),
                               ],
                             ),
                             textHeightBehavior: TextHeightBehavior(
@@ -93,7 +81,7 @@ class RegisterPage extends GetView<RegisterController> {
                                 .tr,
                             style: TextStyle(
                               fontFamily: 'Roboto',
-                              fontSize: 13,
+                              fontSize: 15,
                               color: const Color(0xfff2f7ff),
                             ),
                             textAlign: TextAlign.center,
@@ -177,26 +165,29 @@ class RegisterPage extends GetView<RegisterController> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(26),
                           border: Border.all(color: Colors.black38)),
-                      child: DropdownButton<String>(
-                        onChanged: (String? value) {
-                          controller.country.text = value!;
-                        },
+                      child: GetBuilder<RegisterController>(builder: (logic) {
+                        return DropdownButton<String>(
+                          onChanged: (String? value) {
+                            logic.dropdownValue = value;
+                            logic.update();
+                          },
 
-                        value: dropdownValue,
-                        underline: const SizedBox(),
-                        isExpanded: true,
-                        hint: Text("city".tr),
-                        iconSize: 24,
-                        elevation: 16,
-                        // onChanged: logic.updateCity,
-                        items: listcountry
-                            .map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
-                      ),
+                          value: logic.dropdownValue,
+                          underline: const SizedBox(),
+                          isExpanded: true,
+                          hint: Text("city".tr),
+                          iconSize: 24,
+                          elevation: 16,
+                          // onChanged: logic.updateCity,
+                          items: logic.listcountry
+                              .map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        );
+                      }),
                     ),
                     SizedBox(
                       height: 15,
@@ -254,21 +245,6 @@ class RegisterPage extends GetView<RegisterController> {
                         ),
                       );
                     }),
-                    // LogInItem(
-                    //   validator: controller.validator.validatePhone,
-                    //   textEditingController: controller.phoneNumber,
-                    //   label: "N° de Téléphone",
-                    //   //   hint: Environment.phonePlaceholder,
-                    //   icon: Icons.add_call,
-                    //   //  validator: controller.validator.validatePhone,
-                    //   suffixIcon: IconButton(
-                    //     icon: const Icon(Icons.clear_outlined),
-                    //     onPressed: () {
-                    //       controller.phoneNumber.clear();
-                    //     },
-                    //   ),
-                    //   clearText: true,
-                    // ),
                     Column(
                       children: [
                         Align(
@@ -284,7 +260,6 @@ class RegisterPage extends GetView<RegisterController> {
                                   decoration: InputDecoration(
                                     hintText: '',
                                     border: OutlineInputBorder(
-
                                       borderRadius: BorderRadius.circular(26),
                                       borderSide: BorderSide(),
                                     ),
@@ -306,34 +281,41 @@ class RegisterPage extends GetView<RegisterController> {
                         ),
                       ],
                     ),
-
-                    Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(30.0),
-                        child: CustomButton(
-                          text: 'create_my_account'.tr,
-                          color: Colors.deepOrangeAccent,
-                          width: double.infinity,
-                          hight: 40,
-                          onClick: () {
-                            controller.validator.validationType = false;
-                            if (!controller.registerFormKey.currentState!
-                                .validate()) {
-                              ///if client validations fails
-                              ///show a snackbar to fix the client errors.
-                              Get.snackbar("Oups !",
-                                  "Merci de corriger les erreurs ci-dessous.",
-                                  backgroundColor: Colors.deepOrangeAccent,
-                                  colorText: Colors.white);
-                              return;
-                            }
-                            controller.validator.validationType = true;
-                            //send data to server and get errors
-                            controller.postRegister(context);
-                          },
+                    Obx(() {
+                      return Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(30.0),
+                          child: controller.isLoading.value
+                              ? CircularProgressIndicator(
+                                  color: AppColors.secondryColor,
+                                  strokeWidth: 5,
+                                )
+                              : CustomButton(
+                                  text: 'create_my_account'.tr,
+                                  color: Colors.deepOrangeAccent,
+                                  width: double.infinity,
+                                  hight: 40,
+                                  onClick: () {
+                                    controller.validator.validationType = false;
+                                    if (!controller.registerFormKey.currentState!
+                                        .validate()) {
+                                      ///if client validations fails
+                                      ///show a snackbar to fix the client errors.
+                                      Get.snackbar("Oups !",
+                                          "please_correct_the_errors_below".tr,
+                                          backgroundColor:
+                                              Colors.deepOrangeAccent,
+                                          colorText: Colors.white);
+                                      return;
+                                    }
+                                    controller.validator.validationType = true;
+                                    //send data to server and get errors
+                                    controller.postRegister(context);
+                                  },
+                                ),
                         ),
-                      ),
-                    )
+                      );
+                    })
                   ],
                 ),
               ),

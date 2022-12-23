@@ -13,20 +13,24 @@ class LoginPasswordController extends GetxController {
   TextEditingController confirmPassword = TextEditingController();
   TextEditingController code = TextEditingController();
   final ForgotPasswordWithCodeApi forgotPasswordApi =
-  ForgotPasswordWithCodeApi();
+      ForgotPasswordWithCodeApi();
   final VerifyCodePassword _verifyCodePassword = VerifyCodePassword();
-  final ResetPasswordWithCodeApi _resetPasswordWithCodeApi = ResetPasswordWithCodeApi();
+  final ResetPasswordWithCodeApi _resetPasswordWithCodeApi =
+      ResetPasswordWithCodeApi();
   TextEditingController textEditingController = TextEditingController();
- // final formKey = GlobalKey<FormState>();
+
+  // final formKey = GlobalKey<FormState>();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  RxBool isLoading = false.obs;
 
   resetPasswordWithCode(context) {
     // Map<String, dynamic> data = {
     //   "email": email.text,
     // };
-
+    isLoading.value = true;
     forgotPasswordApi.postData({"email": email.text}).then((value) {
       print("bbbbbbbbbbbbbbbbbb");
+      isLoading.value = false;
 
       showDialog<void>(
         context: context,
@@ -35,16 +39,18 @@ class LoginPasswordController extends GetxController {
         builder: (BuildContext context) {
           return AlertDialog(
             title: Center(
-                child: Text("Confirmation", style: TextStyle(fontSize: 15),)),
+                child: Text(
+              "Confirmation",
+              style: TextStyle(fontSize: 15),
+            )),
             content: SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
                   Center(
                       child: Text(
-                        "Enter the code activation in the\n message you received on your mail",
-                        style: TextStyle(
-                            fontSize: 13, fontWeight: FontWeight.bold),
-                      )),
+                    "Enter the code activation in the\n message you received on your mail",
+                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold),
+                  )),
                   SizedBox(
                     height: 10,
                   ),
@@ -73,7 +79,8 @@ class LoginPasswordController extends GetxController {
                               return null;
                             }
                           },
-                          pinTheme: PinTheme(selectedColor: AppColors.primaryColor,
+                          pinTheme: PinTheme(
+                            selectedColor: AppColors.primaryColor,
                             shape: PinCodeFieldShape.box,
                             borderRadius: BorderRadius.circular(5),
                             fieldHeight: 50,
@@ -120,27 +127,28 @@ class LoginPasswordController extends GetxController {
                         "code": code.text
                       }).then((value) {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context,) =>
+                            builder: (
+                          context,
+                        ) =>
                                 ResetPassword()));
                         update();
                       });
                     },
                     child: Container(
                       height: 30,
-                      width: MediaQuery
-                          .of(context)
-                          .size
-                          .width * .4,
+                      width: MediaQuery.of(context).size.width * .4,
                       decoration: BoxDecoration(
                         color: AppColors.secondryColor,
                         borderRadius: BorderRadius.circular(21),
-                        boxShadow: [
-                        ],
+                        boxShadow: [],
                       ),
                       child: Column(
                         children: [
                           Center(
-                            child: Text("Send",style: TextStyle(color: Colors.white),),
+                            child: Text(
+                              "Send",
+                              style: TextStyle(color: Colors.white),
+                            ),
                           ),
                         ],
                       ),
@@ -153,14 +161,15 @@ class LoginPasswordController extends GetxController {
           );
         },
       );
-    }
-
-    );
+    });
   }
 
   resetPassword() {
-    _resetPasswordWithCodeApi.postData({"email":email.text,"newPassword":newPassword.text}).then((value) {
+    isLoading.value = true;
 
+    _resetPasswordWithCodeApi.postData(
+        {"email": email.text, "newPassword": newPassword.text}).then((value) {
+      isLoading.value = false;
     });
   }
 }

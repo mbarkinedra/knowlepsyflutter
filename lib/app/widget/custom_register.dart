@@ -10,7 +10,12 @@ class CustomRegister extends StatelessWidget {
   final Function validator;
   bool des;
 
-  CustomRegister({required this.label, this.hint = "",  this.controller, required this.validator,this.des=true});
+  CustomRegister(
+      {required this.label,
+      this.hint = "",
+      this.controller,
+      required this.validator,
+      this.des = true});
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +35,18 @@ class CustomRegister extends StatelessWidget {
             height: 15,
           ),
           Container(
-            // height: 50,
+            height: 70,
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(26),
                 border: Border.all(color: Colors.black38)),
             child: Center(
-              child: TextFormField(controller:controller ,enabled: des,
-                validator: (v){
-                  return   validator(v);
+              child: TextFormField(
+                controller: controller,
+                enabled: des,
+                validator: (v) {
+                  return validator(v);
                 },
                 decoration: InputDecoration(
                   hintText: hint,
@@ -50,11 +57,11 @@ class CustomRegister extends StatelessWidget {
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(0),
                       borderSide:
-                      BorderSide(color: Colors.grey.withOpacity(.0))),
+                          BorderSide(color: Colors.grey.withOpacity(.0))),
                   enabledBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide:
-                      BorderSide(color: Colors.grey.withOpacity(.0))),
+                          BorderSide(color: Colors.grey.withOpacity(.0))),
                 ),
               ),
             ),

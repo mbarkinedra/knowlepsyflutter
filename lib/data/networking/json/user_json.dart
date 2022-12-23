@@ -1,5 +1,7 @@
 import 'package:knowplesy/data/networking/json/abstract__json_resource.dart';
 
+import '../../../app/config/app_settings.dart';
+
 class UserJson extends AbstractJsonResource {
   int? status;
   String? tokenType;
@@ -10,11 +12,11 @@ class UserJson extends AbstractJsonResource {
 
   UserJson(
       {this.status,
-      this.tokenType,
-      this.user,
-      this.token,
-      this.refreshToken,
-      this.expiredAt});
+        this.tokenType,
+        this.user,
+        this.token,
+        this.refreshToken,
+        this.expiredAt});
 
   UserJson.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -61,29 +63,29 @@ class User {
 
   User(
       {this.id,
-      this.firstName,
-      this.lastName,
-      this.imageUrl,
-      this.email,
-      this.emailVerifiedAt,
-      this.verifiedMail,
-      this.role,
-      this.enabled,
-      this.trueAlert,
-      this.falseAlert,
-      this.nbrUndetectedAlert,
-      this.phoneNumber,
-      this.dateOfBirth,
-      this.filedoctor,
-      this.country,
-      this.createdAt,
-      this.updatedAt});
+        this.firstName,
+        this.lastName,
+        this.imageUrl,
+        this.email,
+        this.emailVerifiedAt,
+        this.verifiedMail,
+        this.role,
+        this.enabled,
+        this.trueAlert,
+        this.falseAlert,
+        this.nbrUndetectedAlert,
+        this.phoneNumber,
+        this.dateOfBirth,
+        this.filedoctor,
+        this.country,
+        this.createdAt,
+        this.updatedAt});
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     firstName = json['first_name'];
     lastName = json['last_name'];
-    imageUrl = json['image_url'];
+    imageUrl = SettingsApp.baseUrl + "/public/" + json['image_url'];
     email = json['email'];
     emailVerifiedAt = json['email_verified_at'];
     verifiedMail = json['verified_mail'];

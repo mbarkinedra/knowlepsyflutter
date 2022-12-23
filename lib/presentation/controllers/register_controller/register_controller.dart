@@ -16,9 +16,8 @@ class RegisterController extends GetxController {
   TextEditingController phoneNumber = TextEditingController();
   TextEditingController email = TextEditingController();
   TextEditingController dateOfBirth = TextEditingController();
-  TextEditingController country = TextEditingController();
   ValidatorSignUp validator = ValidatorSignUp();
-
+  String? dropdownValue;
   bool isVisiblePassword = true;
   RxBool isLoading = false.obs;
   RxString globalErrors = ''.obs;
@@ -29,14 +28,45 @@ class RegisterController extends GetxController {
     update();
   }
 
+  List<String> listcountry = <String>['Tunsia', 'India', 'France', 'Amercia'];
+
   @override
   void onInit() {
     super.onInit();
     isLoading.value = false;
+    dropdownValue = listcountry.first;
+  }
+
+  updateCountry(String? t) {
+    dropdownValue = t;
+
+    update();
+  }
+
+  desableIsLoading() {
+    print(
+        "object00000000000000000000000000000000000000000000000000000000000000000000000000000");
+    isLoading.value = false;
+    update();
+  }
+
+  clearData() {
+    firstName.text = "";
+    lastName.text = "";
+    password.text = "";
+    email.text = "";
+    confirmPassword.text = "";
+    dropdownValue = null;
+    ;
+    phoneNumber.text = "";
+    dateOfBirth.text == "";
+
+    update();
   }
 
   postRegister(context) async {
     isLoading.value = true;
+
     globalErrors.value = '';
     Map<String, dynamic> data = {
       "email": email.text,
@@ -46,7 +76,7 @@ class RegisterController extends GetxController {
       "password_confirmation": password.text,
       "date_of_birth": dateOfBirth.text,
       "phone_number": phoneNumber.text,
-      "country": country.text
+      "country": dropdownValue
     };
     _userApi.postData(data).then((value) {
       print("28888888888888888888888888888888");
@@ -71,21 +101,21 @@ class RegisterController extends GetxController {
       //       );
       //     });
       Get.defaultDialog(
-          title: "Confirmation",
+          title: "confirmation".tr,
           //  middleText: "Take a new phhoto or import one from your library",
           contentPadding: EdgeInsets.all(8),
           titlePadding: EdgeInsets.all(16),
-          titleStyle: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),
+          titleStyle:
+          TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           middleTextStyle: TextStyle(color: Colors.black),
-          textConfirm: "Confirm",
+          textConfirm: "confirme".tr,
           onConfirm: () {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => LoginPage()),
             );
+            clearData();
           },
-          //   clearAllData();
-
           buttonColor: Colors.white,
           backgroundColor: Colors.white,
           radius: 10,
@@ -93,7 +123,7 @@ class RegisterController extends GetxController {
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text("You received on your email an activation link"),
+                child: Text("You_received_on_your_email_an_activation_link".tr),
               )
             ],
           ));

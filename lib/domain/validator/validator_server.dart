@@ -27,7 +27,7 @@ class ServerValidator {
       case 200:
         success!();
         break;
-      case 400:
+      case 422:
         serverErrors = value.data;
         failure!();
         break;

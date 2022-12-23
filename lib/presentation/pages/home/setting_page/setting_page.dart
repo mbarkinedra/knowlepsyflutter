@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:knowplesy/app/util/text_style.dart';
 import 'package:knowplesy/presentation/pages/home/setting_page/change_password_page/change_password_page.dart';
 
+import '../../../../app/storage/secure_storage.dart';
 import '../../../../app/util/app_colors.dart';
 import '../../../../app/widget/custom_setting.dart';
 import 'access_control_page/access_control_page.dart';
@@ -29,7 +31,7 @@ class SettingPage extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                      "Setting",
+                      "setting".tr,
                       style: TextStyle(color: Colors.white, fontSize: 23),
                     ),
                   )),
@@ -39,7 +41,7 @@ class SettingPage extends StatelessWidget {
             ),
             CustomSetting(
               iconProfile: Icons.perm_identity,
-              text: "Personal Information",
+              text: "personal_information".tr,
               press: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (
@@ -58,7 +60,7 @@ class SettingPage extends StatelessWidget {
             ),
             CustomSetting(
               iconProfile: Icons.lock_outlined,
-              text: "Change password",
+              text: "change_password".tr,
               press: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (
@@ -75,17 +77,18 @@ class SettingPage extends StatelessWidget {
                 thickness: 1,
               ),
             ),
-            CustomSetting(
-              iconProfile: Icons.miscellaneous_services_outlined,
-              text: "Access and control",
-              press: () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (
-                  context,
-                ) =>
-                        AccessControlPage()));
-              },
-            ),
+            // if (SecureStorage.readSecureData("role") == "seizure")
+              CustomSetting(
+                iconProfile: Icons.miscellaneous_services_outlined,
+                text: "access_and_control".tr,
+                press: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (
+                    context,
+                  ) =>
+                          AccessControlPage()));
+                },
+              ),
             const Padding(
               padding: EdgeInsets.only(right: 16.0, left: 16),
               child: Divider(
@@ -96,7 +99,7 @@ class SettingPage extends StatelessWidget {
             ),
             CustomSetting(
               iconProfile: Icons.language,
-              text: "Language",
+              text: "language".tr,
               press: () {
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (

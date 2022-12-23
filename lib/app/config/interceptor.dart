@@ -1,47 +1,48 @@
-// import 'dart:async';
-//
-// import 'package:dio/dio.dart';
-//
-// class AppInterceptors extends Interceptor {
-//   @override
-//   FutureOr<dynamic> onRequest(RequestOptions options) async {
-//     if (options.headers.containsKey("requiresToken")) {
-//       //remove the auxiliary header
-//       options.headers.remove("requiresToken");
-//
-//      // SharedPreferences prefs = await SharedPreferences.getInstance();
-//       var header = prefs.get("Header");
-//
-//       options.headers.addAll({"Header": "$header${DateTime.now()}"});
-//
-//       return options;
-//     }
-//   }
-//
-//   @override
-//   FutureOr<dynamic> onError(DioError dioError) {
-//     if (dioError.message.contains("ERROR_001")) {
-//       // this will push a new route and remove all the routes that were present
-//       navigatorKey.currentState.pushNamedAndRemoveUntil(
-//           "/login", (Route<dynamic> route) => false);
-//     }
-//
-//     return dioError;
-//   }
-//
-//   @override
-//   FutureOr<dynamic> onResponse(Response options) async {
-//     if (options.headers.value("verifyToken") != null) {
-//       //if the header is present, then compare it with the Shared Prefs key
-//       SharedPreferences prefs = await SharedPreferences.getInstance();
-//       var verifyToken = prefs.get("VerifyToken");
-//
-//       // if the value is the same as the header, continue with the request
-//       if (options.headers.value("verifyToken") == verifyToken) {
-//         return options;
-//       }
-//     }
-//
-//     return DioError(request: options.request, message: "User is no longer active");
-//   }
-// }
+import 'package:dio/dio.dart' as di;
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:knowplesy/app/storage/account_info_storage.dart';
+import 'package:knowplesy/app/util/app_colors.dart';
+import 'package:knowplesy/presentation/controllers/login_controller/login_controller.dart';
+
+import '../../presentation/controllers/register_controller/register_controller.dart';
+import '../storage/secure_storage.dart';
+
+class AppInterceptor extends di.Interceptor {
+  @override
+  void onRequest(
+      di.RequestOptions options, di.RequestInterceptorHandler handler) {
+    options.headers["authorization"] =
+        "Bearer ${AccountInfoStorage.readToken()}";
+
+// "api-key": "7Xnr!var&m65WmEQLam2JfBAcmKt1r",
+//     "lang": "en",
+//     "authorization":
+//     "Bearer ${SecureStorage.readToken()}",
+//     "device-key":"mobile",
+//     "company":"maisarah-ibs"
+    super.onRequest(options, handler);
+  }
+
+  @override
+  void onError(di.DioError err, di.ErrorInterceptorHandler handler) {
+    if (err.response!.statusCode == 422) {
+      Get.snackbar("Oups", "Email alredy exist",
+          backgroundColor: AppColors.secondryColor, colorText: Colors.white);
+      Get.find<RegisterController>().desableIsLoading();
+      // } else if (err.response!.statusCode == 404) {
+      //   Get.snackbar("Oups!", "",
+      //       backgroundColor: AppColors.secondryColor, colorText: Colors.white);
+      //   Get.find<LoginController>().desableIsLoading();
+      // }
+    }
+  }
+  @override
+  void onResponse(di.Response response, di.ResponseInterceptorHandler handler) {
+    if (response.statusCode == 200 || response.statusCode == 201) {
+    } else {
+      Get.snackbar("err", "message");
+    }
+    return super.onResponse(response, handler);
+  }
+}

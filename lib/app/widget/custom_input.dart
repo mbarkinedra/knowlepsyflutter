@@ -8,12 +8,17 @@ class CustomInput extends StatelessWidget {
   final String hint;
   TextEditingController? controller;
   bool des;
+  TextInputType keyboardType;
+  final Function validator;
 
-  CustomInput(
-      {required this.lep,
-      this.hint = "",
-      this.controller,
-      this.des = true});
+  CustomInput({
+    required this.lep,
+    required this.keyboardType,
+    this.hint = "",
+    this.controller,
+    this.des = true,
+    required this.validator,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +38,7 @@ class CustomInput extends StatelessWidget {
             height: 15,
           ),
           Container(
-            height: 50,
+              height: 60,
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
                 color: Colors.white,
@@ -41,6 +46,10 @@ class CustomInput extends StatelessWidget {
                 border: Border.all(color: Colors.black38)),
             child: Center(
               child: TextFormField(
+                keyboardType: keyboardType,
+                validator: (v) {
+                  return validator(v);
+                },
                 controller: controller,
                 enabled: des,
                 decoration: InputDecoration(
@@ -49,12 +58,12 @@ class CustomInput extends StatelessWidget {
                   filled: true,
                   border: InputBorder.none,
                   hintStyle: TextStyle(color: Colors.grey),
-                  errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(
-                        0,
-                      ),
-                      borderSide:
-                          BorderSide(color: AppColors.BorderInputColor)),
+                  // errorBorder: OutlineInputBorder(
+                  //     borderRadius: BorderRadius.circular(
+                  //
+                  //       borderSide: 0,
+                  //     ),
+                  //         BorderSide(color: AppColors.BorderInputColor)),
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(0),
                       borderSide:

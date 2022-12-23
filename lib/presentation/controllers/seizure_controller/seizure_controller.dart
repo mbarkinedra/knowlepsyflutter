@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:knowplesy/data/networking/json/getuserprofilejson.dart';
 import '../../../app/storage/account_info_storage.dart';
 import '../../../data/networking/api/undetected_alert_api.dart';
 import '../../../data/networking/json/add_undetected_alert_json.dart';
@@ -18,6 +19,8 @@ class SeizureController extends GetxController {
       DeleteUndetectedAlertApi();
   final GetAlertByTypeApi _getAlertByTypeApi = GetAlertByTypeApi();
   UserJson? userJson;
+  GetUserProfilejson? getUserProfilejson;
+
   GetAlertByTypeJson? getAlertByTypeJson;
   TextEditingController comment = TextEditingController();
   DateTime dateTime = DateTime.now();

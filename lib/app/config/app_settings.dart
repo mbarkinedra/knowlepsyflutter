@@ -21,8 +21,19 @@ class SettingsApp {
 
   static String get addCaregiver => '$baseApiUrl/auth/addCaregiver';
 
+  static String get addDoctor => '$baseApiUrl/consultation/seizureAddDoctor';
+
   static String get getAllCareGiver =>
       '$baseApiUrl/CaregiverSeizure/CaregiverSeizurebyidSeizure?seizure_id=';
+
+  static String get addStateDoctor =>
+      '$baseApiUrl/consultation/enabledesableDoctor';
+
+  static String get getAllStateDoctor =>
+      '$baseApiUrl/consultation/seizuredoctotStat';
+
+  static String get getDoctor =>
+      '$baseApiUrl/consultation/ConsultationSeizure?seizure_id=';
 
   static String get getAllStateCareGiver =>
       '$baseApiUrl/CaregiverSeizure/CaregiverSeizurebystateCaregiver';
@@ -46,7 +57,19 @@ class SettingsApp {
 
   static String get addMedications => '$baseApiUrl/medication/addMedications';
 
-  static String get getMedecation => '$baseApiUrl/medication/medications';
+  static String get addStateMedications =>
+      '$baseApiUrl/medication/stateMedication?medication_id=';
+  static String get updateMedications =>
+      '$baseApiUrl/medication/updateMedication?id=';
+  static String get getMedecation =>
+      '$baseApiUrl/medication/medications?seizure_id=';
+  static String get getModifMedecation =>
+      '$baseApiUrl/medication/medication/{id}?id=';
+
+  static String get addReminderMe => '$baseApiUrl/medication/reminderMe';
+
+  static String get getReminderMe =>
+      '$baseApiUrl/medication/reminderMeMedication';
 
   static String get verifyCodeForgotPassword =>
       '$baseApiUrl/password/verifCodeForgetPassword';

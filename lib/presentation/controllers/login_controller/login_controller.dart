@@ -24,7 +24,6 @@ class LoginController extends GetxController {
 
   UserJson? userJson;
   bool isVisiblePassword = true;
-
   GlobalKey<FormState> LoginFormKey = GlobalKey<FormState>();
   RxBool isLoading = false.obs;
   ValidatorSignIn validator = ValidatorSignIn();
@@ -35,11 +34,19 @@ class LoginController extends GetxController {
     update();
   }
 
+  desableIsLoading() {
+    isLoading.value = false;
+    update();
+  }
+
   login(context) async {
+    error.value = '';
+    isLoading.value = true;
     _userApi.postData({
       "email": emailController.text,
       "password": passwordController.text
     }).then((value) {
+      isLoading.value = false;
       userJson = value as UserJson;
       print("*" * 50);
       print(value);
@@ -51,18 +58,26 @@ class LoginController extends GetxController {
 
       SecureStorage.writeSecureData(key: 'token', value: userJson!.token!);
       SecureStorage.writeSecureData(
+          key: 'user_id', value: userJson!.user!.id.toString());
+
+      SecureStorage.writeSecureData(
           key: 'nbr_undetectedAlert',
           value: userJson!.user!.nbrUndetectedAlert!.toString());
       SecureStorage.writeSecureData(
           key: 'trueAlert', value: userJson!.user!.trueAlert!.toString());
       SecureStorage.writeSecureData(
           key: 'falseAlert', value: userJson!.user!.falseAlert!.toString());
-
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (
-        context,
-      ) =>
-              HomePage()));
+      SecureStorage.writeSecureData(key: 'role', value: userJson!.user!.role!);
+      SecureStorage.writeSecureData(
+          key: 'imag', value: userJson!.user!.imageUrl!);
+      SecureStorage.writeSecureData(
+          key: 'firstName', value: userJson!.user!.firstName!);
+      SecureStorage.writeSecureData(
+          key: 'lastName', value: userJson!.user!.lastName!);
+      //Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+      //  builder: (context,) =>
+      //    HomePage()));
+      Get.offAll(HomePage());
     });
   }
 
@@ -79,31 +94,9 @@ class LoginController extends GetxController {
         idToken: googleSignInAuthentication!.idToken,
         accessToken: googleSignInAuthentication!.accessToken,
       );
-
       await _auth.signInWithCredential(credential).then((user) {
         Get.to(() => HomePage());
       });
-    }
-  }
-
-  loginWithGoogle() async {
-    GoogleSignIn googleSignIn = GoogleSignIn();
-    googleSignIn.signOut();
-    final googleAccount = await googleSignIn.signIn();
-    if (googleAccount != null) {
-      final googleAuth = await googleAccount.authentication;
-      if (googleAuth.accessToken != null) {
-        FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-        firebaseAuth
-            .signInWithCredential(GoogleAuthProvider.credential(
-                idToken: googleAuth.accessToken,
-                accessToken: googleAuth.idToken))
-            .then((value) {
-          Get.snackbar("title", "message");
-        });
-        try {} on FirebaseException catch (e) {
-        } catch (ee) {}
-      }
     }
   }
 }

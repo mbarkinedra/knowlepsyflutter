@@ -10,21 +10,22 @@ class ValidatorSignUp {
   String? validateFirstName(String value) {
     if (!validationType) {
       if (value.isEmpty) {
-        return "Veuillez saisir votre nom";
+        return "please_enter_your_first_name".tr;
       }
     } else {
-     return validatorServer.validate(value, 'firstName');
+      return validatorServer.validate(value, 'firstName');
     }
 
-   return null;
+    return null;
   }
+
   String? validateLastName(String value) {
     if (!validationType) {
       if (value.isEmpty) {
-        return "Veuillez saisir votre nom";
+        return "please_enter_your_last_name".tr;
       }
     } else {
-      return   validatorServer.validate(value, 'lastName');
+      return validatorServer.validate(value, 'lastName');
     }
 
     return null;
@@ -36,7 +37,7 @@ class ValidatorSignUp {
         return "Veuillez saisir votre numero de téléphone";
       }
     } else {
-          return validatorServer.validate(value, 'phoneNumber');
+      return validatorServer.validate(value, 'phoneNumber');
     }
     return null;
   }
@@ -45,7 +46,7 @@ class ValidatorSignUp {
     if (!validationType) {
       //client
       if (!GetUtils.isEmail(value)) {
-        return "Veuillez saisir votre email";
+        return "please_enter_your_email".tr;
       }
     } else {
       //server
@@ -55,21 +56,18 @@ class ValidatorSignUp {
   }
 
   String? validatePassword(String value) {
-
-      if (value!.isEmpty || value!.length < 6) {
-        return "Veuillez saisir  votre mot de passe";
-      }
-
-
-
-    return null;
-  }
-  String? validatePassword1(String value) {
-    if (value.isEmpty || value.length < 6) {
-      return "Veuillez saisir  votre mot de passe";
+    if (value!.isEmpty || value!.length < 6) {
+      return "please_insert_your_password".tr;
     }
 
     return null;
   }
 
+  String? validatePassword1(String value) {
+    if (value.isEmpty || value.length < 6) {
+      return "please_insert_your_password".tr;
+    }
+
+    return null;
+  }
 }

@@ -1,4 +1,6 @@
+
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:knowplesy/app/storage/secure_storage.dart';
 
@@ -9,7 +11,7 @@ class AccountInfoStorage {
   static const _keyEmail = 'email';
   static const _keyToken = 'token';
   static const _keyUserId = 'user_id';
-  static const _keyLastName = 'LastName';
+  static const _keyLastName = 'lastName';
   static const _keyFirstName = 'firstName';
   static const _keyPhoneNumber = 'phone_number';
   static const _keyImageUrl = 'image_url';
@@ -105,11 +107,11 @@ class AccountInfoStorage {
     return SecureStorage.deleteSecureData(_keyToken);
   }
 
-  logout() {
+  logout(context) {
     LogoutApi logoutApi = LogoutApi();
 
     logoutApi.secureGetData().then((value) {
-      Get.offAll(() => LoginPage());
+
     });
     removeUserData();
   }

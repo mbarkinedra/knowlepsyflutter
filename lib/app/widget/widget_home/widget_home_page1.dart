@@ -7,6 +7,7 @@ import 'package:knowplesy/app/widget/custom_button.dart';
 import 'package:knowplesy/app/widget/widget_home/widget_drawer.dart';
 import 'package:knowplesy/app/widget/widget_home/widget_home_page2.dart';
 import 'package:knowplesy/presentation/controllers/seizure_controller/seizure_controller.dart';
+import 'package:knowplesy/presentation/controllers/setting_controller/personal_information_controller/personnal_information_controller.dart';
 import 'package:knowplesy/presentation/pages/home/seizure_page/seizure_page.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
@@ -31,7 +32,7 @@ class WidgetHomePage1 extends GetView<SeizureController> {
                     bottomRight: Radius.circular(20))),
             child: Column(children: [
               SizedBox(
-                height: 30,
+                height: 10,
               ),
               Center(
                   child: Text(
@@ -56,34 +57,32 @@ class WidgetHomePage1 extends GetView<SeizureController> {
                                 color: Colors.deepPurpleAccent),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(30.0),
+                            padding: const EdgeInsets.all(20.0),
                             child: Container(
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle, color: Colors.white),
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(40.0),
-                            child: CircularPercentIndicator(
-                              radius: 50.0,
-                              lineWidth: 8,
-                              backgroundColor:
-                                  Colors.blueAccent.withOpacity(.3),
-                              percent: 2 / 4,
-                              animation: true,
-                              circularStrokeCap: CircularStrokeCap.round,
-                              center: Text(
-                                  "${AccountInfoStorage.readTrueAlert()} \n seizure"
-                                      .tr
-                                      ,
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      color: AppColors.secondryColor,
-                                      fontWeight: FontWeight.bold)),
-                              progressColor: AppColors.secondryColor,
-                            ),
-                          ),
+                              padding: const EdgeInsets.all(10.0),
+                              child: CircularPercentIndicator(
+                                radius: 50.0,
+                                lineWidth: 8,
+                                backgroundColor:
+                                    Colors.blueAccent.withOpacity(.3),
+                                percent: 2 / 4,
+                                animation: true,
+                                circularStrokeCap: CircularStrokeCap.round,
+                                center: Text(
+                                    "${AccountInfoStorage.readTrueAlert()} \n seizure"
+                                        .tr,
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: AppColors.secondryColor,
+                                        fontWeight: FontWeight.bold)),
+                                progressColor: AppColors.secondryColor,
+                              ))
                         ]),
                       )),
                     ],
@@ -98,7 +97,7 @@ class WidgetHomePage1 extends GetView<SeizureController> {
                 child: CustomButton(
                   text: 'log_an_undetected_seizure_alert'.tr,
                   onClick: () {
-                  controller.showMyDialog(context);
+                    controller.showMyDialog(context);
                   },
                   color: AppColors.secondryColor,
                   width: MediaQuery.of(context).size.width * .8,
@@ -139,9 +138,6 @@ class WidgetHomePage1 extends GetView<SeizureController> {
               )
             ]),
           ),
-          SizedBox(
-            height: 10,
-          ),
           Expanded(
               child: ListView.separated(
             itemCount: 50,
@@ -159,16 +155,13 @@ class WidgetHomePage1 extends GetView<SeizureController> {
                           color: Colors.deepOrangeAccent,
                           shape: BoxShape.circle),
                     ),
-                    SizedBox(
-                      width: 10,
-                    ),
                     Expanded(
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Convulsve senzure",
+                            "convulsive_seizure".tr,
                             style: TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),

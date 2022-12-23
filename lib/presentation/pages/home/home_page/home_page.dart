@@ -1,3 +1,76 @@
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:knowplesy/app/storage/secure_storage.dart';
+import 'package:knowplesy/app/util/app_colors.dart';
+import 'package:knowplesy/app/widget/widget_home/widget_drawer.dart';
+import 'package:knowplesy/app/widget/widget_home/widget_home_page3.dart';
+import 'package:knowplesy/presentation/controllers/home_controller.dart';
+import 'package:knowplesy/presentation/pages/home/setting_page/personal_information_page/personal_information_page.dart';
+
+import '../../../../app/widget/widget_home/widget_home_page1.dart';
+import '../../../../app/widget/widget_home/widget_home_page2.dart';
+import 'package:get/get.dart';
+
+class HomePage1 extends StatefulWidget {
+  @override
+  State<HomePage1> createState() => _HomePage1State();
+}
+
+class _HomePage1State extends State<HomePage1> {
+  HomeController controller = Get.find<HomeController>();
+
+  @override
+  void initState() {
+    super.initState();
+    controller.pageController =
+        PageController(initialPage: controller.initialPage);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    //controller.pageController.jumpToPage(controller.initialPage);
+    return Scaffold(
+        drawer: WidgetDrawer(),
+        appBar: AppBar(
+          elevation: 1,
+          backgroundColor: AppColors.primaryColor,
+          title: Row(
+            children: [
+              Text("${"hi".tr}${SecureStorage.readSecureData('firstName')}"),
+              Spacer(),
+              GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (
+                    context,
+                  ) =>
+                          PersonalInformationPage()));
+                },
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(8.0),
+                  child: Image.asset(
+                    "assets/images/avatar.png",
+                    width: 80,
+                    height: 50,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        body: PageView(
+          controller: controller.pageController,
+          onPageChanged: controller.updatePageChaing,
+          children: const <Widget>[
+            WidgetHomePage1(),
+            WidgetHomePage2(),
+            WidgetHomePage3()
+          ],
+        ));
+  }
+}
+
 // import 'package:flutter/material.dart';
 // import 'package:knowplesy/app/config/app_colors.dart';
 // import 'package:knowplesy/app/config/text_style.dart';
@@ -203,80 +276,3 @@
 //     ;
 //   }
 // }
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
-import 'package:knowplesy/app/storage/secure_storage.dart';
-import 'package:knowplesy/app/util/app_colors.dart';
-import 'package:knowplesy/app/widget/widget_home/widget_drawer.dart';
-import 'package:knowplesy/app/widget/widget_home/widget_home_page3.dart';
-import 'package:knowplesy/presentation/controllers/home_controller.dart';
-import 'package:knowplesy/presentation/pages/home/setting_page/personal_information_page/personal_information_page.dart';
-
-import '../../../../app/widget/widget_home/widget_home_page1.dart';
-import '../../../../app/widget/widget_home/widget_home_page2.dart';
-import 'package:get/get.dart';
-
-class HomePage1 extends StatefulWidget {
-
-  @override
-  State<HomePage1> createState() => _HomePage1State();
-}
-
-class _HomePage1State extends State<HomePage1> {
-  HomeController controller=Get.find<HomeController>();
-
-  @override
-  void initState() {
-    super.initState();
-    controller.pageController=PageController(initialPage:controller.initialPage);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    //controller.pageController.jumpToPage(controller.initialPage);
-    return Scaffold(
-        drawer: WidgetDrawer(),
-        appBar: AppBar(
-          elevation: 1,
-          backgroundColor: AppColors.primaryColor,
-          title: Row(
-            children: [
-              Text("${"hi".tr}${SecureStorage.readSecureData( 'firstName')}"),
-              Spacer(),
-              GestureDetector(
-                onTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (
-                    context,
-                  ) =>
-                          PersonalInformationPage()));
-                },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.asset(
-                    "assets/images/avatar.png",
-                    width: 80,
-                    height: 50,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-        body:
-
-
-
-
-
-
-        PageView(controller:controller.pageController ,onPageChanged: controller.updatePageChaing,
-          children: const <Widget>[
-            WidgetHomePage1(),
-            WidgetHomePage2(),
-            WidgetHomePage3()
-          ],
-        ));
-  }
-}

@@ -3,6 +3,7 @@ import 'package:knowplesy/presentation/controllers/login_controller/login_contro
 
 import '../../app/storage/account_info_storage.dart';
 import '../controllers/home_controller.dart';
+import '../controllers/language/languageController.dart';
 import '../controllers/medecine_controller/medecine_controller.dart';
 import '../controllers/register_controller/register_controller.dart';
 import '../controllers/reset_password_controller/reset_password_controller.dart';
@@ -16,18 +17,18 @@ class AllBindings extends Bindings {
   void dependencies() async {
     Get.put(AccountInfoStorage());
 
-    Get.put<LoginController>(LoginController(),permanent: true);
+    Get.put<LoginController>(LoginController(), permanent: true);
     Get.put<RegisterController>(RegisterController());
     Get.put<MedecineController>(MedecineController());
 
-
     Get.put<HomeController>(HomeController());
-    Get.lazyPut(() => PersonnalInformationController());
-    Get.put<SeizureController>(SeizureController() );
+    Get.put<PersonnelInformationController>(PersonnelInformationController());
+    Get.put<SeizureController>(SeizureController());
 
-    Get.put<LoginPasswordController>(LoginPasswordController() );
+    Get.put<LoginPasswordController>(LoginPasswordController());
+    Get.put<LanguageController>(LanguageController());
 
-    Get.put<AccesControlController>(AccesControlController());
+    Get.put<AccessControlController>(AccessControlController());
     Get.put<ChangePasswordViewController>(ChangePasswordViewController());
   }
 }

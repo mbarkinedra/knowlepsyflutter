@@ -6,10 +6,10 @@ import 'font_size.dart';
 
 TextStyle _style(
     {FontWeight? fontWeight,
-      Color? color,
-      double? fontSize,
-      String? fontFamily,
-      TextDecoration? textDecoration}) {
+    Color? color,
+    double? fontSize,
+    String? fontFamily,
+    TextDecoration? textDecoration}) {
   return TextStyle(
       fontWeight: fontWeight,
       color: color,

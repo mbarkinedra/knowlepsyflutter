@@ -59,14 +59,21 @@ dependencies:
   firebase_auth: ^4.2.0
   firebase_core: ^2.4.0
   google_sign_in: ^5.4.2
-
+  #android_alarm_manager_plus: ^2.0.6
+  flutter_local_notifications: ^12.0.4
+  android_alarm_manager_plus: ^2.1.0
 
   # flutter_blue: 0.6.3+1
   device_info: ^2.0.3
+  flutter_launcher_icons: ^0.11.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
-
+flutter_icons:
+  image_path: "assets/images/logo.png"
+  #image_path_android: "assets/images/Splash_2.png"
+  android: true
+  ios: true
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
   # activated in the `analysis_options.yaml` file located at the root of your

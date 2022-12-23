@@ -199,17 +199,18 @@ class MedecinePage extends GetView<MedecineController> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: CustomButton(
-                      text: 'insert a medecine',
+                      text: 'insert_a_medecine'.tr,
                       color: AppColors.secondryColor,
                       width: MediaQuery.of(context).size.width * .6,
                       // MediaQuery.of(context).size.width*.8,
                       hight: 50,
                       onClick: () {
+                        controller.isUpdate = false;
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (
                           context,
                         ) =>
-                                const InsertMedecinePage()));
+                                InsertMedecinePage()));
                       },
                     ),
                   ),
@@ -233,7 +234,7 @@ class MedecinePage extends GetView<MedecineController> {
               ),
               Align(
                 alignment: Alignment.centerLeft,
-                child: Text("Today",
+                child: Text("today".tr,
                     style:
                         TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
               ),
@@ -253,108 +254,160 @@ class MedecinePage extends GetView<MedecineController> {
                   itemBuilder: (context, pos) {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Container(
-                        padding: EdgeInsets.only(left: 10),
+                      child: GestureDetector(
+                        onTap: () {
+                          logic.getAllData(
+                              logic.getMedecationJson!.data![pos].id!, context);
+                          logic.idMedeine =
+                              logic.getMedecationJson!.data![pos].id!;
+                          logic.isUpdate = true;
+                        },
                         child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(15),
-                                    bottomRight: Radius.circular(15))),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    Image.asset(
-                                      "assets/images/icon_piles.png",
-                                      height: 20,
-                                      width: 20,
-                                    ),
-                                    SizedBox(
-                                      width: 4,
-                                    ),
-                                    Text(
-                                      "${logic.getMedecationJson?.data?[pos].name}",
-                                      style: TextStyle(
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    Spacer(),
-                                    Image.asset(
-                                      "assets/images/icon_time.png",
-                                      height: 20,
-                                      width: 20,
-                                    ),
-                                    Text(
-                                      "${logic.getMedecationJson?.data?[pos].time}",
-                                    ),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                    Image.asset(
-                                      "assets/images/icon_medecine.png",
-                                      height: 20,
-                                      width: 20,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "${logic.getMedecationJson?.data?[pos].dosage}",
-                                          style: TextStyle(),
-                                        ),
-                                        Text("${logic.getMedecationJson?.data?[pos].typeDosage}")
-                                      ],
-                                    ),
-                                    Spacer(),
-                                    Image.asset(
-                                      "assets/images/icon_dosage.png",
-                                      height: 20,
-                                      width: 20,
-                                    ),
-                                    SizedBox(
-                                      width: 4,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text("${logic.getMedecationJson?.data?[pos].quantity}"),
-                                        Text("${logic.getMedecationJson?.data?[pos].typeQuantity}"),
-                                      ],
-                                    ),
-                                    Spacer(),
-                                    Container(
-                                      height: 30,
-                                      width: 70,
-                                      decoration: BoxDecoration(
-                                          color: Colors.deepPurpleAccent,
-                                          borderRadius:
-                                              BorderRadius.circular(15)),
-                                      child: Center(
-                                          child: Text(
-                                        "taken".tr,
-                                        style: TextStyle(color: Colors.white),
-                                      )),
-                                    ),
-                                    SizedBox(
-                                      width: 8,
-                                    ),
-                                  ],
-                                )
-                              ],
-                            )),
-                        height: 70,
-                        decoration: BoxDecoration(
-                            color: Colors.deepPurpleAccent,
-                            borderRadius: BorderRadius.circular(15)),
+                          padding: EdgeInsets.only(left: 10),
+                          child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(15),
+                                      bottomRight: Radius.circular(15))),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Image.asset(
+                                        "assets/images/icon_piles.png",
+                                        height: 20,
+                                        width: 20,
+                                      ),
+                                      SizedBox(
+                                        width: 4,
+                                      ),
+                                      Text(
+                                        "${logic.getMedecationJson?.data?[pos].name}",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                      Spacer(),
+                                      Image.asset(
+                                        "assets/images/icon_time.png",
+                                        height: 20,
+                                        width: 20,
+                                      ),
+                                      Text(
+                                        "${logic.getMedecationJson?.data?[pos].time}",
+                                      ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Image.asset(
+                                        "assets/images/icon_medecine.png",
+                                        height: 20,
+                                        width: 20,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "${logic.getMedecationJson?.data?[pos].dosage}",
+                                            style: TextStyle(),
+                                          ),
+                                          SizedBox(
+                                            width: 4,
+                                          ),
+                                          Text("Mg")
+                                        ],
+                                      ),
+                                      Spacer(),
+                                      Image.asset(
+                                        "assets/images/icon_dosage.png",
+                                        height: 20,
+                                        width: 20,
+                                      ),
+                                      SizedBox(
+                                        width: 4,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                              "${logic.getMedecationJson?.data?[pos].quantity}"),
+                                          SizedBox(
+                                            width: 3,
+                                          ),
+                                          Text("/Jour"),
+                                        ],
+                                      ),
+                                      Spacer(),
+                                      GetBuilder<MedecineController>(
+                                          builder: (logic) {
+                                        return GestureDetector(
+                                          onTap: () {
+                                            print(logic.getMedecationJson!
+                                                .data![pos].id
+                                                .toString());
+                                            logic.addStateMedecation(
+                                                medication_id: logic
+                                                    .getMedecationJson!
+                                                    .data![pos]
+                                                    .id
+                                                    .toString());
+                                          },
+                                          child: Container(
+                                            height: 30,
+                                            width: 70,
+                                            decoration: BoxDecoration(
+                                                color: logic
+                                                            .getMedecationJson!
+                                                            .data![pos]
+                                                            .stateMedication ==
+                                                        0
+                                                    ? AppColors.secondryColor
+                                                    : Colors.deepPurpleAccent,
+                                                borderRadius:
+                                                    BorderRadius.circular(15)),
+                                            child: Center(
+                                                child: logic
+                                                            .getMedecationJson!
+                                                            .data![pos]
+                                                            .stateMedication ==
+                                                        1
+                                                    ? Text(
+                                                        "taken".tr,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      )
+                                                    : Text(
+                                                        "Pendding".tr,
+                                                        style: TextStyle(
+                                                            color:
+                                                                Colors.white),
+                                                      )),
+                                          ),
+                                        );
+                                      }),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              )),
+                          height: 70,
+                          decoration: BoxDecoration(
+                              color: Colors.deepPurpleAccent,
+                              borderRadius: BorderRadius.circular(15)),
+                        ),
                       ),
                     );
                   });
@@ -370,9 +423,9 @@ class MedecinePage extends GetView<MedecineController> {
         //         style: TextStyle(fontSize: 14, fontWeight: FontWeight.normal)),
         //   ),
         // ),
-        SizedBox(
-          height: 8,
-        ),
+        // SizedBox(
+        //   height: 8,
+        // ),
         // Expanded(
         //     child: ListView.builder(
         //         itemCount: _getEventsForDay(_selectedDay).length,

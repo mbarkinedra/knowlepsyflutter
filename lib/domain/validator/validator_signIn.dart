@@ -12,7 +12,7 @@ class ValidatorSignIn {
     if (!validationType) {
       //client
       if (!GetUtils.isEmail(value)) {
-        return "Veuillez saisir votre email";
+        return "please_enter_your_email".tr;
       }
     } else {
       //server
@@ -23,7 +23,7 @@ class ValidatorSignIn {
 
   String? validatePassword(String value) {
     if (value!.isEmpty || value!.length < 6) {
-      return "Veuillez saisir  votre mot de passe";
+      return "please_insert_your_password".tr;
     }
   }
 }

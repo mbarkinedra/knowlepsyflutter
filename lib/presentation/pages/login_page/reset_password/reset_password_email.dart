@@ -2,10 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:knowplesy/app/widget/custom_button_without_icon_login.dart';
-import 'package:knowplesy/app/widget/custom_input_login.dart';
-import 'package:knowplesy/presentation/controllers/login_controller/login_controller.dart';
 import 'package:knowplesy/presentation/controllers/reset_password_controller/reset_password_controller.dart';
-
 import '../../../../app/widget/custom_input_reset_password.dart';
 
 class ResetPasswordEmail extends GetView<LoginPasswordController> {
@@ -29,7 +26,7 @@ class ResetPasswordEmail extends GetView<LoginPasswordController> {
               ),
               Align(
                 child: Text(
-                  'Reset Password',
+                  'reset_password'.tr,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 20,
@@ -41,25 +38,27 @@ class ResetPasswordEmail extends GetView<LoginPasswordController> {
               ),
               CustomInputResetPasswor(
                 controller: controller.email,
-                label: "Email ",
+                label: "email".tr,
                 hint: "John@gmail.com",
               ),
               SizedBox(
                 height: 30,
               ),
-              Center(
-                child: CustomButtonWithoutIcon(
-                  text: 'Done ',
-                  color: Colors.deepOrangeAccent,
-                  width: double.infinity,
-                  // MediaQuery.of(context).size.width*.8,
-                  hight: 2,
-                  onClick: () {
-                    print("hhhhhhhhhhhhhhhhh");
-                    controller.resetPasswordWithCode(context);
-                  },
-                ),
-              ),
+              GetBuilder<LoginPasswordController>(builder: (logic) {
+                return Center(
+                  child: controller.isLoading.value
+                      ? CircularProgressIndicator()
+                      : CustomButtonWithoutIcon(
+                          text: "continue".tr,
+                          color: Colors.deepOrangeAccent,
+                          width: MediaQuery.of(context).size.width * .7,
+                          hight: 50,
+                          onClick: () {
+                            controller.resetPasswordWithCode(context);
+                          },
+                        ),
+                );
+              }),
             ],
           ),
         ));

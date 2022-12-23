@@ -7,7 +7,9 @@ import 'package:knowplesy/app/widget/custom_input.dart';
 
 import '../../../../controllers/setting_controller/personal_information_controller/personnal_information_controller.dart';
 
-class PersonalInformationPage extends GetView<PersonnalInformationController> {
+class PersonalInformationPage extends GetView<PersonnelInformationController> {
+  const PersonalInformationPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> _formKey = GlobalKey();
@@ -41,12 +43,13 @@ class PersonalInformationPage extends GetView<PersonnalInformationController> {
                         style: TextStyle(color: Colors.white, fontSize: 23)),
                     Spacer(),
                   ],
-                )
-                ),
+                )),
             SizedBox(
               height: 10,
             ),
-            GetBuilder<PersonnalInformationController>(builder: (logic) {
+            GetBuilder<PersonnelInformationController>(builder: (logic) {
+              print("this imageeeee   =>      ${logic.getUserProfilejson?.data
+                  ?.imageUrl}");
               return Container(
                 child: Stack(
                   children: [
@@ -55,18 +58,29 @@ class PersonalInformationPage extends GetView<PersonnalInformationController> {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(22.0),
                         child: controller.img != null
-                            ?
-                        CircleAvatar(maxRadius: 60,backgroundImage: FileImage(controller.img!,),)
+                            ? CircleAvatar(
+                          maxRadius: 60,
+                          backgroundImage: FileImage(
+                            controller.img!,
+                          ),
+                        )
+                            : logic.getUserProfilejson?.data?.imageUrl != null
+                            ? CircleAvatar(
+                          maxRadius: 60,
+                          backgroundImage: NetworkImage(
+                            logic.getUserProfilejson!.data!.imageUrl!,
+                          ),
+                        )
                             : Image.asset(
-                                "assets/images/avatar.png",
-                                width: 150,
-                                height: 110,
-                              ),
+                          "assets/images/avatar.png",
+                          width: 150,
+                          height: 110,
+                        ),
                       ),
                     ),
                     Positioned(
-                      top: -5,
-                      right: -2,
+                      top: -10,
+                      right: -9,
                       child: GestureDetector(
                         onTap: () {
                           controller.pickImage();
@@ -90,18 +104,33 @@ class PersonalInformationPage extends GetView<PersonnalInformationController> {
               height: 25,
             ),
             CustomInput(
-                lep: "Name :", hint: "", controller: controller.firstName),
+                validator: controller.validator.validateFirstName,
+
+                lep: "first_name".tr,
+                hint: "",
+                controller: controller.firstName,
+                keyboardType: TextInputType.text),
             SizedBox(
               height: 8,
             ),
             CustomInput(
-                lep: "Family Name :",
+                validator: controller.validator.validateLastName,
+
+                lep: "last_name".tr,
                 hint: "",
-                controller: controller.lastName),
+                controller: controller.lastName,
+                keyboardType: TextInputType.text),
             SizedBox(
               height: 8,
             ),
-            CustomInput(lep: "Email :", hint: "", controller: controller.email,des: false),
+            CustomInput(
+                validator: controller.validator.validateEmail,
+
+                lep: "email".tr,
+                hint: "",
+                controller: controller.email,
+                keyboardType: TextInputType.text,
+                des: false),
             SizedBox(
               height: 10,
             ),
@@ -142,20 +171,27 @@ class PersonalInformationPage extends GetView<PersonnalInformationController> {
                 ],
               ),
             ),
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(30.0),
-                child: CustomButton(
-                  text: 'confirme'.tr,
-                  color: Colors.deepOrangeAccent,
-                  width: double.infinity,
-                  hight: 40,
-                  onClick: () {
-                    controller.updateUserData();
-                  },
+            Obx(() {
+              return Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(30.0),
+                  child:controller.isLoading.isTrue
+                    ? const CircularProgressIndicator()
+                    :  CustomButton(
+                    text: 'confirme'.tr,
+                    color: Colors.deepOrangeAccent,
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * .8,
+                    hight: 40,
+                    onClick: () {
+                      controller.updateUserData(context);
+                    },
+                  ),
                 ),
-              ),
-            )
+              );
+            })
           ],
         ),
       ),

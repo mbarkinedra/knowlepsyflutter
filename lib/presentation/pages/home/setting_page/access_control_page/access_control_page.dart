@@ -3,17 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:get/get.dart';
 import 'package:knowplesy/presentation/controllers/setting_controller/acces_control_controller/acces_control_controller.dart';
-
 import '../../../../../app/widget/access_and_control_item.dart';
 import 'add_caregiver/add_caregiver.dart';
 import 'add_doctor/add_doctor.dart';
 
-class AccessControlPage extends GetView<AccesControlController> {
+class AccessControlPage extends GetView<AccessControlController> {
   const AccessControlPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     controller.getAllCaregiver();
+    controller.getDoctor();
     return Scaffold(
       body: Column(
         children: [
@@ -70,7 +70,7 @@ class AccessControlPage extends GetView<AccesControlController> {
                                 builder: (
                               context,
                             ) =>
-                                    Addcaregiver()));
+                                    AddCaregiver()));
                           },
                           child: Container(
                               width: 20,
@@ -143,12 +143,30 @@ class AccessControlPage extends GetView<AccesControlController> {
                 SizedBox(
                   width: 8,
                 ),
-                Text("Add a Doctor",
+                Text("add_a_doctor".tr,
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16))
               ],
             ),
           ),
-          Expanded(child: GetBuilder<AccesControlController>(builder: (logic) {
+          GetBuilder<AccessControlController>(builder: (logic) {
+            return controller.getDoctorJson == null?SizedBox(): Column(
+                children: logic.getDoctorJson!.data!.map((e) {
+                  return AccessControlItem(
+                      onChange: (bool v) {
+                        e.stateDoctor = v ? 1 : 0;
+
+                        controller.switchActiveOrNotActiveDoctor(
+                          activeOrNotActive: v,
+                          dataDoctor: e,
+                        );
+                        logic.update();
+                      },
+                      isActive: e.stateDoctor == 1 ? true : false,
+                      name: "${e.doctorconsultation?.firstName}");
+                }).toList());
+          }),
+
+          Expanded(child: GetBuilder<AccessControlController>(builder: (logic) {
             return logic.getAllCaregiverJson == null
                 ? Center(
                     child: CircularProgressIndicator(),
@@ -156,6 +174,8 @@ class AccessControlPage extends GetView<AccesControlController> {
                 : ListView.builder(
                     itemCount: logic.getAllCaregiverJson?.data?.length,
                     itemBuilder: (context, pos) {
+                      print(logic.getAllCaregiverJson!.data![pos]
+                          .seizurecaregiver?.id);
                       return Dismissible(
                           background: Container(
                             color: Colors.red,
@@ -192,6 +212,8 @@ class AccessControlPage extends GetView<AccesControlController> {
                                   "${logic.getAllCaregiverJson?.data?[pos].caregiverseizure?.firstName}"));
                     });
           })),
+
+
         ],
       ),
     );

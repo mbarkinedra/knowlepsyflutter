@@ -37,7 +37,7 @@ class LoginPage extends GetView<LoginController> {
                   CustomInputLogin(
                     color: Colors.white,
                     icon: Icons.email,
-                    label: "Email :",
+                    label: "email".tr,
                     hint: "Exemple@gmail.com",
                     validator: controller.validator.validateEmail,
                     textEditingController: controller.emailController,
@@ -49,7 +49,7 @@ class LoginPage extends GetView<LoginController> {
                     return CustomInputLogin(
                       color: Colors.white,
                       icon: Icons.lock_outline,
-                      label: "Password :",
+                      label: "password".tr,
                       hint: "********",
                       obscureText: logic.isVisiblePassword,
                       validator: controller.validator.validatePassword,
@@ -79,7 +79,10 @@ class LoginPage extends GetView<LoginController> {
                         },
                         child: Text(
                           'i_forgot_my_password'.tr,
-                          style: TextStyle(color: Colors.white),
+                          style: TextStyle(
+                            color: Colors.white,
+                            decoration: TextDecoration.underline,
+                          ),
                         ),
                       ),
                     ),
@@ -87,27 +90,34 @@ class LoginPage extends GetView<LoginController> {
                   SizedBox(
                     height: 18,
                   ),
-                  Center(
-                    child: CustomButtonWithoutIcon(
-                      text: 'login'.tr,
-                      color: Colors.deepOrangeAccent,
-                      width: MediaQuery.of(context).size.width * .8,
-                      hight: 2,
-                      onClick: () async {
-                        controller.validator.validationType = false;
-                        if (!controller.LoginFormKey.currentState!.validate()) {
-                          //if client validations fails
-                          //show a snackbar to fix the client errors.
-                          Get.snackbar("Oups !",
-                              "Merci de corriger les erreurs ci-dessous.");
-                        } else {
-                          controller.validator.validationType = true;
-                          //send data to server and get errors
-                          controller.login(context);
-                        }
-                      },
-                    ),
-                  ),
+                  GetBuilder<LoginController>(builder: (logic) {
+                    return Center(
+                      child: controller.isLoading.value
+                          ? CircularProgressIndicator()
+                          : CustomButtonWithoutIcon(
+                              text: 'login'.tr,
+                              color: Colors.deepOrangeAccent,
+                              width: MediaQuery.of(context).size.width * .4,
+                              hight: 50,
+                              onClick: () async {
+                                controller.validator.validationType = false;
+                                if (!controller.LoginFormKey.currentState!
+                                    .validate()) {
+                                  //if client validations fails
+                                  //show a snackbar to fix the client errors.
+                                  Get.snackbar("Oups !",
+                                      "Merci de corriger les erreurs ci-dessous.",
+                                      colorText: Colors.white,
+                                      backgroundColor: AppColors.secondryColor);
+                                } else {
+                                  controller.validator.validationType = true;
+                                  //send data to server and get errors
+                                  controller.login(context);
+                                }
+                              },
+                            ),
+                    );
+                  }),
                   SizedBox(
                     height: 18,
                   ),
@@ -117,7 +127,7 @@ class LoginPage extends GetView<LoginController> {
                           AssetImage("assets/images/icon_google.png")),
                       text: 'Continue with google',
                       color: Colors.deepOrangeAccent,
-                      width: MediaQuery.of(context).size.width * .2,
+                      width: MediaQuery.of(context).size.width * .4,
                       hight: 40,
                       onClick: () {
                         controller.googleSignInMethod();
@@ -145,7 +155,8 @@ class LoginPage extends GetView<LoginController> {
                                 text: 'sign_up',
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    color: Colors.white))
+                                    color: Colors.white,
+                                    fontSize: 20))
                           ],
                         ),
                       ),

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:knowplesy/app/storage/account_info_storage.dart';
 import 'package:knowplesy/data/networking/json/user_json.dart';
 
+import '../../../../app/util/app_colors.dart';
 import '../../../../data/networking/api/auth_api.dart';
 import '../../../../data/networking/api/change_password_api.dart';
 import '../../../pages/login_page/login_page.dart';
@@ -12,7 +13,7 @@ class ChangePasswordViewController extends GetxController {
   final changePasswordFormKey = GlobalKey<FormState>();
   TextEditingController newPassword = TextEditingController();
   TextEditingController oldPassword = TextEditingController();
-  bool updatePasseword = false;
+  bool updatePassword = false;
   bool isVisiblePassword1 = true;
   bool isVisiblePassword2 = true;
   ChangePasswordApi changePasswordApi = ChangePasswordApi();
@@ -20,11 +21,7 @@ class ChangePasswordViewController extends GetxController {
 
   RxBool isLoading = false.obs;
 
-  // ValidatorPassword validator = ValidatorPassword();
   AccountInfoStorage accountInfoStorage = AccountInfoStorage();
-
-  //final UserApi _userApi = UserApi();
-  //ParameterBag userData = ParameterBag();
 
   void showHidePassword1() {
     isVisiblePassword1 = !isVisiblePassword1;
@@ -66,14 +63,20 @@ class ChangePasswordViewController extends GetxController {
             Get.back();
             clearAllData();
           },
+          textCancel: "Cancel",
+          cancelTextColor: AppColors.primaryColor,
+          onCancel: () {
+            Get.back();
+          },
           buttonColor: Colors.white,
+          confirmTextColor: AppColors.primaryColor,
           backgroundColor: Colors.white,
           radius: 10,
           content: Column(
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: Text("votre mot de passe et changé"),
+                child: Text("Your password is changed"),
               )
             ],
           ));

@@ -13,8 +13,8 @@ class AccessControlItem extends StatelessWidget {
     return Padding(
         padding: const EdgeInsets.all(8.0),
         child: Card(
-        //  clipBehavior: Clip.antiAlias,
-         // elevation: 5,
+          //  clipBehavior: Clip.antiAlias,
+          // elevation: 5,
           child: Row(
             children: [
               ClipRRect(
@@ -32,7 +32,7 @@ class AccessControlItem extends StatelessWidget {
                     padding: const EdgeInsets.all(4.0),
                     child: Text(name,
                         style:
-                            TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                        TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(4.0),
@@ -43,9 +43,9 @@ class AccessControlItem extends StatelessWidget {
               Spacer(),
               CupertinoSwitch(
                 // This bool value toggles the switch.
-                value: isActive,
-                activeColor: CupertinoColors.activeGreen,
-                onChanged:onChange
+                  value: isActive,
+                  activeColor: CupertinoColors.activeGreen,
+                  onChanged:onChange
                 // (bool? value) {},
               )
             ],
@@ -53,3 +53,4 @@ class AccessControlItem extends StatelessWidget {
         ));
   }
 }
+

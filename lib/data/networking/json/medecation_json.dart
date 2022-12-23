@@ -1,6 +1,3 @@
-
-
-
 import 'abstract__json_resource.dart';
 
 class AddMedicationJson extends AbstractJsonResource {
@@ -32,9 +29,8 @@ class Data {
   String? time;
   String? quantity;
   String? dosage;
-  String? typeQuantity;
-  String? typeDosage;
   int? seizureId;
+  String? date;
   String? updatedAt;
   String? createdAt;
   int? id;
@@ -44,9 +40,8 @@ class Data {
         this.time,
         this.quantity,
         this.dosage,
-        this.typeQuantity,
-        this.typeDosage,
         this.seizureId,
+        this.date,
         this.updatedAt,
         this.createdAt,
         this.id});
@@ -56,9 +51,8 @@ class Data {
     time = json['time'];
     quantity = json['quantity'];
     dosage = json['dosage'];
-    typeQuantity = json['type_quantity'];
-    typeDosage = json['type_dosage'];
     seizureId = json['seizure_id'];
+    date = json['date'];
     updatedAt = json['updated_at'];
     createdAt = json['created_at'];
     id = json['id'];
@@ -70,9 +64,8 @@ class Data {
     data['time'] = this.time;
     data['quantity'] = this.quantity;
     data['dosage'] = this.dosage;
-    data['type_quantity'] = this.typeQuantity;
-    data['type_dosage'] = this.typeDosage;
     data['seizure_id'] = this.seizureId;
+    data['date'] = this.date;
     data['updated_at'] = this.updatedAt;
     data['created_at'] = this.createdAt;
     data['id'] = this.id;

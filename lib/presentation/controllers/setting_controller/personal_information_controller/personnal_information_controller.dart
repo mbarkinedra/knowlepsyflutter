@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:knowplesy/presentation/pages/home/setting_page/setting_page.dart';
 
 import '../../../../app/storage/account_info_storage.dart';
 import '../../../../app/util/app_colors.dart';
@@ -12,7 +13,9 @@ import '../../../../data/networking/json/getuserprofilejson.dart';
 import '../../../../data/networking/json/user_json.dart';
 import 'package:dio/dio.dart' as di;
 
-class PersonnalInformationController extends GetxController {
+import '../../../../domain/validator/validator_signUp.dart';
+
+class PersonnelInformationController extends GetxController {
   TextEditingController firstName = TextEditingController();
   TextEditingController lastName = TextEditingController();
   TextEditingController password = TextEditingController();
@@ -21,6 +24,8 @@ class PersonnalInformationController extends GetxController {
   TextEditingController dateOfBirth = TextEditingController();
   TextEditingController country = TextEditingController();
   List<File> images = [];
+  ValidatorSignUp validator = ValidatorSignUp();
+
   GetUserProfilejson? getUserProfilejson;
   bool updateData = false;
   final GetUserProfileApi _getUserProfileApi = GetUserProfileApi();
@@ -28,6 +33,7 @@ class PersonnalInformationController extends GetxController {
   User user = User();
   final ImagePicker _picker = ImagePicker();
   File? img;
+  RxBool isLoading = false.obs;
 
   /// Image Picker
   Future pickImage() async {
@@ -44,7 +50,7 @@ class PersonnalInformationController extends GetxController {
   }
 
   ///Update User from server
-  updateUserData() async {
+  updateUserData(context) async {
     print("object");
     updateData = true;
     String fileName = "";
@@ -69,18 +75,21 @@ class PersonnalInformationController extends GetxController {
     }
     _editUserProfileApi.securePost(dataToPost: formData).then(
       (value) {
+        //   getUserProfilejson = value as GetUserProfilejson;
 
-        GetUserProfilejson getUserProfilejson=value as GetUserProfilejson;
-        print(" Get.snackbar(");
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (
+          context,
+        ) =>
+                SettingPage()));
         Get.snackbar(
           "",
-          getUserProfilejson.message ?? "",
+          "update successfully",
           backgroundColor: AppColors.secondryColor,
           colorText: Colors.white,
         );
       },
     ).catchError((e) {
-      print(e.toString());
       updateData = false;
       update();
     });
@@ -90,12 +99,10 @@ class PersonnalInformationController extends GetxController {
   getUserData() {
     firstName.text = AccountInfoStorage.readFirstName() ?? "";
     lastName.text = AccountInfoStorage.readLastName() ?? "";
-    //"image_url":"avatar.png"
     email.text = AccountInfoStorage.readEmail() ?? "";
     phoneNumber.text = AccountInfoStorage.readPhone() ?? "";
     _getUserProfileApi.secureGetData().then((value) {
       getUserProfilejson = value as GetUserProfilejson;
-      print(getUserProfilejson?.data?.toJson());
       firstName.text = getUserProfilejson?.data?.firstName ?? "";
       lastName.text = getUserProfilejson?.data?.lastName ?? "";
       phoneNumber.text = getUserProfilejson?.data?.phoneNumber ?? "";

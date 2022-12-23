@@ -6,7 +6,7 @@ class CustomInputLogin extends StatelessWidget {
   final String label;
   final String hint;
   final TextEditingController textEditingController;
-  final bool? obscureText;
+  final bool obscureText;
   final IconButton? suffixIcon;
   final IconData? icon;
   final Function validator;
@@ -18,7 +18,7 @@ class CustomInputLogin extends StatelessWidget {
       this.hint = "",
       required this.textEditingController,
       required this.validator,
-      this.obscureText,
+      this.obscureText=false,
       this.suffixIcon});
 
   @override
@@ -51,7 +51,7 @@ class CustomInputLogin extends StatelessWidget {
                   return validator(v);
                 },
                 controller: textEditingController,
-                // obscureText: obscureText!,
+                 obscureText: obscureText,
                 decoration: InputDecoration(
                   hintText: hint,
                   icon: Icon(
