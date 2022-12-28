@@ -35,7 +35,7 @@ class AccessControlController extends GetxController {
   TextEditingController phoneNumber = TextEditingController();
   TextEditingController email = TextEditingController();
   List<GetAllCaregiverJson> caregivers = [];
-  CareGiverJson _careGiverJson = CareGiverJson();
+  CareGiverJson? careGiverJson;
   AddDoctorJson addDoctorJson = AddDoctorJson();
   GetAllCaregiverJson? getAllCaregiverJson;
   GetDoctorJson? getDoctorJson;
@@ -72,7 +72,7 @@ class AccessControlController extends GetxController {
       "phone_number": phoneNumber.text,
     };
     _addCareGiveApi.securePost(dataToPost: data).then((value) {
-      _careGiverJson = value as CareGiverJson;
+      careGiverJson = value as CareGiverJson;
       getAllCaregiver();
       update();
     });

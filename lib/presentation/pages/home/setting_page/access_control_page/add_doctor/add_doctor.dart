@@ -155,12 +155,14 @@ class AddDoctorController extends GetView<AccessControlController> {
                           titleStyle: TextStyle(color: Colors.black),
                           middleTextStyle: TextStyle(color: Colors.black),
                           textConfirm: "Confirm",
-                          onConfirm: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (
-                              context,
-                            ) =>
-                                    AccessControlPage()));
+                           onConfirm: () {
+                          //   Navigator.of(context).push(MaterialPageRoute(
+                          //       builder: (
+                          //     context,
+                          //   ) =>
+                          //           AccessControlPage()));
+
+                            Navigator.pop(context);
                             Get.back();
                             controller.clearAllDataDoctor();
                           },

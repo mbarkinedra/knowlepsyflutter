@@ -519,26 +519,6 @@ class InsertMedecinePage extends GetView<MedecineController> {
                     // MediaQuery.of(context).size.width*.8,
                     hight: 60,
                     onClick: () {
-                      // controller.validator.validationType = false;
-                      // if (!controller.medecineKey.currentState!
-                      //     .validate()) {
-                      //   print("validation scuuss");
-                      //   //if client validations fails
-                      //   //show a snackbar to fix the client errors.
-                      //   Get.snackbar("Oups !",
-                      //       "Merci de corriger les erreurs ci-dessous.");
-                      // } else {
-                      //   controller.validator.validationType = true;
-                      //   //send data to server and get errors
-                      //   if (controller.isUpdate) {
-                      //     print("update scuuss");
-                      //
-                      //     controller.updateMedication(context);
-                      //   } else {
-                      //     print("add scuuss");
-                      //
-                      //     controller.addMedication(context);
-                      //   }
                       controller.validator.validationType = false;
                       if (!controller.medecineKey.currentState!.validate()) {
                         ///if client validations fails

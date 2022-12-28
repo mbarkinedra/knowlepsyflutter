@@ -128,7 +128,7 @@ class LoginPage extends GetView<LoginController> {
                       text: 'Continue with google',
                       color: Colors.deepOrangeAccent,
                       width: MediaQuery.of(context).size.width * .4,
-                      hight: 40,
+                      hight: 50,
                       onClick: () {
                         controller.googleSignInMethod();
                       },

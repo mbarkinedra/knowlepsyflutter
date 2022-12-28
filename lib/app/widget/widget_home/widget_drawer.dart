@@ -7,6 +7,7 @@ import 'package:knowplesy/presentation/controllers/home_controller.dart';
 import 'package:knowplesy/presentation/pages/login_page/login_page.dart';
 
 import '../../../data/networking/api/log_out_api.dart';
+import '../../../presentation/pages/home/setting_page/personal_information_page/personal_information_page.dart';
 import '../../storage/account_info_storage.dart';
 import '../../storage/secure_storage.dart';
 
@@ -40,11 +41,20 @@ class WidgetDrawer extends StatelessWidget {
               Row(
                 children: [
                   SecureStorage.readSecureData("imag") != null
-                      ? CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              SecureStorage.readSecureData("imag")!),
-                          backgroundColor: Colors.deepPurple,
-                          maxRadius: 25,
+                      ? GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (
+                              context,
+                            ) =>
+                                    PersonalInformationPage()));
+                          },
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                                SecureStorage.readSecureData("imag")!),
+                            backgroundColor: Colors.deepPurple,
+                            maxRadius: 25,
+                          ),
                         )
                       : CircleAvatar(
                           backgroundImage: NetworkImage(
@@ -77,10 +87,7 @@ class WidgetDrawer extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () async {
-                  print("vvvvvvvvvvvvvvv");
                   await Get.find<AccountInfoStorage>().logout(context);
-                  print("hhhhhhhhhhh");
-
                   Get.defaultDialog(
                       title: "confirmation".tr,
                       //  middleText: "Take a new phhoto or import one from your library",

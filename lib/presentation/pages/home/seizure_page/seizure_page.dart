@@ -12,7 +12,6 @@ import '../../../../app/widget/widget_home/widget_home_page1.dart';
 import '../../home_page.dart';
 
 class SeizurePage extends GetView<SeizureController> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,20 +33,22 @@ class SeizurePage extends GetView<SeizureController> {
                     SizedBox(
                       width: 8,
                     ),
-                    GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Icon(
-                          Icons.arrow_back,
-                          color: Colors.white,
-                        )),
-                    Spacer(),
-                    Text("log_an_undetected_seizure_alert".tr,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 21,
-                            fontFamily: "Roboto")),
+                    // GestureDetector(
+                    //     onTap: () {
+                    //       Navigator.of(context).pop();
+                    //     },
+                    //     child: Icon(
+                    //       Icons.arrow_back,
+                    //       color: Colors.white,
+                    //     )),
+                   Spacer(),
+                    Center(
+                      child: Text("log_an_undetected_seizure_alert".tr,
+                          style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 21,
+                              fontFamily: "Roboto")),
+                    ),
                     Spacer(),
                   ],
                 )),
@@ -338,12 +339,19 @@ class SeizurePage extends GetView<SeizureController> {
                 child: CustomButton(
                   text: 'save'.tr,
                   color: AppColors.secondryColor,
-                  width: 167,
-                  // MediaQuery.of(context).size.width*.8,
+                  width: MediaQuery.of(context).size.width * .5,
                   hight: 40,
                   onClick: () {
-                    print("00000000000000000000000000000000000000000000000000");
-                    controller.createUndetectedAlert(context);
+                    if(controller.isUpdate){
+                      print("update undetected alert");
+
+                      controller.updateUndetectedDetails();
+
+                    }else{
+                      print("create undetected alert");
+                      controller.createUndetectedAlert();
+
+                    }
                   },
                 ),
               ),

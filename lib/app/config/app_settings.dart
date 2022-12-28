@@ -1,5 +1,7 @@
 class SettingsApp {
-  static String get baseUrl => 'http://192.168.1.14:8000';
+  static String get baseUrl => 'http://192.168.1.16:8000';
+
+  //static String get baseUrl => 'https://api.knowlepsy.io';
 
   static String get apiPrefix => '/api';
 
@@ -50,19 +52,34 @@ class SettingsApp {
   static String get getUndetectedAlert =>
       '$baseApiUrl/undetectedAlert/UndetectedAlertList?seizure_id=';
 
+  static String get getFichSeizure =>
+      '$baseApiUrl/ficheSeizure/FicheSeizureList';
+
   static String get deleteUndetectedAlert =>
       '$baseApiUrl/undetectedAlert/deleteUndetectedAlert';
 
+  static String get UpdateUndetectedAlert =>
+      '$baseApiUrl/undetectedAlert/updateUndetectedAlert?id=';
+
   static String get getAlertByType => '$baseApiUrl/alert/alertByType?type=';
+
+  static String get getAlertBySeizure =>
+      '$baseApiUrl/alert/AlertbySeizure?id_seizure=';
+
+  static String get getDetailsUndetectedAlert =>
+      '$baseApiUrl/undetectedAlert/UndetectedAlert/{id}?id=';
 
   static String get addMedications => '$baseApiUrl/medication/addMedications';
 
   static String get addStateMedications =>
       '$baseApiUrl/medication/stateMedication?medication_id=';
+
   static String get updateMedications =>
       '$baseApiUrl/medication/updateMedication?id=';
+
   static String get getMedecation =>
-      '$baseApiUrl/medication/medications?seizure_id=';
+      '$baseApiUrl/medication/medicationSeizure?seizure_id=';
+
   static String get getModifMedecation =>
       '$baseApiUrl/medication/medication/{id}?id=';
 

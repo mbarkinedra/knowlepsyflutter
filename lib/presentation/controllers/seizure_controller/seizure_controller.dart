@@ -1,29 +1,51 @@
+import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:knowplesy/app/widget/widget_home/widget_home_page2.dart';
 import 'package:knowplesy/data/networking/json/getuserprofilejson.dart';
 import '../../../app/storage/account_info_storage.dart';
+import '../../../app/util/app_colors.dart';
 import '../../../data/networking/api/undetected_alert_api.dart';
 import '../../../data/networking/json/add_undetected_alert_json.dart';
+import '../../../data/networking/json/fiche_seizure_json.dart';
+import '../../../data/networking/json/getAlert_bySeizure_json.dart';
 import '../../../data/networking/json/get_alert_byType_json.dart';
+import '../../../data/networking/json/get_details_undetectedAlert_json.dart';
 import '../../../data/networking/json/get_undetected_alert_json.dart';
+import '../../../data/networking/json/update-undetectedAlert_json.dart';
 import '../../../data/networking/json/user_json.dart';
+import '../../../main.dart';
+import '../../pages/home/seizure_page/seizure_page.dart';
 import '../home_controller.dart';
+import '../setting_controller/personal_information_controller/personnal_information_controller.dart';
 
 class SeizureController extends GetxController {
   final AddUndetectedAlertApi _undetectedAlertApi = AddUndetectedAlertApi();
   final GetUndetectedAlertApi _getUndetectedAlertApi = GetUndetectedAlertApi();
+  final UpdateUndetectedAlertApi _updateUndetectedAlertApi =
+      UpdateUndetectedAlertApi();
+  final GetDetailsUndetectedAlert _getDetailsUndetectedAlert =
+      GetDetailsUndetectedAlert();
+  final GetAlertBySeizureApi _getAlertBySeizureApi = GetAlertBySeizureApi();
   final DeleteUndetectedAlertApi _deleteUndetectedAlertApi =
       DeleteUndetectedAlertApi();
   final GetAlertByTypeApi _getAlertByTypeApi = GetAlertByTypeApi();
+  final GetFicheSeizureApi _getFicheSeizureApi = GetFicheSeizureApi();
   UserJson? userJson;
   GetUserProfilejson? getUserProfilejson;
-
   GetAlertByTypeJson? getAlertByTypeJson;
+  GetAlertBySeizureJson? getAlertBySeizureJson;
+  GetUndetectedAlertDetailsJson? getUndetectedAlertDetailsJson;
+  int idUndetectedAlert = 0;
   TextEditingController comment = TextEditingController();
+  bool getAdsFromServer = false;
+
   DateTime dateTime = DateTime.now();
+  UpdateUndetectedAlertJson? updateUndetectedAlertJson;
+  FicheSeizureJson? ficheSeizureJson;
 
   // TimeOfDay? day;
   DateTime? focusedDay = DateTime.now();
@@ -31,6 +53,18 @@ class SeizureController extends GetxController {
   GetUndetectedAlertJson? getUndetectedAlertJson;
   DateTime? selectedDay;
   TimeOfDay timeOfDay = TimeOfDay.now();
+  bool isUpdate = false;
+
+  clearData() {
+    comment.text = "";
+  }
+/// get Number Alert
+  getNbrAlert() async {
+    await Get.find<PersonnelInformationController>().getUserData();
+    getUserProfilejson =
+        Get.find<PersonnelInformationController>().getUserProfilejson;
+    update();
+  }
 
   ///show time picker method
   showMyTimePicker(context) {
@@ -65,26 +99,45 @@ class SeizureController extends GetxController {
   }
 
   /// get alert by type false or true from server
-  getAlertByType() {
-    _getAlertByTypeApi.secureGetData().then((value) {
-     // getAlertByTypeJson = value as GetAlertByTypeJson;
-      print(getUndetectedAlertJson?.toJson());
+  // getAlertByType(int type) {
+  //   _getAlertByTypeApi.type = type.toString();
+  //   _getAlertByTypeApi.secureGetData().then((value) {
+  //     getAlertByTypeJson = value as GetAlertByTypeJson;
+  //
+  //     Alerts a = Alerts();
+  //     if (a.type == 1) {
+  //       Get.find<HomeController>().updatePageChaing(0);
+  //       Get.find<HomeController>().initialPage = 0;
+  //     } else {
+  //       Get.find<HomeController>().updatePageChaing(2);
+  //       Get.find<HomeController>().initialPage = 2;
+  //     }
+  //
+  //     update();
+  //   });
+  // }
+  getAlertBySeizure() {
+    _getAlertBySeizureApi.id = AccountInfoStorage.readUserId() ?? "";
+    getAdsFromServer = true;
 
-      // Alerts a=Alerts();
-      // if( a.type ==1){
-      //   Get.find<HomeController>().updatePageChaing(0);
-      //   Get.find<HomeController>().initialPage = 0;
-      // }else{
-      //   Get.find<HomeController>().updatePageChaing(2);
-      //   Get.find<HomeController>().initialPage = 2;
-      // }
+    _getAlertBySeizureApi.secureGetData().then((value) {
+      getAlertBySeizureJson = value as GetAlertBySeizureJson;
+      getAdsFromServer = false;
 
       update();
     });
   }
 
+  /// Get fiche seizure from apareil
+  getFicheSeizure() {
+    _getFicheSeizureApi.secureGetData().then((value) {
+      ficheSeizureJson = value as FicheSeizureJson;
+      update();
+    });
+  }
+
   ///  Create Undetected alert
-  createUndetectedAlert(context) {
+  createUndetectedAlert() {
     Map<String, dynamic> data = {
       "comment": comment.text,
       "time": DateFormat('hh:mm a').format(dateTime).toString(),
@@ -96,14 +149,53 @@ class SeizureController extends GetxController {
       Get.find<HomeController>().changeSelectedValue(0);
       Get.find<HomeController>().updatePageChaing(1);
       Get.find<HomeController>().initialPage = 1;
+      clearData();
       update();
     });
   }
 
-  /// Get Undetected alert details
-  getUndetectedAlertDetail() {}
-  showMyDialog(context) async {
+  updateUndetectedDetails() async {
+    final f = new DateFormat('yyyy-MM-dd');
 
+    Map<String, dynamic> data = {
+      "id": idUndetectedAlert,
+      "comment": comment.text,
+      "time": DateFormat('hh:mm a').format(dateTime).toString(),
+      "date": f.format(dateTime),
+    };
+
+    _updateUndetectedAlertApi.id = idUndetectedAlert.toString();
+    _updateUndetectedAlertApi.securePost(dataToPost: data).then((value) {
+      updateUndetectedAlertJson = value as UpdateUndetectedAlertJson;
+      isUpdate = false;
+      Get.find<HomeController>().changeSelectedValue(0);
+      Get.find<HomeController>().updatePageChaing(1);
+      Get.find<HomeController>().initialPage = 1;
+      clearData();
+    });
+  }
+
+  /// Get Undetected alert details
+
+  getUndetectedAlertDetail(int id, context) async {
+    print("hhhhhhhh  $id");
+    _getDetailsUndetectedAlert.id = id.toString();
+    await _getDetailsUndetectedAlert.secureGetData().then((value) async {
+      getUndetectedAlertDetailsJson = value as GetUndetectedAlertDetailsJson;
+      comment.text = getUndetectedAlertDetailsJson!.data!.comment!;
+      // timeOfDay= getUndetectedAlertDetailsJson!.data!.time!;
+      // dateTime= getUndetectedAlertDetailsJson!.data!.date!;
+      Get.find<HomeController>().changeSelectedValue(1);
+      // Get.find<HomeController>().initialPage = 1;
+      //Navigator.of(context).push(MaterialPageRoute(
+      //  builder: (
+      // context,
+      // ) =>
+      //           SeizurePage()));
+    });
+  }
+
+  showMyDialog(context) async {
     return showDialog<void>(
       context: context,
       //    barrierDismissible: false,
@@ -111,7 +203,7 @@ class SeizureController extends GetxController {
       builder: (BuildContext context) {
         Future.delayed(
           Duration(seconds: 8),
-              () {
+          () {
             Navigator.of(context).pop(true);
           },
         );
@@ -126,9 +218,9 @@ class SeizureController extends GetxController {
               children: <Widget>[
                 Center(
                     child: Text(
-                      "Seizure Alert",
-                      style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
-                    )),
+                  "Seizure Alert",
+                  style: TextStyle(fontSize: 27, fontWeight: FontWeight.bold),
+                )),
                 SizedBox(
                   height: 10,
                 ),
@@ -156,7 +248,8 @@ class SeizureController extends GetxController {
                     Column(
                       children: [
                         CircleAvatar(
-                            backgroundImage: AssetImage("assets/images/avatar.png"),
+                            backgroundImage:
+                                AssetImage("assets/images/avatar.png"),
                             maxRadius: 30),
                         Text("Doctor"),
                       ],
@@ -167,7 +260,8 @@ class SeizureController extends GetxController {
                     Column(
                       children: [
                         CircleAvatar(
-                            backgroundImage: AssetImage("assets/images/avatar.png"),
+                            backgroundImage:
+                                AssetImage("assets/images/avatar.png"),
                             maxRadius: 30),
                         Text("Dad")
                       ],
@@ -181,8 +275,8 @@ class SeizureController extends GetxController {
                   children: [
                     GestureDetector(
                       onTap: () {
-                           Get.find<HomeController>().updatePageChaing(0);
-                          Get.find<HomeController>().initialPage = 0;
+                        Get.find<HomeController>().updatePageChaing(0);
+                        Get.find<HomeController>().initialPage = 0;
                       },
                       child: Container(
                         height: 70,
@@ -195,7 +289,8 @@ class SeizureController extends GetxController {
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 2,
                               blurRadius: 7,
-                              offset: Offset(0, 3), // changes position of shadow
+                              offset:
+                                  Offset(0, 3), // changes position of shadow
                             )
                           ],
                         ),
@@ -203,7 +298,6 @@ class SeizureController extends GetxController {
                           children: [
                             Center(
                               child: Image.asset("assets/images/chek.png"),
-                              
                             ),
                           ],
                         ),
@@ -226,7 +320,8 @@ class SeizureController extends GetxController {
                               color: Colors.grey.withOpacity(0.5),
                               spreadRadius: 2,
                               blurRadius: 7,
-                              offset: Offset(0, 3), // changes position of shadow
+                              offset:
+                                  Offset(0, 3), // changes position of shadow
                             )
                           ],
                         ),
@@ -235,7 +330,6 @@ class SeizureController extends GetxController {
                         ),
                       ),
                     ),
-
                   ],
                 )
               ],
@@ -246,7 +340,6 @@ class SeizureController extends GetxController {
       },
     );
   }
-
 
   /// delete Undetected alert from server
   deleteUndetectedAlert({required DataAlert undetectedAlert}) {

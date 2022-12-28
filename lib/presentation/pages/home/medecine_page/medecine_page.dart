@@ -246,8 +246,35 @@ class MedecinePage extends GetView<MedecineController> {
         ),
         Expanded(child: GetBuilder<MedecineController>(builder: (logic) {
           return logic.getMedecationJson == null
+              // ? Center(
+              //     child: CircularProgressIndicator(),
+              //   )
               ? Center(
-                  child: CircularProgressIndicator(),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 175,
+                      ),
+                      const Align(
+                        alignment: Alignment.topCenter,
+                        child: Text("You have not added any medicine",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                                color: Colors.grey)),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+
+                      Image.asset(
+                        "assets/images/icon_piles.png",
+                        height: 30,
+                        width: 30,
+                      ),
+                    ],
+                  ),
                 )
               : ListView.builder(
                   itemCount: logic.getMedecationJson?.data?.length,

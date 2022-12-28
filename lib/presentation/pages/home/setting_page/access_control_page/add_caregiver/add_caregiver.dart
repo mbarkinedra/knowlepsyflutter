@@ -19,7 +19,6 @@ class AddCaregiver extends GetView<AccessControlController> {
     return Scaffold(
       body: Form(
         key: controller.caregiverKey,
-
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -79,7 +78,6 @@ class AddCaregiver extends GetView<AccessControlController> {
               ),
               CustomInput(
                   validator: controller.validator.validateLastName,
-
                   lep: "Last_name".tr,
                   controller: controller.caregiverLastName,
                   keyboardType: TextInputType.text),
@@ -88,7 +86,6 @@ class AddCaregiver extends GetView<AccessControlController> {
               ),
               CustomInput(
                   validator: controller.validator.validateEmail,
-
                   controller: controller.email,
                   lep: "email".tr,
                   keyboardType: TextInputType.text),
@@ -105,7 +102,8 @@ class AddCaregiver extends GetView<AccessControlController> {
                 child: Column(
                   children: [
                     Align(
-                        alignment: Alignment.centerLeft, child: Text("phone".tr)),
+                        alignment: Alignment.centerLeft,
+                        child: Text("phone".tr)),
                     Form(
                       key: _formKey,
                       child: Column(
@@ -147,8 +145,7 @@ class AddCaregiver extends GetView<AccessControlController> {
                     hight: 40,
                     onClick: () {
                       controller.validator.validationType = false;
-                      if (!controller.caregiverKey.currentState!
-                          .validate()) {
+                      if (!controller.caregiverKey.currentState!.validate()) {
                         ///if client validations fails
                         ///show a snackbar to fix the client errors.
                         Get.snackbar("Oups !",
@@ -168,11 +165,7 @@ class AddCaregiver extends GetView<AccessControlController> {
                           middleTextStyle: TextStyle(color: Colors.black),
                           textConfirm: "Confirm",
                           onConfirm: () {
-                            Navigator.of(context).push(MaterialPageRoute(
-                                builder: (
-                              context,
-                            ) =>
-                                    AccessControlPage()));
+                            Navigator.pop(context);
                             Get.back();
                             controller.clearAllData();
                           },
@@ -184,7 +177,8 @@ class AddCaregiver extends GetView<AccessControlController> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                    "your_caregiver_will_receive_an_email_to_download_the_application_and_confirm_the_invitation_as_a_caregiver".tr),
+                                    "your_caregiver_will_receive_an_email_to_download_the_application_and_confirm_the_invitation_as_a_caregiver"
+                                        .tr),
                               )
                             ],
                           ));

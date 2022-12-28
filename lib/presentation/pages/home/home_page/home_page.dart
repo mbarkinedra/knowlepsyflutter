@@ -39,23 +39,46 @@ class _HomePage1State extends State<HomePage1> {
             children: [
               Text("${"hi".tr}${SecureStorage.readSecureData('firstName')}"),
               Spacer(),
-              GestureDetector(
-                onTap: () {
+              SecureStorage.readSecureData("imag") != null
+                  ? GestureDetector(
+                onTap: (){
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (
-                    context,
-                  ) =>
+                          context,
+                          ) =>
                           PersonalInformationPage()));
+
                 },
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(8.0),
-                  child: Image.asset(
-                    "assets/images/avatar.png",
-                    width: 80,
-                    height: 50,
-                  ),
-                ),
+                    child: CircleAvatar(
+                backgroundImage: NetworkImage(
+                      SecureStorage.readSecureData("imag")!),
+                backgroundColor: Colors.deepPurple,
+                maxRadius: 25,
               ),
+                  )
+                  : CircleAvatar(
+                backgroundImage: NetworkImage(
+                    "https://cdn-icons-png.flaticon.com/512/206/206881.png"),
+                backgroundColor: Colors.deepPurple,
+                maxRadius: 25,
+              ),
+              // GestureDetector(
+              //   onTap: () {
+              //     Navigator.of(context).push(MaterialPageRoute(
+              //         builder: (
+              //       context,
+              //     ) =>
+              //             PersonalInformationPage()));
+              //   },
+              //   child: ClipRRect(
+              //     borderRadius: BorderRadius.circular(8.0),
+              //     child: Image.asset(
+              //       "assets/images/avatar.png",
+              //       width: 80,
+              //       height: 50,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
         ),
