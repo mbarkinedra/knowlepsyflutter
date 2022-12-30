@@ -79,11 +79,9 @@ class SeizureController extends GetxController {
 
   /// Get all Undetected alert from server in screen home
   getUndetectedAlert() {
-    print("Get all Undetected alert from server in screen home");
     _getUndetectedAlertApi.id = id;
     _getUndetectedAlertApi.secureGetData().then((value) {
       getUndetectedAlertJson = value as GetUndetectedAlertJson;
-      print(getUndetectedAlertJson?.toJson());
       update();
     });
   }
@@ -94,7 +92,6 @@ class SeizureController extends GetxController {
   void onInit() {
     super.onInit();
     id = AccountInfoStorage.readUserId() ?? "";
-    print("the id it ===>     $id");
     //    controller.getUndetectedAlert();
   }
 
@@ -117,13 +114,12 @@ class SeizureController extends GetxController {
   //   });
   // }
   getAlertBySeizure() {
+    print("object-----------------------------");
     _getAlertBySeizureApi.id = AccountInfoStorage.readUserId() ?? "";
-    getAdsFromServer = true;
 
     _getAlertBySeizureApi.secureGetData().then((value) {
       getAlertBySeizureJson = value as GetAlertBySeizureJson;
-      getAdsFromServer = false;
-
+print("hhhhhhhhhhhhhhhdddddddddddddddddddddddddde=>  $value");
       update();
     });
   }
@@ -145,7 +141,6 @@ class SeizureController extends GetxController {
     };
     _undetectedAlertApi.securePost(dataToPost: data).then((value) {
       addUndetectedAlertJson = value as AddUndetectedAlertJson;
-      print(addUndetectedAlertJson?.toJson());
       Get.find<HomeController>().changeSelectedValue(0);
       Get.find<HomeController>().updatePageChaing(1);
       Get.find<HomeController>().initialPage = 1;
@@ -178,7 +173,6 @@ class SeizureController extends GetxController {
   /// Get Undetected alert details
 
   getUndetectedAlertDetail(int id, context) async {
-    print("hhhhhhhh  $id");
     _getDetailsUndetectedAlert.id = id.toString();
     await _getDetailsUndetectedAlert.secureGetData().then((value) async {
       getUndetectedAlertDetailsJson = value as GetUndetectedAlertDetailsJson;
@@ -345,7 +339,6 @@ class SeizureController extends GetxController {
   deleteUndetectedAlert({required DataAlert undetectedAlert}) {
     Map<String, dynamic> data = {"id": undetectedAlert.id};
     _deleteUndetectedAlertApi.secureDelete(data: data).then((value) {
-      print(value);
       update();
     });
   }

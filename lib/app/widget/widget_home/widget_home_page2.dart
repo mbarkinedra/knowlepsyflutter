@@ -84,13 +84,14 @@ class WidgetHomePage2 extends GetView<SeizureController> {
                                         circularStrokeCap:
                                             CircularStrokeCap.round,
                                         center: Text(
-                                            "${logic.getUserProfilejson!.data!.nbrUndetectedAlert} \n seizure"
-                                                .tr,
-                                            textAlign: TextAlign.center,
-                                            style: TextStyle(
-                                                fontSize: 15,
-                                                color: AppColors.secondryColor,
-                                                fontWeight: FontWeight.bold)),
+                                          "${logic.getUserProfilejson!.data!.nbrUndetectedAlert} \n seizure"
+                                              .tr,
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              fontSize: 15,
+                                              color: AppColors.secondryColor,
+                                              fontWeight: FontWeight.bold),
+                                        ),
                                         progressColor: AppColors.CercleBlue,
                                       ),
                                     );
@@ -101,7 +102,6 @@ class WidgetHomePage2 extends GetView<SeizureController> {
                     )
                   ]),
                 )),
-
                 //  SizedBox(height: 20,),
                 Padding(
                   padding: const EdgeInsets.only(
@@ -186,9 +186,6 @@ class WidgetHomePage2 extends GetView<SeizureController> {
                 ? Center(
                     child: Column(
                       children: [
-                        SizedBox(
-                          height: 30,
-                        ),
                         Icon(
                           Icons.notifications_on_rounded,
                           size: 150,

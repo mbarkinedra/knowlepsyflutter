@@ -171,6 +171,7 @@ class AccessControlPage extends GetView<AccessControlController> {
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
+
                 : ListView.builder(
                     itemCount: logic.getAllCaregiverJson?.data?.length,
                     itemBuilder: (context, pos) {

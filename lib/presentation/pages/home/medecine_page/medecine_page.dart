@@ -254,7 +254,13 @@ class MedecinePage extends GetView<MedecineController> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       SizedBox(
-                        height: 175,
+                        height: 8,
+                      ),
+
+                      Image.asset(
+                        "assets/images/icon_piles.png",
+                        height: 30,
+                        width: 30,
                       ),
                       const Align(
                         alignment: Alignment.topCenter,
@@ -264,15 +270,7 @@ class MedecinePage extends GetView<MedecineController> {
                                 fontSize: 16,
                                 color: Colors.grey)),
                       ),
-                      SizedBox(
-                        height: 8,
-                      ),
 
-                      Image.asset(
-                        "assets/images/icon_piles.png",
-                        height: 30,
-                        width: 30,
-                      ),
                     ],
                   ),
                 )

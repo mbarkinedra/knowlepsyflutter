@@ -157,16 +157,23 @@ class WidgetHomePage1 extends GetView<SeizureController> {
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
-                : logic.getAlertBySeizureJson!.data!.length == 0
+                : (logic.getAlertBySeizureJson?.data?[0].alerts?.length ?? 0) ==
+                        0
                     ? Center(
                         child: Column(
                           children: [
-                            Image.asset(
-                              "assets/images/alert.png",
-                              width: 200,
-                              height: 150,
+                            Icon(
+                              Icons.notifications_on_rounded,
+                              size: 150,
+                              color: Colors.deepPurple,
                             ),
-                            Text("Still now detected alert yet",
+                            Text("Still no detected alert  yet",
+                                style: TextStyle(
+                                    fontSize: 16, color: Colors.grey)),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text("Welcome to Knowlesy",
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     fontSize: 16,

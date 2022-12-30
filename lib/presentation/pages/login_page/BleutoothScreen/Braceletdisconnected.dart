@@ -92,7 +92,7 @@ class _BleutoothScreenState extends State<Braceletdisconnected> {
                           builder: (
                         context,
                       ) =>
-                              BraceletConnected()));
+                              ConnectBleutoothScreen()));
                     },
                   ),
                 ),

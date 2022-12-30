@@ -130,11 +130,11 @@ class _BraceletConnectedState extends State<BraceletConnected> {
                             height: 21.0,
                             child: GestureDetector(
                               onTap: () {
-                                // Navigator.of(context).push(MaterialPageRoute(
-                                //     builder: (
-                                //   context,
-                                // ) =>
-                                //         HomePage()));
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (
+                                  context,
+                                ) =>
+                                        HomePage()));
                               },
                               child: Text(
                                 'go_home'.tr,

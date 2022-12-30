@@ -180,7 +180,25 @@ class _ConnectBleutoothScreenState extends State<ConnectBleutoothScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.primaryColor,
-      body: Container(child: _buildListViewOfDevices()),
+      body: Container(child: _buildListViewOfDevices()),floatingActionButton: StreamBuilder<bool>(
+      stream: FlutterBluePlus.instance.isScanning,
+      initialData: false,
+      builder: (c, snapshot) {
+        if (snapshot.data!) {
+          return FloatingActionButton(
+            child: const Icon(Icons.stop),
+            onPressed: () => FlutterBluePlus.instance.stopScan(),
+            backgroundColor: Colors.red,
+          );
+        } else {
+          return FloatingActionButton(
+              child: const Icon(Icons.search),
+              onPressed: () => FlutterBluePlus.instance
+                  .startScan(timeout: const Duration(seconds: 10)));
+        }
+      },
+    ),
+
     );
   }
 }

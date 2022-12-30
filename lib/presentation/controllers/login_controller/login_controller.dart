@@ -13,6 +13,7 @@ import '../../../data/networking/api/auth_api.dart';
 import '../../../data/networking/json/simple_json_resource.dart';
 import '../../../data/networking/json/user_json.dart';
 import '../../../domain/validator/validator_signIn.dart';
+import '../../pages/login_page/BleutoothScreen/Braceletdisconnected.dart';
 
 class LoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
@@ -74,10 +75,16 @@ class LoginController extends GetxController {
           key: 'firstName', value: userJson!.user!.firstName!);
       SecureStorage.writeSecureData(
           key: 'lastName', value: userJson!.user!.lastName!);
-      //Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+      // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
       //  builder: (context,) =>
-      //    HomePage()));
-      Get.offAll(HomePage());
+      //      Braceletdisconnected()));
+
+
+      // Get.offAll(HomePage());
+       Get.offAll(Braceletdisconnected());
+
+      isLoading.value = false;
+
     });
   }
 

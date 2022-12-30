@@ -77,6 +77,7 @@ class AccessControlController extends GetxController {
       update();
     });
   }
+
   /// Add caregiver by seizure
   addDoctor() async {
     Map<String, dynamic> data = {
@@ -90,6 +91,7 @@ class AccessControlController extends GetxController {
       update();
     });
   }
+
   /// get all caregiver by id seizer
   getAllCaregiver() async {
     _getAllCareGiverApi.id = AccountInfoStorage.readUserId() ?? "";
@@ -105,7 +107,7 @@ class AccessControlController extends GetxController {
     _getDoctorApi.id = AccountInfoStorage.readUserId() ?? "";
     _getDoctorApi.secureGetData().then((value) {
       print((value));
-     getDoctorJson = value as GetDoctorJson;
+      getDoctorJson = value as GetDoctorJson;
       update();
     });
   }
@@ -182,6 +184,4 @@ class AccessControlController extends GetxController {
     Get.snackbar("Succes", "Caregiver deleted successfully",
         backgroundColor: AppColors.secondryColor, colorText: Colors.white);
   }
-
-
 }
