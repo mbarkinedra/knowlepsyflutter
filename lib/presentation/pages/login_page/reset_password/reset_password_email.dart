@@ -46,9 +46,12 @@ class ResetPasswordEmail extends GetView<LoginPasswordController> {
               ),
               GetBuilder<LoginPasswordController>(builder: (logic) {
                 return Center(
+
                   child: controller.isLoading.value
-                      ? CircularProgressIndicator()
-                      : CustomButtonWithoutIcon(
+                      ? CircularProgressIndicator(
+                    color: AppColors.secondryColor,
+                    strokeWidth: 5,
+                  )  : CustomButtonWithoutIcon(
                           text: "continue".tr,
                           color: Colors.deepOrangeAccent,
                           width: MediaQuery.of(context).size.width * .7,

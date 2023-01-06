@@ -7,11 +7,14 @@ import 'package:knowplesy/data/networking/json/user_json.dart';
 import '../../../../app/util/app_colors.dart';
 import '../../../../data/networking/api/auth_api.dart';
 import '../../../../data/networking/api/change_password_api.dart';
+import '../../../pages/home/setting_page/setting_page.dart';
 import '../../../pages/login_page/login_page.dart';
 
 class ChangePasswordViewController extends GetxController {
   final changePasswordFormKey = GlobalKey<FormState>();
   TextEditingController newPassword = TextEditingController();
+  TextEditingController confirmPassword = TextEditingController();
+
   TextEditingController oldPassword = TextEditingController();
   bool updatePassword = false;
   bool isVisiblePassword1 = true;
@@ -38,6 +41,7 @@ class ChangePasswordViewController extends GetxController {
   clearAllData() {
     newPassword.text = "";
     oldPassword.text = "";
+    confirmPassword.text = "";
     update();
   }
 
@@ -60,6 +64,7 @@ class ChangePasswordViewController extends GetxController {
           middleTextStyle: TextStyle(color: Colors.black),
           textConfirm: "Confirm",
           onConfirm: () {
+            Navigator.pop(con);
             Get.back();
             clearAllData();
           },

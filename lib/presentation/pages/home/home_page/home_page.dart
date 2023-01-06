@@ -12,6 +12,8 @@ import '../../../../app/widget/widget_home/widget_home_page1.dart';
 import '../../../../app/widget/widget_home/widget_home_page2.dart';
 import 'package:get/get.dart';
 
+import '../../../controllers/seizure_controller/seizure_controller.dart';
+
 class HomePage1 extends StatefulWidget {
   @override
   State<HomePage1> createState() => _HomePage1State();
@@ -37,31 +39,34 @@ class _HomePage1State extends State<HomePage1> {
           backgroundColor: AppColors.primaryColor,
           title: Row(
             children: [
-              Text("${"hi".tr}${SecureStorage.readSecureData('firstName')}"),
+              GetBuilder<SeizureController>(builder: (logic) {
+                return Text(
+                    "${"hi".tr}${logic.getUserProfilejson!.data!.firstName}");
+              }),
               Spacer(),
               SecureStorage.readSecureData("imag") != null
                   ? GestureDetector(
-                onTap: (){
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (
-                          context,
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (
+                            context,
                           ) =>
-                          PersonalInformationPage()));
+                                  PersonalInformationPage()));
+                        },
+                        child: CircleAvatar(
+                          backgroundImage: NetworkImage(
+                              SecureStorage.readSecureData("imag")!),
+                          backgroundColor: Colors.deepPurple,
+                          maxRadius: 25,
+                        ),
 
-                },
-                    child: CircleAvatar(
-                backgroundImage: NetworkImage(
-                      SecureStorage.readSecureData("imag")!),
-                backgroundColor: Colors.deepPurple,
-                maxRadius: 25,
-              ),
-                  )
+                    )
                   : CircleAvatar(
-                backgroundImage: NetworkImage(
-                    "https://cdn-icons-png.flaticon.com/512/206/206881.png"),
-                backgroundColor: Colors.deepPurple,
-                maxRadius: 25,
-              ),
+                      backgroundImage: NetworkImage(
+                          "https://cdn-icons-png.flaticon.com/512/206/206881.png"),
+                      backgroundColor: Colors.deepPurple,
+                      maxRadius: 25,
+                    ),
               // GestureDetector(
               //   onTap: () {
               //     Navigator.of(context).push(MaterialPageRoute(

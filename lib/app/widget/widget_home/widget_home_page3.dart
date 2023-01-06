@@ -107,11 +107,11 @@ class WidgetHomePage3 extends GetView<SeizureController> {
                   child: CustomButton(
                     text: 'log_an_undetected_seizure_alert'.tr,
                     onClick: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (
-                        context,
-                      ) =>
-                              SeizurePage()));
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //     builder: (
+                      //   context,
+                      // ) =>
+                      //         SeizurePage()));
                     },
                     color: AppColors.secondryColor,
                     width: MediaQuery.of(context).size.width * .8,
@@ -177,8 +177,7 @@ class WidgetHomePage3 extends GetView<SeizureController> {
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
-                : (logic.getAlertBySeizureJson?.data?[0].alerts?.length ?? 0) ==
-                        0
+                : (logic.getAlertBySeizureJson?.data?.length ?? 0) == 0
                     ? Center(
                         child: Column(
                           children: [

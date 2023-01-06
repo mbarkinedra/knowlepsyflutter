@@ -106,7 +106,7 @@ class RegisterController extends GetxController {
           contentPadding: EdgeInsets.all(8),
           titlePadding: EdgeInsets.all(16),
           titleStyle:
-          TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+              TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           middleTextStyle: TextStyle(color: Colors.black),
           textConfirm: "confirme".tr,
           onConfirm: () {
@@ -115,6 +115,7 @@ class RegisterController extends GetxController {
               MaterialPageRoute(builder: (context) => LoginPage()),
             );
             clearData();
+            desableIsLoading();
           },
           buttonColor: Colors.white,
           backgroundColor: Colors.white,

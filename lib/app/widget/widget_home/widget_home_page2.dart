@@ -109,11 +109,11 @@ class WidgetHomePage2 extends GetView<SeizureController> {
                   child: CustomButton(
                     text: 'log_an_undetected_seizure_alert'.tr,
                     onClick: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (
-                        context,
-                      ) =>
-                              SeizurePage()));
+                      // Navigator.of(context).push(MaterialPageRoute(
+                      //     builder: (
+                      //   context,
+                      // ) =>
+                      //         SeizurePage()));
                     },
                     color: AppColors.secondryColor,
                     width: MediaQuery.of(context).size.width * .8,

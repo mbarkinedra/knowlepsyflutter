@@ -10,9 +10,6 @@ import '../json/abstract__json_resource.dart';
 
 abstract class ApiManager {
   final DioSingleton dioSingleton = DioSingleton();
-
-  // Dio dio = Dio();
-
   Map<String, dynamic> defaultHeaders = {
     // 'accept': 'application/json',
     'Content-Type': 'application/json; charset=UTF-8',
@@ -32,15 +29,8 @@ abstract class ApiManager {
         .post(
       apiUrl(),
       data: dataToPost,
-      // options: Options(
-      //     headers: defaultHeaders,
-      //     //   followRedirects: false,
-      //     validateStatus: (status) {
-      //       return status! < 405;
-      //     }),
     )
         .then((value) {
-      // validateResponseStatusCode(value);
       data = value.data;
       json = fromJson(data);
       return json;
@@ -61,24 +51,13 @@ abstract class ApiManager {
         .get(
       apiUrl(),
       queryParameters: data,
-      // options: Options(
-      //     headers: {
-      //       ...defaultHeaders,
-      //     },
-      //     followRedirects: false,
-      //     validateStatus: (status) {
-      //       return status! < 405;
-      //     }),
     )
         .then((value) {
       print("valuevaluevalue=>    ${value.data}");
       data = value.data;
       json = fromJson(data);
       return json;
-      //  validateResponseStatusCode(value);
-    }).catchError((error, stackTrace) {
-      //processServerError(error);
-    });
+    }).catchError((error, stackTrace) {});
   }
 
   ///Post Data to Server with token
@@ -97,64 +76,15 @@ abstract class ApiManager {
         .post(
       apiUrl(),
       data: dataToPost,
-      // options:
-      // Options(
-      //
-      //     // headers: {
-      //     //   ...defaultHeaders,
-      //     // },
-      //     // followRedirects: false,
-      //     // validateStatus: (status) {
-      //     //   return status! < 405;
-      //     // }
-      //     ),
     )
         .then((value) {
-      //  validateResponseStatusCode(value);
-
       data = value.data;
       json = fromJson(data);
       return json;
-    }).catchError((error, stackTrace) {
-      //   processServerError(error);
-    });
-  }
-
-  Future securePosffffffft(dataToPost) async {
-    Map<String, dynamic> defaultHeaders = {
-      'Content-Type': 'application/json; charset=UTF-8',
-      "authorization": "Bearer ${SecureStorage.readSecureData('token')}"
-    };
-    dioSingleton.dio.interceptors.add(AppInterceptor());
-
-    AbstractJsonResource? json;
-    var data;
-    return dioSingleton.dio
-        .post(
-      apiUrl(),
-      data: dataToPost,
-      // options: Options(
-      //     /*headers: {
-      //       ...defaultHeaders,
-      //     },
-      //     followRedirects: false,
-      //     validateStatus: (status) {
-      //       return status! < 405;
-      //     })*/)
-    )
-        .then((value) {
-      //  validateResponseStatusCode(value);
-
-      data = value.data;
-      json = fromJson(data);
-      return json;
-    }).catchError((error, stackTrace) {
-      //   processServerError(error);
-    });
+    }).catchError((error, stackTrace) {});
   }
 
   ///Delete Data  from Server with token
-
   Future secureDelete({data}) async {
     Map<String, dynamic> defaultHeaders = {
       'Content-Type': 'application/json; charset=UTF-8',
@@ -164,21 +94,19 @@ abstract class ApiManager {
         .delete(
       apiUrl(),
       queryParameters: data,
-      // options: Options(
-      //     headers: {
-      //       ...defaultHeaders,
-      //     },
-      //     followRedirects: false,
-      //     validateStatus: (status) {
-      //       return status! < 405;
-      //     }
-      //     ),
+      options: Options(
+          headers: {
+            ...defaultHeaders,
+          },
+          followRedirects: false,
+          validateStatus: (status) {
+            return status! < 405;
+          }
+          ),
     )
         .then((value) {
-      //  validateResponseStatusCode(value);
       return value;
     }).catchError((error, stackTrace) {
-      //   processServerError(error);
     });
   }
 }

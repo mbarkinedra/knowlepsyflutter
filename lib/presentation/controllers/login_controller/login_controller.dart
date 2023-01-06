@@ -79,12 +79,10 @@ class LoginController extends GetxController {
       //  builder: (context,) =>
       //      Braceletdisconnected()));
 
-
       // Get.offAll(HomePage());
-       Get.offAll(Braceletdisconnected());
+      Get.offAll(Braceletdisconnected());
 
       isLoading.value = false;
-
     });
   }
 

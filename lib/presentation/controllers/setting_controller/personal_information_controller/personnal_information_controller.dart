@@ -96,12 +96,12 @@ class PersonnelInformationController extends GetxController {
   }
 
   /// Get User information from server
-  Future getUserData()async {
+  Future getUserData() async {
     firstName.text = AccountInfoStorage.readFirstName() ?? "";
     lastName.text = AccountInfoStorage.readLastName() ?? "";
     email.text = AccountInfoStorage.readEmail() ?? "";
     phoneNumber.text = AccountInfoStorage.readPhone() ?? "";
-  await  _getUserProfileApi.secureGetData().then((value) {
+    await _getUserProfileApi.secureGetData().then((value) {
       getUserProfilejson = value as GetUserProfilejson;
       firstName.text = getUserProfilejson?.data?.firstName ?? "";
       lastName.text = getUserProfilejson?.data?.lastName ?? "";

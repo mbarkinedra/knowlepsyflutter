@@ -157,28 +157,30 @@ class WidgetHomePage1 extends GetView<SeizureController> {
                 ? Center(
                     child: CircularProgressIndicator(),
                   )
-                : (logic.getAlertBySeizureJson?.data?[0].alerts?.length ?? 0) ==
+                : (logic.getAlertBySeizureJson?.data?.length ?? 0) ==
                         0
                     ? Center(
-                        child: Column(
-                          children: [
-                            Icon(
-                              Icons.notifications_on_rounded,
-                              size: 150,
-                              color: Colors.deepPurple,
-                            ),
-                            Text("Still no detected alert  yet",
-                                style: TextStyle(
-                                    fontSize: 16, color: Colors.grey)),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Text("Welcome to Knowlesy",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 16,
-                                    color: Colors.grey)),
-                          ],
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              Icon(
+                                Icons.notifications_on_rounded,
+                                size: 150,
+                                color: Colors.deepPurple,
+                              ),
+                              Text("Still no detected alert  yet",
+                                  style: TextStyle(
+                                      fontSize: 16, color: Colors.grey)),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Text("Welcome to Knowlepsy",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                      color: Colors.grey)),
+                            ],
+                          ),
                         ),
                       )
                     : ListView.separated(
@@ -295,7 +297,8 @@ class WidgetHomePage1 extends GetView<SeizureController> {
                                                                       ),
                                                                       Spacer(),
                                                                       Text(
-                                                                        "${logic.ficheSeizureJson!.data![pos].temperature.toString()}",
+
+                                                                        "${logic.ficheSeizureJson!.data!.temperature}",
                                                                         style: TextStyle(
                                                                             fontSize:
                                                                                 14,
@@ -318,7 +321,7 @@ class WidgetHomePage1 extends GetView<SeizureController> {
                                                                       ),
                                                                       Spacer(),
                                                                       Text(
-                                                                        "${logic.ficheSeizureJson!.data![pos].heartRate}",
+                                                                        "${logic.ficheSeizureJson!.data!.heartRate.toString()}",
                                                                         style: TextStyle(
                                                                             fontSize:
                                                                                 14,
@@ -341,7 +344,7 @@ class WidgetHomePage1 extends GetView<SeizureController> {
                                                                       ),
                                                                       Spacer(),
                                                                       Text(
-                                                                        "${logic.ficheSeizureJson!.data![pos].motionSensing}",
+                                                                        "${logic.ficheSeizureJson!.data!.motionSensing.toString()}",
                                                                         style: TextStyle(
                                                                             fontSize:
                                                                                 14,

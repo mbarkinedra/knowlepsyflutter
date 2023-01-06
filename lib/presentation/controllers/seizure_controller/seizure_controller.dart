@@ -10,6 +10,7 @@ import '../../../app/storage/account_info_storage.dart';
 import '../../../app/util/app_colors.dart';
 import '../../../data/networking/api/undetected_alert_api.dart';
 import '../../../data/networking/json/add_undetected_alert_json.dart';
+import '../../../data/networking/json/bracelet_json.dart';
 import '../../../data/networking/json/fiche_seizure_json.dart';
 import '../../../data/networking/json/getAlert_bySeizure_json.dart';
 import '../../../data/networking/json/get_alert_byType_json.dart';
@@ -46,6 +47,7 @@ class SeizureController extends GetxController {
   DateTime dateTime = DateTime.now();
   UpdateUndetectedAlertJson? updateUndetectedAlertJson;
   FicheSeizureJson? ficheSeizureJson;
+  BracletBleutoothJson? bracletBleutoothJson;
 
   // TimeOfDay? day;
   DateTime? focusedDay = DateTime.now();
@@ -58,7 +60,8 @@ class SeizureController extends GetxController {
   clearData() {
     comment.text = "";
   }
-/// get Number Alert
+
+  /// get Number Alert
   getNbrAlert() async {
     await Get.find<PersonnelInformationController>().getUserData();
     getUserProfilejson =
@@ -119,7 +122,7 @@ class SeizureController extends GetxController {
 
     _getAlertBySeizureApi.secureGetData().then((value) {
       getAlertBySeizureJson = value as GetAlertBySeizureJson;
-print("hhhhhhhhhhhhhhhdddddddddddddddddddddddddde=>  $value");
+      print("hhhhhhhhhhhhhhhdddddddddddddddddddddddddde=>  $value");
       update();
     });
   }
@@ -138,9 +141,11 @@ print("hhhhhhhhhhhhhhhdddddddddddddddddddddddddde=>  $value");
       "comment": comment.text,
       "time": DateFormat('hh:mm a').format(dateTime).toString(),
       "date": focusedDay.toString(),
+      "seizure_id": AccountInfoStorage.readUserId(),
     };
+
     _undetectedAlertApi.securePost(dataToPost: data).then((value) {
-      addUndetectedAlertJson = value as AddUndetectedAlertJson;
+      //addUndetectedAlertJson = value as AddUndetectedAlertJson;
       Get.find<HomeController>().changeSelectedValue(0);
       Get.find<HomeController>().updatePageChaing(1);
       Get.find<HomeController>().initialPage = 1;

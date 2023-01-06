@@ -1,7 +1,7 @@
 class SettingsApp {
-  static String get baseUrl => 'http://192.168.1.16:8000';
+  //static String get baseUrl => 'http://192.168.1.16:8000';
 
-  //static String get baseUrl => 'https://api.knowlepsy.io';
+  static String get baseUrl => 'https://api.knowlepsy.io';
 
   static String get apiPrefix => '/api';
 

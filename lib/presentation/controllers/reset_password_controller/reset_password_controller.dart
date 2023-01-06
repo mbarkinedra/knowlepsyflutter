@@ -132,6 +132,7 @@ class LoginPasswordController extends GetxController {
                         ) =>
                                 ResetPassword()));
                         update();
+
                       });
                     },
                     child: Container(

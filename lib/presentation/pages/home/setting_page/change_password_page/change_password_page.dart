@@ -96,6 +96,25 @@ class ChangePasswordPage extends GetView<ChangePasswordViewController> {
                 ),
               );
             }),
+            SizedBox(
+              height: 10,
+            ),
+            GetBuilder<ChangePasswordViewController>(builder: (logic) {
+              return ParametresItem(
+                label: "confirm_password".tr,
+                hint: "confirm_password".tr,
+                obscureText: logic.isVisiblePassword1,
+                textEditingController: controller.confirmPassword,
+                suffixIcon: IconButton(
+                  onPressed: logic.showHidePassword1,
+                  icon: Icon(
+                    logic.isVisiblePassword1
+                        ? Icons.visibility_off
+                        : Icons.visibility,
+                  ),
+                ),
+              );
+            }),
             Center(
               child: Padding(
                 padding: const EdgeInsets.all(30.0),

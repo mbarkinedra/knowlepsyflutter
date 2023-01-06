@@ -50,7 +50,7 @@ class AccessControlController extends GetxController {
     caregiverName.text = "";
     email.text = "";
     phoneNumber.text = "";
-
+    caregiverLastName.text="";
     update();
   }
 
@@ -72,7 +72,7 @@ class AccessControlController extends GetxController {
       "phone_number": phoneNumber.text,
     };
     _addCareGiveApi.securePost(dataToPost: data).then((value) {
-      careGiverJson = value as CareGiverJson;
+     // careGiverJson = value as CareGiverJson;
       getAllCaregiver();
       update();
     });
