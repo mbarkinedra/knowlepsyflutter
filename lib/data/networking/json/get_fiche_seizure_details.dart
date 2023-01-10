@@ -1,21 +1,16 @@
 import 'package:knowplesy/data/networking/json/abstract__json_resource.dart';
 
-class GetFicheSeizureListJson extends AbstractJsonResource {
+class GetFicheSeizureDetailsJson extends AbstractJsonResource{
   int? status;
   String? message;
-  List<Data>? data;
+  Data? data;
 
-  GetFicheSeizureListJson({this.status, this.message, this.data});
+  GetFicheSeizureDetailsJson({this.status, this.message, this.data});
 
-  GetFicheSeizureListJson.fromJson(Map<String, dynamic> json) {
+  GetFicheSeizureDetailsJson.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    if (json['data'] != null) {
-      data = <Data>[];
-      json['data'].forEach((v) {
-        data!.add(new Data.fromJson(v));
-      });
-    }
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -23,7 +18,7 @@ class GetFicheSeizureListJson extends AbstractJsonResource {
     data['status'] = this.status;
     data['message'] = this.message;
     if (this.data != null) {
-      data['data'] = this.data!.map((v) => v.toJson()).toList();
+      data['data'] = this.data!.toJson();
     }
     return data;
   }

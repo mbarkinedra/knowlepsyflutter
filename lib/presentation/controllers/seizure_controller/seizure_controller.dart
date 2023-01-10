@@ -13,6 +13,10 @@ import '../../../data/networking/json/add_undetected_alert_json.dart';
 import '../../../data/networking/json/bracelet_json.dart';
 import '../../../data/networking/json/fiche_seizure_json.dart';
 import '../../../data/networking/json/getAlert_bySeizure_json.dart';
+import '../../../data/networking/json/getFicheSeizureByEmail_json.dart';
+import '../../../data/networking/json/getFicheSeizureDetails_json.dart';
+import '../../../data/networking/json/getFicheSeizureDetails_json.dart';
+import '../../../data/networking/json/getFicheSeizureDetails_json.dart';
 import '../../../data/networking/json/get_alert_byType_json.dart';
 import '../../../data/networking/json/get_details_undetectedAlert_json.dart';
 import '../../../data/networking/json/get_undetected_alert_json.dart';
@@ -35,6 +39,10 @@ class SeizureController extends GetxController {
       DeleteUndetectedAlertApi();
   final GetAlertByTypeApi _getAlertByTypeApi = GetAlertByTypeApi();
   final GetFicheSeizureApi _getFicheSeizureApi = GetFicheSeizureApi();
+  final GetFicheSeizureByEmailApi _getFicheSeizureByEmailApi =
+      GetFicheSeizureByEmailApi();
+  final GetFicheSeizureDetailsApi _getFicheSeizureDetailsApi =
+      GetFicheSeizureDetailsApi();
   UserJson? userJson;
   GetUserProfilejson? getUserProfilejson;
   GetAlertByTypeJson? getAlertByTypeJson;
@@ -43,16 +51,23 @@ class SeizureController extends GetxController {
   int idUndetectedAlert = 0;
   TextEditingController comment = TextEditingController();
   bool getAdsFromServer = false;
+  RxInt time = 5.obs;
+  bool befor = true;
+  int secondsAdd = 30;
+  int befor_diff = 0;
 
+  DateTime mytime = DateTime.now();
   DateTime dateTime = DateTime.now();
   UpdateUndetectedAlertJson? updateUndetectedAlertJson;
-  FicheSeizureJson? ficheSeizureJson;
+  GetFicheSeizureListJson? ficheSeizureJson;
   BracletBleutoothJson? bracletBleutoothJson;
+  GetFicheSeizureByEmailJson? getFicheSeizureByEmailJson;
 
   // TimeOfDay? day;
   DateTime? focusedDay = DateTime.now();
   AddUndetectedAlertJson? addUndetectedAlertJson;
   GetUndetectedAlertJson? getUndetectedAlertJson;
+  GetFicheSeizureDetailsJson? getFicheSeizureDetailsJson;
   DateTime? selectedDay;
   TimeOfDay timeOfDay = TimeOfDay.now();
   bool isUpdate = false;
@@ -95,7 +110,6 @@ class SeizureController extends GetxController {
   void onInit() {
     super.onInit();
     id = AccountInfoStorage.readUserId() ?? "";
-    //    controller.getUndetectedAlert();
   }
 
   /// get alert by type false or true from server
@@ -122,7 +136,6 @@ class SeizureController extends GetxController {
 
     _getAlertBySeizureApi.secureGetData().then((value) {
       getAlertBySeizureJson = value as GetAlertBySeizureJson;
-      print("hhhhhhhhhhhhhhhdddddddddddddddddddddddddde=>  $value");
       update();
     });
   }
@@ -130,7 +143,83 @@ class SeizureController extends GetxController {
   /// Get fiche seizure from apareil
   getFicheSeizure() {
     _getFicheSeizureApi.secureGetData().then((value) {
-      ficheSeizureJson = value as FicheSeizureJson;
+      ficheSeizureJson = value as GetFicheSeizureListJson;
+      update();
+    });
+  }
+
+  upDateTime() async {
+    while (true) {
+      await Future.delayed(Duration(seconds: 1));
+      time.value--;
+      print(time.value);
+
+      if (time.value == 0) {
+        getFicheSeizureByEmail(AccountInfoStorage.readEmail()!);
+
+        time.value = 10;
+      }
+      if (time.value == 5) {
+        befor = false;
+
+      //  update();
+      }
+    }
+  }
+
+  /// Get fiche seizure from details by email
+  getFicheSeizureByEmail(String email) {
+    _getFicheSeizureByEmailApi.email = email;
+    _getFicheSeizureByEmailApi.secureGetData().then((value) {
+      getFicheSeizureByEmailJson = value as GetFicheSeizureByEmailJson;
+
+      befor_diff = getisInSameTime().inSeconds;
+      print("befor_diff : ${befor_diff} ");
+      if (befor_diff < 30) {
+        befor = true;
+        update();
+      } else {
+        befor = false;
+        update();
+      }
+    });
+  }
+
+  getisInSameTime() {
+
+      var now = DateTime.now();
+      var month = now.month.toString().padLeft(2, '0');
+      var day = now.day.toString().padLeft(2, '0');
+      var hour = now.hour.toString().padLeft(2, '0');
+      var minute = now.minute.toString().padLeft(2, '0');
+      var second = now.second.toString().padLeft(2, '0');
+      var text ='${now.year}-$month-$day ${hour}:${minute}:${second}';
+
+      print("text now of system  ${text}");
+
+      var datetime = DateTime.parse(getFicheSeizureByEmailJson!.data!.first.date!+"T"+getFicheSeizureByEmailJson!.data!.first.time!);
+      var month1 = datetime.month.toString().padLeft(2, '0');
+      var day1 = datetime.day.toString().padLeft(2, '0');
+      var hour1 = datetime.hour.toString().padLeft(2, '0');
+      var minute1 = datetime.minute.toString().padLeft(2, '0');
+      var second1= datetime.second.toString().padLeft(2, '0');
+      var text1 = '${datetime.year}-$month1-$day1 ${hour1}:${minute1}:${second1}';
+
+      print("text datetime from api   ${text1}");
+
+      Duration diff = DateTime.parse(text).difference(DateTime.parse(text1));
+
+      return diff;
+
+
+    return true;
+  }
+
+  /// Get fiche seizure Details from server
+  getFicheSeizureDetails(int id) {
+    _getFicheSeizureDetailsApi.id = id.toString();
+    _getFicheSeizureDetailsApi.secureGetData().then((value) {
+      getFicheSeizureDetailsJson = value as GetFicheSeizureDetailsJson;
       update();
     });
   }

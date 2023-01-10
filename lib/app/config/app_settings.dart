@@ -42,7 +42,10 @@ class SettingsApp {
 
   static String get addStateStateCareGiver =>
       '$baseApiUrl/CaregiverSeizure/enabledesableCaregiver';
-
+  static String get getFicheSeizureByEmail =>
+      '$baseApiUrl/ficheSeizure/FicheSeizureDetails?email=';
+  static String get getFicheSeizureDetails =>
+      '$baseApiUrl/ficheSeizure/FicheSeizure/{id}?id=';
   static String get deleteCareGiver =>
       '$baseApiUrl/CaregiverSeizure/deleteCaregiverSeizure?caregiver_id=';
 

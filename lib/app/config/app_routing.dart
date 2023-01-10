@@ -84,10 +84,10 @@ class AppRouting {
         name: braceletnotnnworn,
         page: () => BraceletUnworn(),
         binding: AllBindings()),
-    GetPage(
-        name: connectbleutoothscreen,
-        page: () => ConnectBleutoothScreen(),
-        binding: AllBindings()),
+    // GetPage(
+    //     name: connectbleutoothscreen,
+    //     page: () => ConnectBleutoothScreen(),
+    //     binding: AllBindings()),
     GetPage(
         name: resetpassword,
         page: () => const ResetPassword(),

@@ -31,28 +31,28 @@ class _BleutoothScreenState extends State<Braceletdisconnected> {
                   padding: const EdgeInsets.fromLTRB(20, 20, 20, 70),
                   child: Image.asset("assets/images/connect01.png"),
                 ),
-                Container(
-                  padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-                  child: Image.asset("assets/images/exclamation.png"),
-                ),
-                Container(
-                  child: Align(
-                    alignment: Alignment(0.012, 0.075),
-                    child: SizedBox(
-                      child: Text(
-                        'bracelet_connected'.tr,
-                        style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontSize: 23,
-                          color: const Color(0xffffffff),
-                          fontWeight: FontWeight.w700,
-                        ),
-                        textAlign: TextAlign.center,
-                        softWrap: false,
-                      ),
-                    ),
-                  ),
-                ),
+                // Container(
+                //   padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
+                //   child: Image.asset("assets/images/exclamation.png"),
+                // ),
+                // Container(
+                //   child: Align(
+                //     alignment: Alignment(0.012, 0.075),
+                //     child: SizedBox(
+                //       child: Text(
+                //         'bracelet_connected'.tr,
+                //         style: TextStyle(
+                //           fontFamily: 'Roboto',
+                //           fontSize: 23,
+                //           color: const Color(0xffffffff),
+                //           fontWeight: FontWeight.w700,
+                //         ),
+                //         textAlign: TextAlign.center,
+                //         softWrap: false,
+                //       ),
+                //     ),
+                //   ),
+                // ),
                 Align(
                   alignment: Alignment(0.005, 0.268),
                   child: SizedBox(
@@ -67,7 +67,7 @@ class _BleutoothScreenState extends State<Braceletdisconnected> {
                         children: [
                           TextSpan(
                             text:
-                                'not_connect_to_its_paired_phone_this_usually_means_your_phone_is_not_within_bluetooth'.tr,
+                                'Please connect your bracelet \nto your Bluetooth',
                           ),
                         ],
                       ),
@@ -92,7 +92,7 @@ class _BleutoothScreenState extends State<Braceletdisconnected> {
                           builder: (
                         context,
                       ) =>
-                              ConnectBleutoothScreen()));
+                              FlutterBlueApp()));
                     },
                   ),
                 ),

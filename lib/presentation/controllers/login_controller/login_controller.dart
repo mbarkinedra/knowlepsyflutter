@@ -47,7 +47,7 @@ class LoginController extends GetxController {
       "email": emailController.text,
       "password": passwordController.text
     }).then((value) {
-      isLoading.value = false;
+    //  isLoading.value = false;
       userJson = value as UserJson;
       print("*" * 50);
       print(value);
@@ -75,13 +75,13 @@ class LoginController extends GetxController {
           key: 'firstName', value: userJson!.user!.firstName!);
       SecureStorage.writeSecureData(
           key: 'lastName', value: userJson!.user!.lastName!);
+      SecureStorage.writeSecureData(
+          key: 'email', value: userJson!.user!.email!);
       // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
       //  builder: (context,) =>
       //      Braceletdisconnected()));
-
-      // Get.offAll(HomePage());
+     // Get.offAll(HomePage());
       Get.offAll(Braceletdisconnected());
-
       isLoading.value = false;
     });
   }

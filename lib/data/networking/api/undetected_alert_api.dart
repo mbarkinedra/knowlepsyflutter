@@ -5,6 +5,8 @@ import 'package:knowplesy/data/networking/json/add_undetected_alert_json.dart';
 import '../../../app/config/app_settings.dart';
 import '../json/fiche_seizure_json.dart';
 import '../json/getAlert_bySeizure_json.dart';
+import '../json/getFicheSeizureByEmail_json.dart';
+import '../json/getFicheSeizureDetails_json.dart';
 import '../json/get_alert_byType_json.dart';
 import '../json/get_details_undetectedAlert_json.dart';
 import '../json/get_undetected_alert_json.dart';
@@ -72,10 +74,33 @@ class GetFicheSeizureApi extends ApiManager {
 
   @override
   AbstractJsonResource fromJson(data) {
-    return FicheSeizureJson.fromJson(data);
+    return GetFicheSeizureListJson.fromJson(data);
   }
 }
+class GetFicheSeizureByEmailApi extends ApiManager {
+  String email="";
+  @override
+  String apiUrl() {
+    return SettingsApp.getFicheSeizureByEmail+email;
+  }
 
+  @override
+  AbstractJsonResource fromJson(data) {
+    return GetFicheSeizureByEmailJson.fromJson(data);
+  }
+}
+class GetFicheSeizureDetailsApi extends ApiManager {
+  String id="";
+  @override
+  String apiUrl() {
+    return SettingsApp.getFicheSeizureDetails+id;
+  }
+
+  @override
+  AbstractJsonResource fromJson(data) {
+    return GetFicheSeizureDetailsJson.fromJson(data);
+  }
+}
 class GetAlertBySeizureApi extends ApiManager {
   String id = "";
 

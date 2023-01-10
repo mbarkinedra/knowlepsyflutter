@@ -41,7 +41,7 @@ class _HomePage1State extends State<HomePage1> {
             children: [
               GetBuilder<SeizureController>(builder: (logic) {
                 return Text(
-                    "${"hi".tr}${logic.getUserProfilejson!.data!.firstName}");
+                    "${"hi".tr}${logic.getUserProfilejson?.data?.firstName}");
               }),
               Spacer(),
               SecureStorage.readSecureData("imag") != null

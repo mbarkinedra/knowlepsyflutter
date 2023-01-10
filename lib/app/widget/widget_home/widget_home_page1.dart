@@ -22,12 +22,12 @@ class WidgetHomePage1 extends GetView<SeizureController> {
     controller.getAlertBySeizure();
     controller.getFicheSeizure();
     controller.getNbrAlert();
-
+    controller.upDateTime();
     return Scaffold(
-      body: Column(
-        children: [
-          SingleChildScrollView(
-            child: Container(
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Container(
               height: MediaQuery.of(context).size.height * .45,
               decoration: BoxDecoration(
                   color: AppColors.primaryColor,
@@ -147,299 +147,719 @@ class WidgetHomePage1 extends GetView<SeizureController> {
                   }),
                 ),
                 SizedBox(
-                  height: 8,
+                  height: 12,
                 )
               ]),
             ),
-          ),
-          Expanded(child: GetBuilder<SeizureController>(builder: (logic) {
-            return logic.getAlertBySeizureJson == null
-                ? Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : (logic.getAlertBySeizureJson?.data?.length ?? 0) ==
-                        0
-                    ? Center(
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: [
-                              Icon(
-                                Icons.notifications_on_rounded,
-                                size: 150,
-                                color: Colors.deepPurple,
-                              ),
-                              Text("Still no detected alert  yet",
-                                  style: TextStyle(
-                                      fontSize: 16, color: Colors.grey)),
-                              SizedBox(
-                                height: 20,
-                              ),
-                              Text("Welcome to Knowlepsy",
-                                  style: TextStyle(
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 16,
-                                      color: Colors.grey)),
-                            ],
+            SizedBox(
+              height: 12,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: CircleAvatar(
+                        backgroundImage: AssetImage("assets/images/herat.png"),
+                        backgroundColor: Colors.deepPurple,
+                        maxRadius: 35,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Heart Rate",
+                      style: TextStyle(
+                          color: AppColors.primaryColor,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    GetBuilder<SeizureController>(builder: (logic) {
+                      return Container(
+                        height: 50,
+                        width: 80,
+                        padding: EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          border: Border.all(),
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.1),
+                              spreadRadius: 2,
+                              blurRadius: 3,
+                              offset: Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Text(
+                        logic.befor?    logic.getFicheSeizureByEmailJson?.data?.first
+                                    ?.heartRate ??
+                                "--":"--",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
                           ),
                         ),
-                      )
-                    : ListView.separated(
-                        itemCount: logic.getAlertBySeizureJson!.data!.length,
-                        itemBuilder: (context, index) {
-                          return ListView.separated(
-                              shrinkWrap: true,
-                              physics: NeverScrollableScrollPhysics(),
-                              itemBuilder: (context, pos) {
-                                if (logic.getAlertBySeizureJson?.data?[index]
-                                        .alerts?[pos].type !=
-                                    1) {
-                                  return SizedBox();
-                                } else {
-                                  return Padding(
-                                    padding: const EdgeInsets.all(8.0),
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Container(
-                                          height: 15,
-                                          width: 15,
-                                          decoration: BoxDecoration(
-                                              color: Colors.deepOrangeAccent,
-                                              shape: BoxShape.circle),
-                                        ),
-                                        Expanded(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "convulsive_seizure".tr,
-                                                style: TextStyle(
-                                                    fontSize: 16,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              ),
-                                              Text(
-                                                " ${logic.getAlertBySeizureJson?.data?[index].alerts?[pos].createdAt?.substring(11, 16)}",
-                                                style: TextStyle(
-                                                    fontSize: 13,
-                                                    fontWeight:
-                                                        FontWeight.w600),
-                                              ),
-                                              Text(
-                                                "${logic.getAlertBySeizureJson?.data?[index].alerts?[pos].comment}",
-                                                style: TextStyle(
-                                                    fontSize: 11,
-                                                    fontWeight: FontWeight.w600,
-                                                    color: Colors.grey[500]),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                        // Text(
-                                        //     " ${logic.getAlertBySeizureJson?.data?[index].alerts?[pos].createdAt?.substring(11, 16)}"),
+                      );
+                    }),
+                  ],
+                ),
+                Column(
+                  children: [
+                    CircleAvatar(
+                      backgroundImage:
+                          AssetImage("assets/images/temperature.png"),
+                      backgroundColor: Colors.deepPurple,
+                      maxRadius: 35,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      "Temperature",
+                      style: TextStyle(
+                          color: AppColors.primaryColor,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    GetBuilder<SeizureController>(builder: (logic) {
+                      print(
+                          "logic.getFicheSeizureByEmailJson?.data?.first?.temperature=>    ${logic.getFicheSeizureByEmailJson?.data?.first?.temperature}");
+                      return Container(
+                        height: 50,
+                        width: 80,
+                        padding: EdgeInsets.all(4),
+                        decoration: BoxDecoration(
+                          border: Border.all(),
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.1),
+                              spreadRadius: 2,
+                              blurRadius: 3,
+                              offset: Offset(0, 3), // changes position of shadow
+                            ),
+                          ],
+                        ),
+                        child: Center(
+                          child: Text(
+                            logic.befor?   logic.getFicheSeizureByEmailJson?.data?.first
+                                    ?.temperature ??
+                                "--":"--",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold, fontSize: 16),
+                          ),
+                        ),
+                      );
+                    }),
+                  ],
+                ),
+              ],
+            ),
+            /*  Expanded(child: GetBuilder<SeizureController>(builder: (logic) {
+              //    print("logic.ficheSeizureJson!.data!.lengthlogic.ficheSeizureJson!.data!.length   ${logic.ficheSeizureJson!.data!.length}");
+              return logic.ficheSeizureJson == null
+                  ? Center(
+                child: CircularProgressIndicator(),
+              )
+                  : (logic.ficheSeizureJson?.data?.length ?? 0) == 0
+                  ? Center(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      Icon(
+                        Icons.notifications_on_rounded,
+                        size: 150,
+                        color: Colors.deepPurple,
+                      ),
+                      Text("Still no detected alert  yet",
+                          style: TextStyle(
+                              fontSize: 16, color: Colors.grey)),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text("Welcome to Knowlepsy",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                              color: Colors.grey)),
+                    ],
+                  ),
+                ),
+              )
+                  : ListView.separated(
+                itemCount: logic.ficheSeizureJson!.data!.length,
+                itemBuilder: (context, index) {
+                  print("logic.ficheSeizureJson!.data!.length===... >${logic
+                      .ficheSeizureJson!.data!.length}");
+                  return ListView.separated(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, pos) {
+                        return Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.start,
+                            mainAxisAlignment:
+                            MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                height: 15,
+                                width: 15,
+                                decoration: BoxDecoration(
+                                    color: Colors.deepOrangeAccent,
+                                    shape: BoxShape.circle),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  mainAxisAlignment:
+                                  MainAxisAlignment.start,
+                                  crossAxisAlignment:
+                                  CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "FicheSeizure".tr,
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          fontWeight:
+                                          FontWeight.bold),
+                                    ),
+                                    // Text(
+                                    //   " ${logic.getAlertBySeizureJson?.data?[index].alerts?[pos].createdAt?.substring(11, 16)}",
+                                    //   style: TextStyle(
+                                    //       fontSize: 13,
+                                    //       fontWeight:
+                                    //           FontWeight.w600),
+                                    // ),
+                                    // Text(
+                                    //   "${logic.getAlertBySeizureJson?.data?[index].alerts?[pos].comment}",
+                                    //   style: TextStyle(
+                                    //       fontSize: 11,
+                                    //       fontWeight: FontWeight.w600,
+                                    //       color: Colors.grey[500]),
+                                    // )
+                                  ],
+                                ),
+                              ),
+                              // Text(
+                              //     " ${logic.getAlertBySeizureJson?.data?[index].alerts?[pos].createdAt?.substring(11, 16)}"),
 
-                                        Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.end,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.end,
-                                          children: [
-                                            Text(
-                                                " ${logic.getAlertBySeizureJson?.data?[index].alerts?[pos].createdAt?.substring(11, 16)}"),
-                                            InkWell(
-                                              onTap: () async {
-                                                await showDialog<void>(
-                                                  context: context,
-                                                  //    barrierDismissible: false,
-                                                  // user must tap button!
-                                                  builder:
-                                                      (BuildContext context) {
-                                                    return AlertDialog(
-                                                      title: Image.asset(
-                                                        "assets/images/alert.png",
-                                                        width: 150,
-                                                        height: 120,
-                                                      ),
-                                                      content:
-                                                          SingleChildScrollView(
-                                                        child: ListBody(
-                                                          children: <Widget>[
-                                                            Center(
-                                                                child: Text(
-                                                              "Seizure Alert Details",
+                              Column(
+                                mainAxisAlignment:
+                                MainAxisAlignment.end,
+                                crossAxisAlignment:
+                                CrossAxisAlignment.end,
+                                children: [
+                                  Text(
+                                      " ${logic.ficheSeizureJson?.data?[index]
+                                          .createdAt?.substring(11, 16)}"),
+                                  InkWell(
+                                    onTap: () async {
+                                      print(
+                                          "${logic.ficheSeizureJson!.data![index]
+                                              .id! }");
+                                      logic.getFicheSeizureDetails(
+                                        //  logic.getFicheSeizureDetailsJson!.data!.id!,
+                                          logic.ficheSeizureJson!.data![index]
+                                              .id!);
+                                      // logic.id =
+                                      //logic.getFicheSeizureDetailsJson!.data!.id!.toString();
+                                      await showDialog<void>(
+                                        context: context,
+                                        //    barrierDismissible: false,
+                                        // user must tap button!
+                                        builder:
+                                            (BuildContext context) {
+                                          return AlertDialog(
+                                            title: Image.asset(
+                                              "assets/images/alert.png",
+                                              width: 150,
+                                              height: 120,
+                                            ),
+                                            content:
+                                            SingleChildScrollView(
+                                              child: ListBody(
+                                                children: <Widget>[
+                                                  Center(
+                                                      child: Text(
+                                                        "Seizure Alert Details",
+                                                        style: TextStyle(
+                                                            fontSize: 23,
+                                                            fontWeight:
+                                                            FontWeight
+                                                                .bold),
+                                                      )),
+                                                  SizedBox(
+                                                    height: 10,
+                                                  ),
+                                                  Column(
+                                                    children: [
+                                                      Center(
+                                                        child: Row(
+                                                          children: [
+                                                            Text(
+                                                              "Temperature",
                                                               style: TextStyle(
-                                                                  fontSize: 23,
+                                                                  fontSize:
+                                                                  14,
                                                                   fontWeight:
-                                                                      FontWeight
-                                                                          .bold),
-                                                            )),
-                                                            SizedBox(
-                                                              height: 10,
+                                                                  FontWeight
+                                                                      .bold),
                                                             ),
-                                                            Column(
-                                                              children: [
-                                                                Center(
-                                                                  child: Row(
-                                                                    children: [
-                                                                      Text(
-                                                                        "Temperature",
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                14,
-                                                                            fontWeight:
-                                                                                FontWeight.bold),
-                                                                      ),
-                                                                      Spacer(),
-                                                                      Text(
-
-                                                                        "${logic.ficheSeizureJson!.data!.temperature}",
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                14,
-                                                                            fontWeight:
-                                                                                FontWeight.bold),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Center(
-                                                                  child: Row(
-                                                                    children: [
-                                                                      Text(
-                                                                        "heart_rate",
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                14,
-                                                                            fontWeight:
-                                                                                FontWeight.bold),
-                                                                      ),
-                                                                      Spacer(),
-                                                                      Text(
-                                                                        "${logic.ficheSeizureJson!.data!.heartRate.toString()}",
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                14,
-                                                                            fontWeight:
-                                                                                FontWeight.bold),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                                Center(
-                                                                  child: Row(
-                                                                    children: [
-                                                                      Text(
-                                                                        "motion_sensing",
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                14,
-                                                                            fontWeight:
-                                                                                FontWeight.bold),
-                                                                      ),
-                                                                      Spacer(),
-                                                                      Text(
-                                                                        "${logic.ficheSeizureJson!.data!.motionSensing.toString()}",
-                                                                        style: TextStyle(
-                                                                            fontSize:
-                                                                                14,
-                                                                            fontWeight:
-                                                                                FontWeight.bold),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ],
+                                                            Spacer(),
+                                                            Text(
+                                                              " ${logic
+                                                                  .ficheSeizureJson
+                                                                  ?.data?[index]
+                                                                  .temperature}",
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                  14,
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
                                                             ),
-                                                            SizedBox(
-                                                              height: 15,
-                                                            ),
-                                                            GestureDetector(
-                                                              onTap: () {
-                                                                Navigator.of(
-                                                                        context)
-                                                                    .pop(true);
-                                                              },
-                                                              child: Container(
-                                                                height: 50,
-                                                                width: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .width *
-                                                                    .2,
-                                                                decoration:
-                                                                    BoxDecoration(
-                                                                  color: Colors
-                                                                      .white,
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10),
-                                                                  boxShadow: [
-                                                                    BoxShadow(
-                                                                      color: Colors
-                                                                          .grey
-                                                                          .withOpacity(
-                                                                              0.5),
-                                                                      spreadRadius:
-                                                                          2,
-                                                                      blurRadius:
-                                                                          7,
-                                                                      offset: Offset(
-                                                                          0,
-                                                                          3), // changes position of shadow
-                                                                    )
-                                                                  ],
-                                                                ),
-                                                                child: Column(
-                                                                  children: [
-                                                                    Center(
-                                                                      child: Image
-                                                                          .asset(
-                                                                              "assets/images/false_alert.png"),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ),
-                                                            )
                                                           ],
                                                         ),
                                                       ),
-                                                      actions: <Widget>[],
-                                                    );
-                                                  },
-                                                );
-                                              },
-                                              child: const Icon(
-                                                  Icons
-                                                      .control_point_duplicate_rounded,
-                                                  size: 20,
-                                                  color: Colors.grey),
+                                                      Center(
+                                                        child: Row(
+                                                          children: [
+                                                            Text(
+                                                              "heart_rate",
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                  14,
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                            ),
+                                                            Spacer(),
+                                                            Text(
+                                                              "${logic
+                                                                  .ficheSeizureJson
+                                                                  ?.data?[index]
+                                                                  .heartRate}",
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                  14,
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                      Center(
+                                                        child: Row(
+                                                          children: [
+                                                            Text(
+                                                              "motion_sensing",
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                  14,
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                            ),
+                                                            Spacer(),
+                                                            Text(
+                                                              "${logic
+                                                                  .ficheSeizureJson
+                                                                  ?.data?[index]
+                                                                  .motionSensing}",
+                                                              style: TextStyle(
+                                                                  fontSize:
+                                                                  14,
+                                                                  fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    height: 15,
+                                                  ),
+                                                  GestureDetector(
+                                                    onTap: () {
+                                                      Navigator.of(
+                                                          context)
+                                                          .pop(true);
+                                                    },
+                                                    child: Container(
+                                                      height: 50,
+                                                      width: MediaQuery
+                                                          .of(
+                                                          context)
+                                                          .size
+                                                          .width *
+                                                          .2,
+                                                      decoration:
+                                                      BoxDecoration(
+                                                        color: Colors
+                                                            .white,
+                                                        borderRadius:
+                                                        BorderRadius
+                                                            .circular(
+                                                            10),
+                                                        boxShadow: [
+                                                          BoxShadow(
+                                                            color: Colors
+                                                                .grey
+                                                                .withOpacity(
+                                                                0.5),
+                                                            spreadRadius:
+                                                            2,
+                                                            blurRadius:
+                                                            7,
+                                                            offset: Offset(
+                                                                0,
+                                                                3), // changes position of shadow
+                                                          )
+                                                        ],
+                                                      ),
+                                                      child: Column(
+                                                        children: [
+                                                          Center(
+                                                            child: Image
+                                                                .asset(
+                                                                "assets/images/false_alert.png"),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             ),
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }
-                              },
-                              separatorBuilder: (context, index) {
-                                return Divider();
-                              },
-                              itemCount: logic.getAlertBySeizureJson!
-                                  .data![index].alerts!.length);
-                        },
-                        separatorBuilder: (context, index) {
-                          return Divider();
-                        },
-                      );
-          }))
-        ],
+                                            actions: <Widget>[],
+                                          );
+                                        },
+                                      );
+                                    },
+                                    child: const Icon(
+                                        Icons
+                                            .control_point_duplicate_rounded,
+                                        size: 20,
+                                        color: Colors.grey),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return Divider();
+                      },
+                      itemCount: logic.getAlertBySeizureJson!
+                          .data![index].alerts!.length);
+                },
+                separatorBuilder: (context, index) {
+                  return Divider();
+                },
+
+              );
+            }))*/
+            // Expanded(child: GetBuilder<SeizureController>(builder: (logic) {
+            //   return logic.ficheSeizureJson == null
+            //       ? Center(
+            //           child: CircularProgressIndicator(),
+            //         )
+            //       : (logic.ficheSeizureJson?.data?.length ?? 0) ==
+            //               0
+            //           ? Center(
+            //               child: SingleChildScrollView(
+            //                 child: Column(
+            //                   children: [
+            //                     Icon(
+            //                       Icons.notifications_on_rounded,
+            //                       size: 150,
+            //                       color: Colors.deepPurple,
+            //                     ),
+            //                     Text("Still no detected alert  yet",
+            //                         style: TextStyle(
+            //                             fontSize: 16, color: Colors.grey)),
+            //                     SizedBox(
+            //                       height: 20,
+            //                     ),
+            //                     Text("Welcome to Knowlepsy",
+            //                         style: TextStyle(
+            //                             fontWeight: FontWeight.bold,
+            //                             fontSize: 16,
+            //                             color: Colors.grey)),
+            //                   ],
+            //                 ),
+            //               ),
+            //             )
+            //           : ListView.separated(
+            //               itemCount: logic.ficheSeizureJson!.data!.length,
+            //               itemBuilder: (context, index) {
+            //                 return ListView.separated(
+            //                     shrinkWrap: true,
+            //                     physics: NeverScrollableScrollPhysics(),
+            //                     itemBuilder: (context, pos) {
+            //                       if (logic.getAlertBySeizureJson?.data?[index]
+            //                               .alerts?[pos].type !=
+            //                           1) {
+            //                         return SizedBox();
+            //                       } else {
+            //                         return Padding(
+            //                           padding: const EdgeInsets.all(8.0),
+            //                           child: Row(
+            //                             crossAxisAlignment:
+            //                                 CrossAxisAlignment.start,
+            //                             mainAxisAlignment:
+            //                                 MainAxisAlignment.start,
+            //                             children: [
+            //                               Container(
+            //                                 height: 15,
+            //                                 width: 15,
+            //                                 decoration: BoxDecoration(
+            //                                     color: Colors.deepOrangeAccent,
+            //                                     shape: BoxShape.circle),
+            //                               ),
+            //                               Expanded(
+            //                                 child: Column(
+            //                                   mainAxisAlignment:
+            //                                       MainAxisAlignment.start,
+            //                                   crossAxisAlignment:
+            //                                       CrossAxisAlignment.start,
+            //                                   children: [
+            //                                     Text(
+            //                                       "Temperature".tr,
+            //                                       style: TextStyle(
+            //                                           fontSize: 16,
+            //                                           fontWeight:
+            //                                               FontWeight.bold),
+            //                                     ),
+            //                                     Text(
+            //                                       " ${logic.getAlertBySeizureJson?.data?[index].alerts?[pos].createdAt?.substring(11, 16)}",
+            //                                       style: TextStyle(
+            //                                           fontSize: 13,
+            //                                           fontWeight:
+            //                                               FontWeight.w600),
+            //                                     ),
+            //                                     Text(
+            //                                       "${logic.getAlertBySeizureJson?.data?[index].alerts?[pos].comment}",
+            //                                       style: TextStyle(
+            //                                           fontSize: 11,
+            //                                           fontWeight: FontWeight.w600,
+            //                                           color: Colors.grey[500]),
+            //                                     )
+            //                                   ],
+            //                                 ),
+            //                               ),
+            //                               // Text(
+            //                               //     " ${logic.getAlertBySeizureJson?.data?[index].alerts?[pos].createdAt?.substring(11, 16)}"),
+            //
+            //                               Column(
+            //                                 mainAxisAlignment:
+            //                                     MainAxisAlignment.end,
+            //                                 crossAxisAlignment:
+            //                                     CrossAxisAlignment.end,
+            //                                 children: [
+            //                                   Text(
+            //                                       " ${logic.getAlertBySeizureJson?.data?[index].alerts?[pos].createdAt?.substring(11, 16)}"),
+            //                                   InkWell(
+            //                                     onTap: () async {
+            //                                       await showDialog<void>(
+            //                                         context: context,
+            //                                         //    barrierDismissible: false,
+            //                                         // user must tap button!
+            //                                         builder:
+            //                                             (BuildContext context) {
+            //                                           return AlertDialog(
+            //                                             title: Image.asset(
+            //                                               "assets/images/alert.png",
+            //                                               width: 150,
+            //                                               height: 120,
+            //                                             ),
+            //                                             content:
+            //                                                 SingleChildScrollView(
+            //                                               child: ListBody(
+            //                                                 children: <Widget>[
+            //                                                   Center(
+            //                                                       child: Text(
+            //                                                     "Seizure Alert Details",
+            //                                                     style: TextStyle(
+            //                                                         fontSize: 23,
+            //                                                         fontWeight:
+            //                                                             FontWeight
+            //                                                                 .bold),
+            //                                                   )),
+            //                                                   SizedBox(
+            //                                                     height: 10,
+            //                                                   ),
+            //                                                   Column(
+            //                                                     children: [
+            //                                                       Center(
+            //                                                         child: Row(
+            //                                                           children: [
+            //                                                             Text(
+            //                                                               "Temperature",
+            //                                                               style: TextStyle(
+            //                                                                   fontSize:
+            //                                                                       14,
+            //                                                                   fontWeight:
+            //                                                                       FontWeight.bold),
+            //                                                             ),
+            //                                                             Spacer(),
+            //                                                             Text(
+            //                                                               "${logic.ficheSeizureJson!.data![pos]}",
+            //                                                               style: TextStyle(
+            //                                                                   fontSize:
+            //                                                                       14,
+            //                                                                   fontWeight:
+            //                                                                       FontWeight.bold),
+            //                                                             ),
+            //                                                           ],
+            //                                                         ),
+            //                                                       ),
+            //                                                       Center(
+            //                                                         child: Row(
+            //                                                           children: [
+            //                                                             Text(
+            //                                                               "heart_rate",
+            //                                                               style: TextStyle(
+            //                                                                   fontSize:
+            //                                                                       14,
+            //                                                                   fontWeight:
+            //                                                                       FontWeight.bold),
+            //                                                             ),
+            //                                                             Spacer(),
+            //                                                             Text(
+            //                                                               "${logic.ficheSeizureJson!.data![pos].heartRate}",
+            //                                                               style: TextStyle(
+            //                                                                   fontSize:
+            //                                                                       14,
+            //                                                                   fontWeight:
+            //                                                                       FontWeight.bold),
+            //                                                             ),
+            //                                                           ],
+            //                                                         ),
+            //                                                       ),
+            //                                                       Center(
+            //                                                         child: Row(
+            //                                                           children: [
+            //                                                             Text(
+            //                                                               "motion_sensing",
+            //                                                               style: TextStyle(
+            //                                                                   fontSize:
+            //                                                                       14,
+            //                                                                   fontWeight:
+            //                                                                       FontWeight.bold),
+            //                                                             ),
+            //                                                             Spacer(),
+            //                                                             Text(
+            //                                                               "${logic.ficheSeizureJson!.data![pos].motionSensing}",
+            //                                                               style: TextStyle(
+            //                                                                   fontSize:
+            //                                                                       14,
+            //                                                                   fontWeight:
+            //                                                                       FontWeight.bold),
+            //                                                             ),
+            //                                                           ],
+            //                                                         ),
+            //                                                       ),
+            //                                                     ],
+            //                                                   ),
+            //                                                   SizedBox(
+            //                                                     height: 15,
+            //                                                   ),
+            //                                                   GestureDetector(
+            //                                                     onTap: () {
+            //                                                       Navigator.of(
+            //                                                               context)
+            //                                                           .pop(true);
+            //                                                     },
+            //                                                     child: Container(
+            //                                                       height: 50,
+            //                                                       width: MediaQuery.of(
+            //                                                                   context)
+            //                                                               .size
+            //                                                               .width *
+            //                                                           .2,
+            //                                                       decoration:
+            //                                                           BoxDecoration(
+            //                                                         color: Colors
+            //                                                             .white,
+            //                                                         borderRadius:
+            //                                                             BorderRadius
+            //                                                                 .circular(
+            //                                                                     10),
+            //                                                         boxShadow: [
+            //                                                           BoxShadow(
+            //                                                             color: Colors
+            //                                                                 .grey
+            //                                                                 .withOpacity(
+            //                                                                     0.5),
+            //                                                             spreadRadius:
+            //                                                                 2,
+            //                                                             blurRadius:
+            //                                                                 7,
+            //                                                             offset: Offset(
+            //                                                                 0,
+            //                                                                 3), // changes position of shadow
+            //                                                           )
+            //                                                         ],
+            //                                                       ),
+            //                                                       child: Column(
+            //                                                         children: [
+            //                                                           Center(
+            //                                                             child: Image
+            //                                                                 .asset(
+            //                                                                     "assets/images/false_alert.png"),
+            //                                                           ),
+            //                                                         ],
+            //                                                       ),
+            //                                                     ),
+            //                                                   )
+            //                                                 ],
+            //                                               ),
+            //                                             ),
+            //                                             actions: <Widget>[],
+            //                                           );
+            //                                         },
+            //                                       );
+            //                                     },
+            //                                     child: const Icon(
+            //                                         Icons
+            //                                             .control_point_duplicate_rounded,
+            //                                         size: 20,
+            //                                         color: Colors.grey),
+            //                                   ),
+            //                                 ],
+            //                               ),
+            //                             ],
+            //                           ),
+            //                         );
+            //                       }
+            //                     },
+            //                     separatorBuilder: (context, index) {
+            //                       return Divider();
+            //                     },
+            //                     itemCount: logic.getAlertBySeizureJson!
+            //                         .data![index].alerts!.length);
+            //               },
+            //               separatorBuilder: (context, index) {
+            //                 return Divider();
+            //               },
+            //             );
+            // }))
+          ],
+        ),
       ),
     );
     ;

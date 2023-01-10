@@ -90,17 +90,17 @@ class _BraceletConnectedState extends State<BraceletConnected> {
                           color: const Color(0xffefff19),
                           height: 1.6923076923076923,
                         ),
-                        children: [
-                          TextSpan(
-                            text: 'Bracelet-B2VA8MC\n',
-                          ),
-                          TextSpan(
-                            text: 'connected'.tr,
-                            style: TextStyle(
-                              fontSize: 13,
-                            ),
-                          ),
-                        ],
+                        // children: [
+                        //   TextSpan(
+                        //     text: 'Bracelet-B2VA8MC\n',
+                        //   ),
+                        //   TextSpan(
+                        //     text: 'connected'.tr,
+                        //     style: TextStyle(
+                        //       fontSize: 13,
+                        //     ),
+                        //   ),
+                        // ],
                       ),
                       textHeightBehavior:
                           TextHeightBehavior(applyHeightToFirstAscent: false),
