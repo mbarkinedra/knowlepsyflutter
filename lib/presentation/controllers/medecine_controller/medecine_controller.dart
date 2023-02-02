@@ -1,5 +1,4 @@
 import 'package:android_alarm_manager_plus/android_alarm_manager_plus.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -39,18 +38,18 @@ class MedecineController extends GetxController {
   GetMedecationJson? getMedecationJson;
   AddStateMedicationJson? addStateMedicationJson;
   UpdateMedecationsJson? updateMedecationsJson;
+  GetModifMedecationsJson? getModifMedecationsJson;
+
   DateTime? selectedDay;
   TimeOfDay timeOfDay = TimeOfDay.now();
   DateTime dateTime = DateTime.now();
   bool dataAdverts = false;
-  DateTime ccc = DateTime.now();
+  DateTime dateNow = DateTime.now();
   ValidatorMedecation validator = ValidatorMedecation();
   GlobalKey<FormState>? formKey;
-
-  // final medecineKey = GlobalKey<FormState>();
   final GlobalKey<FormState> medecineKey = GlobalKey();
   bool isUpdate = false;
-  int idMedeine = 0;
+  int idMedecine = 0;
 
   showMyTimePicker(context) {
     showTimePicker(
@@ -60,9 +59,9 @@ class MedecineController extends GetxController {
       timeOfDay = value!;
       DateTime ff = DateTime.now();
       // TimeOfDay vv = TimeOfDay(hour: 10, minute: 50);
-      ccc =
+      dateNow =
           DateTime(ff.year, ff.month, ff.day, timeOfDay.hour, timeOfDay.minute);
-      await AndroidAlarmManager.oneShotAt(ccc, 123, printHello,
+      await AndroidAlarmManager.oneShotAt(dateNow, 123, printHello,
           alarmClock: true);
 
       update();
@@ -84,7 +83,7 @@ class MedecineController extends GetxController {
     Map<String, dynamic> data = {
       "name": name.text,
       "quantity": quantity.text,
-      "time": DateFormat('hh:mm').format(ccc).toString(),
+      "time": DateFormat('hh:mm').format(dateNow).toString(),
       "dosage": dosage.text,
       "seizure_id": AccountInfoStorage.readUserId(),
       "reminder_me": reminder ? 1 : 0,
@@ -114,8 +113,6 @@ class MedecineController extends GetxController {
                     MedecinePage()));
 
             clearData();
-
-            //  clearData();
           },
           buttonColor: AppColors.secondryColor,
           confirmTextColor: Colors.white,
@@ -133,22 +130,22 @@ class MedecineController extends GetxController {
     });
   }
 
+  /// Function to Change  Medication if you tape the card
   updateMedication(context) async {
     final f = new DateFormat('yyyy-MM-dd');
 
     Map<String, dynamic> data = {
-      "id": idMedeine,
+      "id": idMedecine,
       "name": name.text,
       "quantity": quantity.text,
-      "time": DateFormat('hh:mm').format(ccc).toString(),
+      "time": DateFormat('hh:mm').format(dateNow).toString(),
       "dosage": dosage.text,
       "seizure_id": AccountInfoStorage.readUserId(),
       "reminder_me": reminder ? 1 : 0,
       "date": f.format(dateTime),
     };
-    _updateMedecationApi.id = idMedeine.toString();
+    _updateMedecationApi.id = idMedecine.toString();
     _updateMedecationApi.securePost(dataToPost: data).then((value) {
-      //updateMedecationsJson = value as UpdateMedecationsJson;
       Get.defaultDialog(
           title: "confirmation".tr,
           //  middleText: "Take a new phhoto or import one from your library",
@@ -198,7 +195,6 @@ class MedecineController extends GetxController {
   getMedecation() {
     _getMedecationApi.id = AccountInfoStorage.readUserId() ?? "";
     _getMedecationApi.secureGetData().then((value) {
-      print(value);
       getMedecationJson = value as GetMedecationJson;
       update();
     });
@@ -211,9 +207,7 @@ class MedecineController extends GetxController {
       "reminder_me": reminder_me
     };
 
-    _addReminderMeApi.securePost(dataToPost: data).then((value) {
-      // addReminderJson=value as AddReminderJson;
-    });
+    _addReminderMeApi.securePost(dataToPost: data).then((value) {});
   }
 
   /// get Reminder  of medecine
@@ -227,7 +221,6 @@ class MedecineController extends GetxController {
 
   /// Add State Medecation (taken or Pendding)
   addStateMedecation({required String medication_id}) {
-    print(medication_id);
     Map<String, dynamic> data = {
       "medication_id": medication_id,
     };
@@ -236,8 +229,6 @@ class MedecineController extends GetxController {
       getMedecation();
     });
   }
-
-  GetModifMedecationsJson? getModifMedecationsJson;
 
   /// Get User information from server
   getAllData(int id, context) async {

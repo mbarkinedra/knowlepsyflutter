@@ -1,11 +1,7 @@
-
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:knowplesy/app/storage/secure_storage.dart';
 
 import '../../data/networking/api/log_out_api.dart';
-import '../../presentation/pages/login_page/login_page.dart';
 
 class AccountInfoStorage {
   static const _keyEmail = 'email';
@@ -110,9 +106,7 @@ class AccountInfoStorage {
   logout(context) {
     LogoutApi logoutApi = LogoutApi();
 
-    logoutApi.secureGetData().then((value) {
-
-    });
+    logoutApi.secureGetData().then((value) {});
     removeUserData();
   }
 

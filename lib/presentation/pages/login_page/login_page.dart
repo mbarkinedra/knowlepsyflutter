@@ -5,15 +5,8 @@ import 'package:knowplesy/app/widget/custom_button_login.dart';
 import 'package:knowplesy/app/widget/custom_button_without_icon_login.dart';
 import 'package:knowplesy/app/widget/custom_input_login.dart';
 import 'package:knowplesy/presentation/controllers/login_controller/login_controller.dart';
-import 'package:knowplesy/presentation/pages/login_page/BleutoothScreen/BraceletConnected.dart';
-import 'package:knowplesy/presentation/pages/login_page/BleutoothScreen/ConnectBleutoothScreen.dart';
-import 'package:knowplesy/presentation/pages/login_page/reset_password/reset_password.dart';
 import 'package:knowplesy/presentation/pages/login_page/reset_password/reset_password_email.dart';
 import 'package:knowplesy/presentation/pages/register_page/register_page.dart';
-
-import '../home/home_page/home_page.dart';
-import '../home_page.dart';
-import 'BleutoothScreen/BraceletNotConnected.dart';
 
 class LoginPage extends GetView<LoginController> {
   const LoginPage({super.key});

@@ -1,9 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:knowplesy/app/util/app_colors.dart';
-import 'package:knowplesy/app/widget/custom_button.dart';
-import 'package:knowplesy/app/widget/custom_input.dart';
-import 'package:knowplesy/app/widget/custom_setting.dart';
 import 'package:get/get.dart';
 
 import '../../../../controllers/language/languageController.dart';
@@ -11,9 +8,6 @@ import '../../../../controllers/language/languageController.dart';
 enum SingingCharacter { English, French }
 
 class LanguagePage extends GetView<LanguageController> {
-  // const LanguagePage({Key? key}) : super(key: key);
-
-
   Widget build(BuildContext context) {
     return GetBuilder<LanguageController>(builder: (logic) {
       return Scaffold(
@@ -52,18 +46,17 @@ class LanguagePage extends GetView<LanguageController> {
               ListTile(
                 dense: true,
                 onTap: () {
-             logic.updateToEnglish();
+                  logic.updateToEnglish();
                 },
                 leading: Text("english".tr,
                     style: TextStyle(fontWeight: FontWeight.bold)),
                 trailing: Radio(
                   value: SingingCharacter.English,
-                  groupValue:logic. lan,
+                  groupValue: logic.lan,
                   activeColor: Colors.green,
                   onChanged: (SingingCharacter? value) {
-
                     logic.updateToEnglish();
-                  //  logic. lan = value!;
+                    //  logic. lan = value!;
                   },
                 ),
               ),
@@ -78,7 +71,6 @@ class LanguagePage extends GetView<LanguageController> {
                 dense: true,
                 onTap: () {
                   logic.updateToFrensh();
-
                 },
                 leading: Text(
                   "french".tr,

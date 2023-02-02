@@ -1,16 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:knowplesy/app/util/app_colors.dart';
-import 'package:knowplesy/app/widget/custom_button_login.dart';
-import 'package:knowplesy/app/widget/custom_button_without_icon_login.dart';
-import 'package:knowplesy/app/widget/custom_input_login.dart';
 import 'package:flutter/services.dart';
 
 import '../../home_page.dart';
 
 class BraceletConnected extends StatefulWidget {
-  // BraceletConnected({super.key});
-
   @override
   State<BraceletConnected> createState() => _BraceletConnectedState();
 }

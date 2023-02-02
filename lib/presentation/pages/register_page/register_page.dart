@@ -59,14 +59,6 @@ class RegisterPage extends GetView<RegisterController> {
                                     fontWeight: FontWeight.w700,
                                   ),
                                 ),
-                                // TextSpan(
-                                //   text:
-                                //       'lets_get_started_with_creating_your_knowlepsy_account'
-                                //           .tr,
-                                //   style: TextStyle(
-                                //     color: const Color(0xfff2f7ff),
-                                //   ),
-                                // ),
                               ],
                             ),
                             textHeightBehavior: TextHeightBehavior(

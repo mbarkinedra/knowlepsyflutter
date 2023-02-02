@@ -1,11 +1,9 @@
-import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:knowplesy/app/config/interceptor.dart';
 
 import '../../../app/config/dio_singleton.dart';
 import '../../../app/storage/secure_storage.dart';
-import '../../security/network.dart';
 import '../json/abstract__json_resource.dart';
 
 abstract class ApiManager {
@@ -39,10 +37,6 @@ abstract class ApiManager {
 
   ///Get Data from Server with token
   Future secureGetData({data}) async {
-    Map<String, dynamic> defaultHeaders = {
-      'Content-Type': 'application/json; charset=UTF-8',
-      "authorization": "Bearer ${SecureStorage.readSecureData('token')}"
-    };
     AbstractJsonResource? json;
     dioSingleton.dio.interceptors.add(AppInterceptor());
 
@@ -53,7 +47,6 @@ abstract class ApiManager {
       queryParameters: data,
     )
         .then((value) {
-      print("valuevaluevalue=>    ${value.data}");
       data = value.data;
       json = fromJson(data);
       return json;
@@ -63,10 +56,6 @@ abstract class ApiManager {
   ///Post Data to Server with token
 
   Future securePost({dataToPost}) async {
-    Map<String, dynamic> defaultHeaders = {
-      'Content-Type': 'application/json; charset=UTF-8',
-      "authorization": "Bearer ${SecureStorage.readSecureData('token')}"
-    };
 
     AbstractJsonResource? json;
     dioSingleton.dio.interceptors.add(AppInterceptor());
@@ -101,12 +90,10 @@ abstract class ApiManager {
           followRedirects: false,
           validateStatus: (status) {
             return status! < 405;
-          }
-          ),
+          }),
     )
         .then((value) {
       return value;
-    }).catchError((error, stackTrace) {
-    });
+    }).catchError((error, stackTrace) {});
   }
 }

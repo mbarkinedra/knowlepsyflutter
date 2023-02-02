@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:knowplesy/app/util/app_colors.dart';
 import '../../../../app/storage/account_info_storage.dart';
 import '../../../../data/networking/api/careGiver_api.dart';
-import '../../../../data/networking/api/sign_up_api.dart';
 import '../../../../data/networking/json/addDoctor_json.dart';
 import '../../../../data/networking/json/careGiver_json.dart';
 import '../../../../data/networking/json/getDoctor_json.dart';
 import '../../../../data/networking/json/get_all_caregiver_json.dart';
 import '../../../../domain/validator/validator_signUp.dart';
-import '../../../pages/home/setting_page/access_control_page/access_control_page.dart';
 
 class AccessControlController extends GetxController {
   final AddCareGiverApi _addCareGiveApi = AddCareGiverApi();
@@ -50,7 +47,7 @@ class AccessControlController extends GetxController {
     caregiverName.text = "";
     email.text = "";
     phoneNumber.text = "";
-    caregiverLastName.text="";
+    caregiverLastName.text = "";
     update();
   }
 
@@ -72,7 +69,6 @@ class AccessControlController extends GetxController {
       "phone_number": phoneNumber.text,
     };
     _addCareGiveApi.securePost(dataToPost: data).then((value) {
-     // careGiverJson = value as CareGiverJson;
       getAllCaregiver();
       update();
     });
@@ -106,7 +102,6 @@ class AccessControlController extends GetxController {
   getDoctor() async {
     _getDoctorApi.id = AccountInfoStorage.readUserId() ?? "";
     _getDoctorApi.secureGetData().then((value) {
-      print((value));
       getDoctorJson = value as GetDoctorJson;
       update();
     });
@@ -179,7 +174,6 @@ class AccessControlController extends GetxController {
       "caregiver_id": caregiverseizure.caregiverseizure!.id
     };
     _deleteCareGiverApi.secureDelete(data: d).then((value) {
-      print(value);
     });
     Get.snackbar("Succes", "Caregiver deleted successfully",
         backgroundColor: AppColors.secondryColor, colorText: Colors.white);

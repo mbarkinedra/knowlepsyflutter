@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:knowplesy/app/util/font_size.dart';
 
 import '../util/app_colors.dart';
 
@@ -38,7 +37,7 @@ class CustomInput extends StatelessWidget {
             height: 15,
           ),
           Container(
-              height: 60,
+            height: 60,
             padding: EdgeInsets.all(8),
             decoration: BoxDecoration(
                 color: Colors.white,

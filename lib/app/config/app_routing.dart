@@ -1,9 +1,3 @@
-//
-//
-// import 'package:get/get_navigation/src/routes/get_route.dart';
-//
-// import '../../presentation/bindings/bindings.dart';
-//
 import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:knowplesy/presentation/pages/home/medecine_page/insert_medecine.dart';
 import 'package:knowplesy/presentation/pages/home/medecine_page/medecine_page.dart';
@@ -18,25 +12,27 @@ import 'package:knowplesy/presentation/pages/login_page/BleutoothScreen/Bracelet
 import 'package:knowplesy/presentation/pages/login_page/BleutoothScreen/BraceletNotConnected.dart';
 import 'package:knowplesy/presentation/pages/login_page/BleutoothScreen/BraceletUnworn.dart';
 import 'package:knowplesy/presentation/pages/login_page/BleutoothScreen/Braceletdisconnected.dart';
-import 'package:knowplesy/presentation/pages/login_page/BleutoothScreen/ConnectBleutoothScreen.dart';
 import 'package:knowplesy/presentation/pages/login_page/reset_password/reset_password.dart';
 import 'package:knowplesy/presentation/pages/register_page/register_page.dart';
 import '../../presentation/bindings/bindings.dart';
 
 class AppRouting {
   static String login = '/';
+
 // home
   static String home = '/home';
 
 //auth
   static String resetpassword = '/login/resetpassword';
   static String register = '/register';
+
 //*connexion blue
   static String braceletdisconnected = '/login/braceletdisconnected';
   static String braceletconnected = '/login/braceletconnected';
   static String braceletnotconnected = '/login/braceletnotconnected';
   static String braceletnotnnworn = '/login/braceletnotnnworn';
   static String connectbleutoothscreen = '/login/connectbleutoothscreen';
+
 //medicine
   static String insertmedecine = '/medicine/insertmedecine';
   static String medecine = '/medicine';
@@ -94,12 +90,9 @@ class AppRouting {
         binding: AllBindings()),
     GetPage(
         name: insertmedecine,
-        page: () =>  InsertMedecinePage(),
+        page: () => InsertMedecinePage(),
         binding: AllBindings()),
-    GetPage(
-        name: medecine,
-        page: () =>  MedecinePage(),
-        binding: AllBindings()),
+    GetPage(name: medecine, page: () => MedecinePage(), binding: AllBindings()),
     GetPage(
         name: seizurepage, page: () => SeizurePage(), binding: AllBindings()),
     GetPage(

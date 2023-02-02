@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 import 'package:knowplesy/presentation/pages/login_page/login_page.dart';
 import '../../../data/networking/api/sign_up_api.dart';
 import '../../../domain/validator/validator_signUp.dart';
@@ -44,12 +42,11 @@ class RegisterController extends GetxController {
   }
 
   desableIsLoading() {
-    print(
-        "object00000000000000000000000000000000000000000000000000000000000000000000000000000");
     isLoading.value = false;
     update();
   }
 
+  /// Function clear all data  of input after register
   clearData() {
     firstName.text = "";
     lastName.text = "";
@@ -79,27 +76,6 @@ class RegisterController extends GetxController {
       "country": dropdownValue
     };
     _userApi.postData(data).then((value) {
-      print("28888888888888888888888888888888");
-      print(value);
-      print("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
-      // validator.validatorServer.validateServer(
-      //     value: value,
-      //     success: () {
-      //       Navigator.push(
-      //         context,
-      //         MaterialPageRoute(builder: (context) => LoginPage()),
-      //       );
-      //     },
-      //     failure: () {
-      //       //validate server errors and show them in the form
-      //       registerFormKey.currentState?.validate();
-      //       Get.snackbar(
-      //         'Erreur',
-      //         'Veuillez corriger les erreurs ci-dessous.',
-      //         colorText: Colors.white,
-      //         backgroundColor: Colors.red,
-      //       );
-      //     });
       Get.defaultDialog(
           title: "confirmation".tr,
           //  middleText: "Take a new phhoto or import one from your library",

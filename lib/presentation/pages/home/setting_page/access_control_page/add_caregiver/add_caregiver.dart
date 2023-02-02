@@ -8,7 +8,6 @@ import 'package:knowplesy/app/util/app_colors.dart';
 import '../../../../../../app/widget/custom_button.dart';
 import '../../../../../../app/widget/custom_input.dart';
 import '../../../../../controllers/setting_controller/acces_control_controller/acces_control_controller.dart';
-import '../access_control_page.dart';
 
 class AddCaregiver extends GetView<AccessControlController> {
   const AddCaregiver({Key? key}) : super(key: key);

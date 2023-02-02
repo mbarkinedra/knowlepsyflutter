@@ -1,11 +1,6 @@
-import 'dart:convert';
-
-import 'package:dio/dio.dart';
-
 import '../../../app/config/app_settings.dart';
 import '../json/abstract__json_resource.dart';
 import '../json/addDoctor_json.dart';
-import '../json/careGiver_json.dart';
 import '../json/getDoctor_json.dart';
 import '../json/get_all_caregiver_json.dart';
 import 'api_mager.dart';
@@ -61,6 +56,7 @@ class GetDoctorApi extends ApiManager {
     return GetDoctorJson.fromJson(data);
   }
 }
+
 class AddStatusDoctor extends ApiManager {
   String id = "";
 
@@ -100,6 +96,7 @@ class GetStatusCareGiverApi extends ApiManager {
     return GetAllCaregiverJson.fromJson(data);
   }
 }
+
 class GetStatusDoctorApi extends ApiManager {
   @override
   String apiUrl() {
@@ -111,6 +108,7 @@ class GetStatusDoctorApi extends ApiManager {
     return GetDoctorJson.fromJson(data);
   }
 }
+
 class DeleteCareGiverApi extends ApiManager {
   String id = "";
 

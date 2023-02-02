@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:knowplesy/app/storage/account_info_storage.dart';
 import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:knowplesy/app/util/text_style.dart';
 import 'package:knowplesy/app/widget/custom_button.dart';
 import 'package:knowplesy/app/widget/widget_home/widget_drawer.dart';
 import 'package:knowplesy/presentation/controllers/seizure_controller/seizure_controller.dart';
-import 'package:knowplesy/presentation/controllers/setting_controller/personal_information_controller/personnal_information_controller.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../../presentation/controllers/home_controller.dart';
-import '../../../presentation/pages/home/seizure_page/seizure_page.dart';
 
 class WidgetHomePage3 extends GetView<SeizureController> {
   const WidgetHomePage3({Key? key}) : super(key: key);

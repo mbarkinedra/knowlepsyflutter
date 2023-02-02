@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:knowplesy/app/storage/secure_storage.dart';
 import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:knowplesy/app/widget/widget_home/widget_drawer.dart';
@@ -31,7 +30,6 @@ class _HomePage1State extends State<HomePage1> {
 
   @override
   Widget build(BuildContext context) {
-    //controller.pageController.jumpToPage(controller.initialPage);
     return Scaffold(
         drawer: WidgetDrawer(),
         appBar: AppBar(
@@ -46,20 +44,19 @@ class _HomePage1State extends State<HomePage1> {
               Spacer(),
               SecureStorage.readSecureData("imag") != null
                   ? GestureDetector(
-                        onTap: () {
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (
-                            context,
-                          ) =>
-                                  PersonalInformationPage()));
-                        },
-                        child: CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              SecureStorage.readSecureData("imag")!),
-                          backgroundColor: Colors.deepPurple,
-                          maxRadius: 25,
-                        ),
-
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (
+                          context,
+                        ) =>
+                                PersonalInformationPage()));
+                      },
+                      child: CircleAvatar(
+                        backgroundImage:
+                            NetworkImage(SecureStorage.readSecureData("imag")!),
+                        backgroundColor: Colors.deepPurple,
+                        maxRadius: 25,
+                      ),
                     )
                   : CircleAvatar(
                       backgroundImage: NetworkImage(
@@ -89,7 +86,7 @@ class _HomePage1State extends State<HomePage1> {
         ),
         body: PageView(
           controller: controller.pageController,
-          onPageChanged: controller.updatePageChaing,
+          onPageChanged: controller.updatePageChange,
           children: const <Widget>[
             WidgetHomePage1(),
             WidgetHomePage2(),

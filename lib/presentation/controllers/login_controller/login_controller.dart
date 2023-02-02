@@ -4,13 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:knowplesy/presentation/pages/home_page.dart';
-import 'package:knowplesy/presentation/pages/login_page/BleutoothScreen/ConnectBleutoothScreen.dart';
-import 'package:knowplesy/presentation/pages/login_page/login_page.dart';
 
-import '../../../app/config/app_routing.dart';
 import '../../../app/storage/secure_storage.dart';
 import '../../../data/networking/api/auth_api.dart';
-import '../../../data/networking/json/simple_json_resource.dart';
 import '../../../data/networking/json/user_json.dart';
 import '../../../domain/validator/validator_signIn.dart';
 import '../../pages/login_page/BleutoothScreen/Braceletdisconnected.dart';
@@ -19,9 +15,6 @@ class LoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final UserApi _userApi = UserApi();
-
-  // final FirebaseAuth _auth = FirebaseAuth.instance;
-  // final GoogleSignIn googleSignIn = GoogleSignIn();
 
   UserJson? userJson;
   bool isVisiblePassword = true;
@@ -47,12 +40,8 @@ class LoginController extends GetxController {
       "email": emailController.text,
       "password": passwordController.text
     }).then((value) {
-    //  isLoading.value = false;
+      //  isLoading.value = false;
       userJson = value as UserJson;
-      print("*" * 50);
-      print(value);
-      print(userJson?.token);
-      print("*" * 50);
 
       SecureStorage.writeSecureData(
           key: 'firstName', value: userJson!.user!.firstName!);
@@ -77,21 +66,17 @@ class LoginController extends GetxController {
           key: 'lastName', value: userJson!.user!.lastName!);
       SecureStorage.writeSecureData(
           key: 'email', value: userJson!.user!.email!);
-      // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-      //  builder: (context,) =>
-      //      Braceletdisconnected()));
-     // Get.offAll(HomePage());
+
       Get.offAll(Braceletdisconnected());
       isLoading.value = false;
     });
   }
 
+  /// Sign in with google
   void googleSignInMethod() async {
     GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
     FirebaseAuth _auth = FirebaseAuth.instance;
-    //   _googleSignIn.signOut();
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-    print(googleUser);
     GoogleSignInAuthentication? googleSignInAuthentication =
         await googleUser?.authentication;
     if (googleSignInAuthentication != null) {

@@ -1,15 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:knowplesy/app/util/app_colors.dart';
-import 'package:knowplesy/app/util/text_style.dart';
 import 'package:knowplesy/presentation/controllers/seizure_controller/seizure_controller.dart';
-import 'package:knowplesy/presentation/pages/home/home_page/home_page.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:get/get.dart';
 
 import '../../../../app/widget/custom_button.dart';
-import '../../../../app/widget/widget_home/widget_home_page1.dart';
-import '../../home_page.dart';
 
 class SeizurePage extends GetView<SeizureController> {
   @override
@@ -41,7 +37,7 @@ class SeizurePage extends GetView<SeizureController> {
                     //       Icons.arrow_back,
                     //       color: Colors.white,
                     //     )),
-                   Spacer(),
+                    Spacer(),
                     Center(
                       child: Text("log_an_undetected_seizure_alert".tr,
                           style: TextStyle(
@@ -342,15 +338,13 @@ class SeizurePage extends GetView<SeizureController> {
                   width: MediaQuery.of(context).size.width * .5,
                   hight: 40,
                   onClick: () {
-                    if(controller.isUpdate){
+                    if (controller.isUpdate) {
                       print("update undetected alert");
 
                       controller.updateUndetectedDetails();
-
-                    }else{
+                    } else {
                       print("create undetected alert");
                       controller.createUndetectedAlert();
-
                     }
                   },
                 ),

@@ -1,14 +1,9 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:knowplesy/app/storage/account_info_storage.dart';
-import 'package:knowplesy/data/networking/json/user_json.dart';
 
 import '../../../../app/util/app_colors.dart';
-import '../../../../data/networking/api/auth_api.dart';
 import '../../../../data/networking/api/change_password_api.dart';
-import '../../../pages/home/setting_page/setting_page.dart';
-import '../../../pages/login_page/login_page.dart';
 
 class ChangePasswordViewController extends GetxController {
   final changePasswordFormKey = GlobalKey<FormState>();

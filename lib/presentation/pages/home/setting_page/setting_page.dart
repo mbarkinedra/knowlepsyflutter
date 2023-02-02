@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:knowplesy/app/util/text_style.dart';
 import 'package:knowplesy/presentation/pages/home/setting_page/change_password_page/change_password_page.dart';
-
-import '../../../../app/storage/secure_storage.dart';
 import '../../../../app/util/app_colors.dart';
 import '../../../../app/widget/custom_setting.dart';
 import 'access_control_page/access_control_page.dart';
@@ -78,17 +75,17 @@ class SettingPage extends StatelessWidget {
               ),
             ),
             // if (SecureStorage.readSecureData("role") == "seizure")
-              CustomSetting(
-                iconProfile: Icons.miscellaneous_services_outlined,
-                text: "access_and_control".tr,
-                press: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (
-                    context,
-                  ) =>
-                          AccessControlPage()));
-                },
-              ),
+            CustomSetting(
+              iconProfile: Icons.miscellaneous_services_outlined,
+              text: "access_and_control".tr,
+              press: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (
+                  context,
+                ) =>
+                        AccessControlPage()));
+              },
+            ),
             const Padding(
               padding: EdgeInsets.only(right: 16.0, left: 16),
               child: Divider(

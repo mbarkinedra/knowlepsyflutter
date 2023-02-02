@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:knowplesy/app/util/app_colors.dart';
 
 class CustomSetting extends StatelessWidget {
@@ -8,14 +7,13 @@ class CustomSetting extends StatelessWidget {
 
   final IconData? iconProfile;
 
-  const CustomSetting(
-      {Key? key,
-        this.text,
-        this.icon,
-        this.press,
-        this.iconProfile,
-   })
-      : super(key: key);
+  const CustomSetting({
+    Key? key,
+    this.text,
+    this.icon,
+    this.press,
+    this.iconProfile,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +23,8 @@ class CustomSetting extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: TextButton(
             style: TextButton.styleFrom(
-              foregroundColor: AppColors.BorderColore, padding: EdgeInsets.all(20),
+              foregroundColor: AppColors.BorderColore,
+              padding: EdgeInsets.all(20),
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15)),
               backgroundColor: Color(0xFFF5F6F9),
@@ -40,10 +39,10 @@ class CustomSetting extends StatelessWidget {
                 SizedBox(width: 20),
                 Expanded(
                     child: Text(
-                      text!,
-                      style: TextStyle(
-                          color:AppColors.textColor, fontWeight: FontWeight.bold),
-                    )),
+                  text!,
+                  style: TextStyle(
+                      color: AppColors.textColor, fontWeight: FontWeight.bold),
+                )),
                 Icon(
                   Icons.arrow_forward_ios,
                   color: AppColors.IconColor,
@@ -52,8 +51,6 @@ class CustomSetting extends StatelessWidget {
             ),
           ),
         ),
-
-
       ],
     );
   }

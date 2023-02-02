@@ -7,10 +7,11 @@ import '../pages/home/medecine_page/medecine_page.dart';
 import '../pages/home/seizure_page/seizure_page.dart';
 
 class HomeController extends GetxController {
-  PageController pageController = PageController( );
+  PageController pageController = PageController();
   int pageNumber = 0;
-  int initialPage=0;
-  updatePageChaing(int i) {
+  int initialPage = 0;
+
+  updatePageChange(int i) {
     pageNumber = i;
     update();
   }
@@ -48,7 +49,7 @@ class HomeController extends GetxController {
   void onInit() {
     super.onInit();
     currentScreen = PageToView(
-      naigatorKey: _navigatorKeys[_pageKeys[0]]!,
+      navigatorKey: _navigatorKeys[_pageKeys[0]]!,
       tabItem: _pageKeys[0],
     ); //=HomeView();
   }
@@ -59,18 +60,18 @@ class HomeController extends GetxController {
     _navigatorKey = _navigatorKeys[_currentPage];
 
     currentScreen = PageToView(
-      naigatorKey: _navigatorKey,
+      navigatorKey: _navigatorKey,
       tabItem: _currentPage,
     );
 
     update();
   }
 
-  Widget buildoffstageNavigator(String tabItem) {
+  Widget buildOffStageNavigator(String tabItem) {
     return Offstage(
       offstage: _currentPage != tabItem,
       child: PageToView(
-        naigatorKey: _navigatorKeys[tabItem]!,
+        navigatorKey: _navigatorKeys[tabItem]!,
         tabItem: tabItem,
       ),
     );
@@ -78,10 +79,10 @@ class HomeController extends GetxController {
 }
 
 class PageToView extends StatelessWidget {
-  late GlobalKey<NavigatorState> naigatorKey;
+  late GlobalKey<NavigatorState> navigatorKey;
   late String tabItem;
 
-  PageToView({required this.naigatorKey, required this.tabItem});
+  PageToView({required this.navigatorKey, required this.tabItem});
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +91,7 @@ class PageToView extends StatelessWidget {
     switch (tabItem) {
       case 'Page1':
         {
-          currentScreen =   HomePage1();
+          currentScreen = HomePage1();
 
           break;
         }
@@ -113,7 +114,7 @@ class PageToView extends StatelessWidget {
     }
 
     return Navigator(
-      key: naigatorKey,
+      key: navigatorKey,
       onGenerateRoute: (routeStings) {
         return MaterialPageRoute(builder: (context) => currentScreen);
       },

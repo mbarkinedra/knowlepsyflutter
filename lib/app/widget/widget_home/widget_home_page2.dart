@@ -5,13 +5,10 @@ import 'package:knowplesy/app/util/text_style.dart';
 import 'package:knowplesy/app/widget/custom_button.dart';
 import 'package:knowplesy/app/widget/widget_home/widget_drawer.dart';
 import 'package:knowplesy/presentation/controllers/seizure_controller/seizure_controller.dart';
-import 'package:knowplesy/presentation/pages/home/seizure_page/seizure_page.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../../presentation/controllers/home_controller.dart';
-import '../../storage/account_info_storage.dart';
 import '../custom_dialogue_delete.dart';
-import 'widget_home_page3.dart';
 
 class WidgetHomePage2 extends GetView<SeizureController> {
   const WidgetHomePage2({Key? key}) : super(key: key);
@@ -161,28 +158,6 @@ class WidgetHomePage2 extends GetView<SeizureController> {
           ),
           Expanded(child: GetBuilder<SeizureController>(builder: (logic) {
             return logic.getUndetectedAlertJson == null
-                // ? Center(
-                //     child: CircularProgressIndicator(),
-                //   )
-                // : logic.getUndetectedAlertJson!.data!.length == 0
-                // ? Center(
-                //     child: Column(
-                //       mainAxisAlignment: MainAxisAlignment.start,
-                //       children: [
-                //         SizedBox(
-                //           height: 175,
-                //         ),
-                //         const Align(
-                //           alignment: Alignment.topCenter,
-                //           child: Text("Still now alert yet",
-                //               style: TextStyle(
-                //                   fontWeight: FontWeight.bold,
-                //                   fontSize: 16,
-                //                   color: Colors.grey)),
-                //         ),
-                //       ],
-                //     ),
-                //   )
                 ? Center(
                     child: Column(
                       children: [
@@ -211,8 +186,7 @@ class WidgetHomePage2 extends GetView<SeizureController> {
                         return GestureDetector(
                           onTap: () {
                             controller.isUpdate = true;
-                            print(
-                                "hhhhhhhhhhhhhhhh ${logic.idUndetectedAlert}");
+
                             logic.getUndetectedAlertDetail(
                                 logic.getUndetectedAlertJson!.data![index].id!,
                                 context);

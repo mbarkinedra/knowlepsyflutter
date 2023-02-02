@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:knowplesy/app/util/font_size.dart';
 
 import '../util/app_colors.dart';
 

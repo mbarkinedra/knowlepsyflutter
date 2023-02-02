@@ -1,25 +1,21 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:knowplesy/app/util/app_colors.dart';
 
 import '../../../../../../app/widget/custom_button.dart';
 import '../../../../../../app/widget/custom_input.dart';
 import '../../../../../controllers/setting_controller/acces_control_controller/acces_control_controller.dart';
-import '../access_control_page.dart';
 
 class AddDoctorController extends GetView<AccessControlController> {
-   AddDoctorController({Key? key}) : super(key: key);
- final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  AddDoctorController({Key? key}) : super(key: key);
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Form(
         key: controller.doctorKey,
-
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -92,7 +88,8 @@ class AddDoctorController extends GetView<AccessControlController> {
                 child: Column(
                   children: [
                     Align(
-                        alignment: Alignment.centerLeft, child: Text("phone".tr)),
+                        alignment: Alignment.centerLeft,
+                        child: Text("phone".tr)),
                     Form(
                       key: formKey,
                       child: Column(
@@ -134,8 +131,7 @@ class AddDoctorController extends GetView<AccessControlController> {
                     hight: 40,
                     onClick: () {
                       controller.validator.validationType = false;
-                      if (!controller.doctorKey.currentState!
-                          .validate()) {
+                      if (!controller.doctorKey.currentState!.validate()) {
                         ///if client validations fails
                         ///show a snackbar to fix the client errors.
                         Get.snackbar("Oups !",
@@ -155,12 +151,12 @@ class AddDoctorController extends GetView<AccessControlController> {
                           titleStyle: TextStyle(color: Colors.black),
                           middleTextStyle: TextStyle(color: Colors.black),
                           textConfirm: "Confirm",
-                           onConfirm: () {
-                          //   Navigator.of(context).push(MaterialPageRoute(
-                          //       builder: (
-                          //     context,
-                          //   ) =>
-                          //           AccessControlPage()));
+                          onConfirm: () {
+                            //   Navigator.of(context).push(MaterialPageRoute(
+                            //       builder: (
+                            //     context,
+                            //   ) =>
+                            //           AccessControlPage()));
 
                             Navigator.pop(context);
                             Get.back();

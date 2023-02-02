@@ -1,13 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:knowplesy/app/util/app_colors.dart';
-import 'package:knowplesy/data/networking/api/auth_api.dart';
 import 'package:knowplesy/presentation/controllers/home_controller.dart';
 import 'package:knowplesy/presentation/controllers/seizure_controller/seizure_controller.dart';
 import 'package:knowplesy/presentation/pages/login_page/login_page.dart';
-
-import '../../../data/networking/api/log_out_api.dart';
 import '../../../presentation/pages/home/setting_page/personal_information_page/personal_information_page.dart';
 import '../../storage/account_info_storage.dart';
 import '../../storage/secure_storage.dart';
@@ -17,10 +13,7 @@ class WidgetDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Drawer(
-        width: MediaQuery
-            .of(context)
-            .size
-            .width * 0.55,
+        width: MediaQuery.of(context).size.width * 0.55,
         backgroundColor: Colors.transparent,
         child: Container(
           decoration: BoxDecoration(
@@ -37,9 +30,7 @@ class WidgetDrawer extends StatelessWidget {
                         icon: ImageIcon(
                             AssetImage("assets/images/icon_menu.png")),
                         isSelect:
-                        Get
-                            .find<HomeController>()
-                            .navigatorValue == 5,
+                            Get.find<HomeController>().navigatorValue == 5,
                         onTap: () {},
                         label: "Menu"),
                   )),
@@ -48,24 +39,26 @@ class WidgetDrawer extends StatelessWidget {
                 children: [
                   SecureStorage.readSecureData("imag") != null
                       ? GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context,) =>
-                              PersonalInformationPage()));
-                    },
-                    child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          SecureStorage.readSecureData("imag")!),
-                      backgroundColor: Colors.deepPurple,
-                      maxRadius: 25,
-                    ),
-                  )
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (
+                              context,
+                            ) =>
+                                    PersonalInformationPage()));
+                          },
+                          child: CircleAvatar(
+                            backgroundImage: NetworkImage(
+                                SecureStorage.readSecureData("imag")!),
+                            backgroundColor: Colors.deepPurple,
+                            maxRadius: 25,
+                          ),
+                        )
                       : CircleAvatar(
-                    backgroundImage: NetworkImage(
-                        "https://cdn-icons-png.flaticon.com/512/206/206881.png"),
-                    backgroundColor: Colors.deepPurple,
-                    maxRadius: 25,
-                  ),
+                          backgroundImage: NetworkImage(
+                              "https://cdn-icons-png.flaticon.com/512/206/206881.png"),
+                          backgroundColor: Colors.deepPurple,
+                          maxRadius: 25,
+                        ),
                   SizedBox(
                     width: 4,
                   ),
@@ -157,9 +150,7 @@ class WidgetDrawer extends StatelessWidget {
           height: 1,
         ),
         _buildDrawerItem(
-            isSelect: Get
-                .find<HomeController>()
-                .navigatorValue == 0,
+            isSelect: Get.find<HomeController>().navigatorValue == 0,
             label: 'home'.tr,
             icon: ImageIcon(AssetImage("assets/images/icon_home.png")),
             onTap: () {
@@ -167,18 +158,14 @@ class WidgetDrawer extends StatelessWidget {
             }),
         _buildDrawerItem(
             icon: ImageIcon(AssetImage("assets/images/icon_seizure.png")),
-            isSelect: Get
-                .find<HomeController>()
-                .navigatorValue == 1,
+            isSelect: Get.find<HomeController>().navigatorValue == 1,
             label: 'seizure'.tr,
             //  icon: CupertinoIcons.waveform_path,
             onTap: () {
               Get.find<HomeController>().changeSelectedValue(1);
             }),
         _buildDrawerItem(
-            isSelect: Get
-                .find<HomeController>()
-                .navigatorValue == 2,
+            isSelect: Get.find<HomeController>().navigatorValue == 2,
             icon: ImageIcon(AssetImage("assets/images/icon_medecine.png")),
             label: 'medecine'.tr,
             onTap: () {
@@ -186,9 +173,7 @@ class WidgetDrawer extends StatelessWidget {
             }),
         _buildDrawerItem(
             icon: ImageIcon(AssetImage("assets/images/icon_settings.png")),
-            isSelect: Get
-                .find<HomeController>()
-                .navigatorValue == 3,
+            isSelect: Get.find<HomeController>().navigatorValue == 3,
             label: 'setting'.tr,
             onTap: () {
               Get.find<HomeController>().changeSelectedValue(3);
@@ -197,11 +182,12 @@ class WidgetDrawer extends StatelessWidget {
     );
   }
 
-  _buildDrawerItem({required String label,
-    //required IconData icon,
-    required ImageIcon icon,
-    required VoidCallback onTap,
-    required bool isSelect}) {
+  _buildDrawerItem(
+      {required String label,
+      //required IconData icon,
+      required ImageIcon icon,
+      required VoidCallback onTap,
+      required bool isSelect}) {
     return Column(
       children: [
         InkWell(
@@ -222,7 +208,7 @@ class WidgetDrawer extends StatelessWidget {
                 ),
                 Padding(
                   padding:
-                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
+                      const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16),
                   child: Text(label,
                       style: TextStyle(
                         color: isSelect ? Colors.deepPurple : Colors.grey,

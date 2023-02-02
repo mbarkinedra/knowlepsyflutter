@@ -866,7 +866,8 @@ class DeviceScreen extends StatelessWidget {
     // Device disconnected, stopping RSSI stream
   }
 }*/
-import 'dart:async';
+
+/*import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
@@ -878,6 +879,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:knowplesy/presentation/pages/login_page/BleutoothScreen/BraceletConnected.dart';
 
+import '../../../../sensor.dart';
 import '../../../../widgets.dart';
 import '../../home_page.dart';
 
@@ -894,7 +896,7 @@ class FlutterBlueApp extends StatelessWidget {
           builder: (c, snapshot) {
             final state = snapshot.data;
             if (state == BluetoothState.on) {
-              return const FindDevicesScreen();
+              return  FindDevicesScreen();
             }
             return BluetoothOffScreen(state: state);
           }),
@@ -941,82 +943,55 @@ class BluetoothOffScreen extends StatelessWidget {
 }
 
 class FindDevicesScreen extends StatelessWidget {
-  const FindDevicesScreen({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.primaryColor,
-        title: const Text('Find Devices'),
-        actions: [
-          ElevatedButton(
-            child: const Text('TURN OFF',style: TextStyle(color: Colors.blue,fontWeight: FontWeight.bold)),
-            style: ElevatedButton.styleFrom(
-              primary:  Colors.white,
-              onPrimary: Colors.white,
-            ),
-            onPressed: Platform.isAndroid
-                ? () => FlutterBluePlus.instance.turnOff()
-                : null,
-          ),
-        ],
+        title: Text('Find Devices'),
       ),
       body: RefreshIndicator(
-        onRefresh: () => FlutterBluePlus.instance
-            .startScan(timeout: const Duration(seconds: 4)),
+        onRefresh: () =>
+            FlutterBluePlus.instance.startScan(timeout: Duration(seconds: 4)),
         child: SingleChildScrollView(
           child: Column(
             children: <Widget>[
               StreamBuilder<List<BluetoothDevice>>(
-                stream: Stream.periodic(const Duration(seconds: 2))
+                stream: Stream.periodic(Duration(seconds: 2))
                     .asyncMap((_) => FlutterBluePlus.instance.connectedDevices),
-                initialData: const [],
+                initialData: [],
                 builder: (c, snapshot) => Column(
                   children: snapshot.data!
                       .map((d) => ListTile(
-                            title: Text(d.name),
-                            subtitle: Text(d.id.toString()),
-                            trailing: StreamBuilder<BluetoothDeviceState>(
-                              stream: d.state,
-                              initialData: BluetoothDeviceState.disconnected,
-                              builder: (c, snapshot) {
-                                if (snapshot.data ==
-                                    BluetoothDeviceState.connected) {
-                                  return ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      primary:
-                                          AppColors.primaryColor, // background
-                                    ),
-                                    child: const Text('OPEN'),
-                                    onPressed: () => Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                DeviceScreen(device: d))),
-                                  );
-                                }
-                                return Text(snapshot.data.toString());
-                              },
-                            ),
-                          ))
+                    title: Text(d.name),
+                    subtitle: Text(d.id.toString()),
+                    trailing: StreamBuilder<BluetoothDeviceState>(
+                      stream: d.state,
+                      initialData: BluetoothDeviceState.disconnected,
+                      builder: (c, snapshot) {
+                        if (snapshot.data ==
+                            BluetoothDeviceState.connected) {}
+                        return Text(snapshot.data.toString());
+                      },
+                    ),
+                  ))
                       .toList(),
                 ),
               ),
               StreamBuilder<List<ScanResult>>(
                 stream: FlutterBluePlus.instance.scanResults,
-                initialData: const [],
+                initialData: [],
                 builder: (c, snapshot) => Column(
                   children: snapshot.data!
                       .map(
                         (r) => ScanResultTile(
-                          result: r,
-                          onTap: () => Navigator.of(context)
-                              .push(MaterialPageRoute(builder: (context) {
-                            r.device.connect();
-                            return DeviceScreen(device: r.device);
-                          })),
-                        ),
-                      )
+                      result: r,
+                      onTap: () => Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        r.device.connect();
+                        return SensorPage(device: r.device);
+                      })),
+                    ),
+                  )
                       .toList(),
                 ),
               ),
@@ -1030,396 +1005,452 @@ class FindDevicesScreen extends StatelessWidget {
         builder: (c, snapshot) {
           if (snapshot.data!) {
             return FloatingActionButton(
-              child: const Icon(Icons.stop),
+              child: Icon(Icons.stop),
               onPressed: () => FlutterBluePlus.instance.stopScan(),
               backgroundColor: Colors.red,
             );
           } else {
             return FloatingActionButton(
-                child: const Icon(Icons.search),
+                child: Icon(Icons.search),
                 onPressed: () => FlutterBluePlus.instance
-                    .startScan(timeout: const Duration(seconds: 4)));
+                    .startScan(timeout: Duration(seconds: 4)));
           }
         },
       ),
     );
   }
+}*/
+
+import 'dart:convert';
+import 'dart:developer';
+
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_blue_plus/flutter_blue_plus.dart';
+import 'package:get/get.dart';
+import 'package:knowplesy/app/widget/widget_home/widget_home_page1.dart';
+import '../../../../app/util/app_colors.dart';
+import '../../../controllers/seizure_controller/seizure_controller.dart';
+import '../../home/home_page/home_page.dart';
+import '../../home_page.dart';
+import 'BraceletConnected.dart';
+
+class BluetoothPage extends StatefulWidget {
+  final FlutterBluePlus flutterBlue = FlutterBluePlus.instance;
+  final List<BluetoothDevice> devicesList = <BluetoothDevice>[];
+  final Map<Guid, List<int>> readValues = <Guid, List<int>>{};
+
+  @override
+  BluetoothPageState createState() => BluetoothPageState();
 }
 
-class DeviceScreen extends StatelessWidget {
-  const DeviceScreen({Key? key, required this.device}) : super(key: key);
+class BluetoothPageState extends State<BluetoothPage> {
+  SeizureController controller = Get.find<SeizureController>();
+  String allData = "";
+  final _writeController = TextEditingController();
+  BluetoothDevice? _connectedDevice;
+  List<BluetoothService> _services = [];
+  RxString heart = "0".obs;
 
-  final BluetoothDevice device;
-
-  List<int> _getRandomBytes() {
-    final math = Random();
-    return [
-      math.nextInt(255),
-      math.nextInt(255),
-      math.nextInt(255),
-      math.nextInt(255)
-    ];
-  }
-
-  List _buildServiceTiles(List<BluetoothService> services) {
-    return services
-        .map(
-          (s) => ServiceTile(
-            service: s,
-            characteristicTiles: s.characteristics
-                .map(
-                  (c) => CharacteristicTile(
-                    characteristic: c,
-                    onReadPressed: () => c.read(),
-                    onWritePressed: () async {
-                      await c.write(
-                          utf8
-                              .encode('{"request":"data", "action":"GET"}')
-                              .toList(),
-                          withoutResponse: true);
-                      print(
-                          "write    ${utf8.encode('{"request":"data", "action":"GET"}')}");
-                      print("read     ${utf8.decode([
-                            123,
-                            34,
-                            114,
-                            101,
-                            113,
-                            117,
-                            101,
-                            115,
-                            116,
-                            34,
-                            58,
-                            34,
-                            100,
-                            97,
-                            116,
-                            97,
-                            34,
-                            44,
-                            32,
-                            34,
-                            97,
-                            99,
-                            116,
-                            105,
-                            111,
-                            110,
-                            34,
-                            58,
-                            34,
-                            71,
-                            69,
-                            84,
-                            34,
-                            125
-                          ])}");
-
-                      if (c.properties.read) {
-                        List<int> value = await c.read();
-                        print("value  $value");
-                      }
-                    },
-                    onNotificationPressed: () async {
-                      await c.setNotifyValue(!c.isNotifying);
-                      await c.read();
-                    },
-                    descriptorTiles: c.descriptors
-                        .map(
-                          (d) => DescriptorTile(
-                            descriptor: d,
-                            onReadPressed: () => d.read(),
-                            onWritePressed: () => d.write(
-                              utf8
-                                  .encode('{"request":"data", "action":"GET"}')
-                                  .toList(),
-                            ),
-                          ),
-                        )
-                        .toList(),
-                  ),
-                )
-                .toList(),
-          ),
-        )
-        .toList();
+  _addDeviceTolist(final BluetoothDevice device) {
+    if (!widget.devicesList.contains(device)) {
+      setState(() {
+        widget.devicesList.add(device);
+      });
+    }
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: AppColors.primaryColor,
-          title: Text(device.name),
-          actions: <Widget>[
-            StreamBuilder<BluetoothDeviceState>(
-              stream: device.state,
-              initialData: BluetoothDeviceState.connecting,
-              builder: (c, snapshot) {
-                VoidCallback? onPressed;
-                String text;
-                switch (snapshot.data) {
-                  case BluetoothDeviceState.connected:
-                    onPressed = () => device.disconnect();
-                    text = 'DISCONNECT';
-                    break;
-                  case BluetoothDeviceState.disconnected:
-                    onPressed = () => device.connect();
-                    text = 'CONNECT';
+  void initState() {
+    super.initState();
+    widget.flutterBlue.connectedDevices
+        .asStream()
+        .listen((List<BluetoothDevice> devices) {
+      for (BluetoothDevice device in devices) {
+        _addDeviceTolist(device);
+      }
+    });
+    widget.flutterBlue.scanResults.listen((List<ScanResult> results) {
+      for (ScanResult result in results) {
+        _addDeviceTolist(result.device);
+      }
+    });
+    widget.flutterBlue.startScan();
+  }
 
-                    break;
-                  default:
-                    onPressed = null;
-                    text = snapshot.data.toString().substring(21).toUpperCase();
-                    break;
-                }
-                return TextButton(
-
-                    onPressed: onPressed,
-                    child: Text(
-                      text,
-                      style: Theme.of(context)
-                          .primaryTextTheme
-                          .button
-                          ?.copyWith(color: Colors.white),
-                    ));
-              },
-            )
-          ],
-        ),
-        backgroundColor: AppColors.primaryColor,
-        // body: Center(
-        //   child: SingleChildScrollView(
-        //     child: Column(
-        //       crossAxisAlignment: CrossAxisAlignment.center,
-        //       mainAxisAlignment: MainAxisAlignment.center,
-        //       children: <Widget>[
-        //         Container(
-        //           padding: const EdgeInsets.fromLTRB(20, 20, 20, 70),
-        //           child: Image.asset("assets/images/connect03.png"),
-        //         ),
-        //         Container(
-        //           padding: const EdgeInsets.fromLTRB(20, 20, 20, 20),
-        //           child: Image.asset("assets/images/connectsucces.png"),
-        //         ),
-        //         Align(
-        //           alignment: Alignment(0.012, 0.075),
-        //           child: SizedBox(
-        //             width: 134.0,
-        //             height: 90.0,
-        //             child: Text(
-        //               'bracelet_connected'.tr,
-        //               style: TextStyle(
-        //                 fontFamily: 'Roboto',
-        //                 fontSize: 20,
-        //                 color: const Color(0xffffffff),
-        //                 fontWeight: FontWeight.w700,
-        //               ),
-        //               textAlign: TextAlign.center,
-        //               softWrap: false,
-        //             ),
-        //           ),
-        //         ),
-        //
-        //         Align(
-        //           alignment: Alignment(0.005, 0.268),
-        //           child: SizedBox(
-        //             child: Text.rich(
-        //               TextSpan(
-        //                 style: TextStyle(
-        //                   fontFamily: 'Poppins-Regular',
-        //                   fontSize: 16,
-        //                   color: Color.fromARGB(255, 255, 255, 255),
-        //                   height: 1.6923076923076923,
-        //                 ),
-        //                 children: [
-        //                   TextSpan(
-        //                     text: 'your_bracelet_is_connected_successfully'.tr,
-        //                   ),
-        //                 ],
-        //               ),
-        //               textHeightBehavior:
-        //                   TextHeightBehavior(applyHeightToFirstAscent: false),
-        //               textAlign: TextAlign.center,
-        //               softWrap: false,
-        //             ),
-        //           ),
-        //         ),
-        //         SizedBox(height: 18),
-        //         Align(
-        //           alignment: Alignment(0.005, 0.268),
-        //           child: SizedBox(
-        //             width: 180.0,
-        //             height: 47.0,
-        //             child: Text.rich(
-        //               TextSpan(
-        //                 style: TextStyle(
-        //                   fontFamily: 'Poppins-Regular',
-        //                   fontSize: 19,
-        //                   color: const Color(0xffefff19),
-        //                   height: 1.6923076923076923,
-        //                 ),
-        //                 // children: [
-        //                 //   TextSpan(
-        //                 //     text: 'Bracelet-B2VA8MC\n',
-        //                 //   ),
-        //                 //   TextSpan(
-        //                 //     text: 'connected'.tr,
-        //                 //     style: TextStyle(
-        //                 //       fontSize: 13,
-        //                 //     ),
-        //                 //   ),
-        //                 // ],
-        //               ),
-        //               textHeightBehavior:
-        //                   TextHeightBehavior(applyHeightToFirstAscent: false),
-        //               textAlign: TextAlign.center,
-        //               softWrap: false,
-        //             ),
-        //           ),
-        //         ),
-        //         SizedBox(height: 40),
-        //         Align(
-        //           alignment: Alignment(0.134, 0.494),
-        //           child: SizedBox(
-        //             width: 223.0,
-        //             height: 52.0,
-        //             child: Stack(
-        //               children: <Widget>[
-        //                 Container(
-        //                   decoration: BoxDecoration(
-        //                     color: const Color(0xffff6819),
-        //                     borderRadius: BorderRadius.circular(26.0),
-        //                   ),
-        //                 ),
-        //                 Align(
-        //                   alignment: Alignment(0.004, -0.088),
-        //                   child: SizedBox(
-        //                     width: MediaQuery.of(context).size.width * .7,
-        //                     height: 21.0,
-        //                     child: GestureDetector(
-        //                       onTap: () {
-        //                         Navigator.of(context).push(MaterialPageRoute(
-        //                             builder: (
-        //                           context,
-        //                         ) =>
-        //                                 HomePage()));
-        //                       },
-        //                       child: Text(
-        //                         'go_home'.tr,
-        //                         style: TextStyle(
-        //                           fontFamily: 'Roboto',
-        //                           fontSize: 16,
-        //                           color: const Color(0xffffffff),
-        //                           fontWeight: FontWeight.w500,
-        //                           height: 1.0625,
-        //                         ),
-        //                         textHeightBehavior: TextHeightBehavior(
-        //                             applyHeightToFirstAscent: false),
-        //                         textAlign: TextAlign.center,
-        //                         softWrap: false,
-        //                       ),
-        //                     ),
-        //                   ),
-        //                 ),
-        //               ],
-        //             ),
-        //           ),
-        //         ),
-        //       ],
-        //     ),
-        //   ),
-        // )
-        body: SingleChildScrollView(
-          child: Column(
+  ListView _buildListViewOfDevices() {
+    List<Widget> containers = <Widget>[];
+    for (BluetoothDevice device in widget.devicesList) {
+      containers.add(
+        SizedBox(
+          height: 50,
+          child: Row(
             children: <Widget>[
-              StreamBuilder<BluetoothDeviceState>(
-                stream: device.state,
-                initialData: BluetoothDeviceState.connecting,
-                builder: (c, snapshot) => ListTile(
-                  leading: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      snapshot.data == BluetoothDeviceState.connected
-                          ? const Icon(Icons.bluetooth_connected)
-                          : const Icon(Icons.bluetooth_disabled),
-                      snapshot.data == BluetoothDeviceState.connected
-                          ? StreamBuilder<int>(
-                          stream: rssiStream(),
-                          builder: (context, snapshot) {
-                            return Text(
-                                snapshot.hasData ? '${snapshot.data}dBm' : '',
-                                style: Theme.of(context).textTheme.caption);
-                          })
-                          : Text('', style: Theme.of(context).textTheme.caption),
-                    ],
-                  ),
-                  title: Text(
-                      'Device is ${snapshot.data.toString().split('.')[1]}.'),
-                  subtitle: Text('${device.id}'),
-                  trailing: StreamBuilder<bool>(
-                    stream: device.isDiscoveringServices,
-                    initialData: false,
-                    builder: (c, snapshot) => IndexedStack(
-                      index: snapshot.data! ? 1 : 0,
-                      children: <Widget>[
-                        IconButton(
-                          icon: const Icon(Icons.refresh),
-                          onPressed: () => device.discoverServices(),
-                        ),
-                        const IconButton(
-                          icon: SizedBox(
-                            child: CircularProgressIndicator(
-                              valueColor: AlwaysStoppedAnimation(Colors.grey),
-                            ),
-                            width: 18.0,
-                            height: 18.0,
-                          ),
-                          onPressed: null,
-                        )
-                      ],
-                    ),
-                  ),
+              Expanded(
+                child: Column(
+                  children: <Widget>[
+                    Text(device.name == '' ? '(unknown device)' : device.name),
+                    Text(device.id.toString()),
+                  ],
                 ),
               ),
-              // StreamBuilder<int>(
-              //   stream: device.mtu,
-              //   initialData: 0,
-              //   builder: (c, snapshot) => ListTile(
-              //     title: const Text('MTU Size'),
-              //     subtitle: Text('${snapshot.data} bytes'),
-              //     trailing: IconButton(
-              //       icon: const Icon(Icons.edit),
-              //       onPressed: () => device.requestMtu(223),
-              //     ),
-              //   ),
-              // ),
-              // StreamBuilder<List<BluetoothService>>(
-              //   stream: device.services,
-              //   initialData: const [],
-              //   builder: (c, snapshot) {
-              //     return Column(
-              //       children: _buildServiceTiles(snapshot.data!),
-              //     );
-              //   },
-              // ),
+              TextButton(
+                child: const Text(
+                  'Connect',
+                  style: TextStyle(color: Colors.orange),
+                ),
+                onPressed: () async {
+                  widget.flutterBlue.stopScan();
+                  try {
+
+                    await device.connect();
+                 controller.device=device;
+
+                  } on PlatformException catch (e) {
+                    if (e.code != 'already_connected') {
+                      rethrow;
+                    }
+                  } finally {
+                    _services = await device.discoverServices();
+
+                  }
+               //   Get.to(HomePage());
+                 setState(() {
+                 controller.dataBluetooth(service: _services,dev: device);
+                 Get.to(BraceletConnected());
+
+                   });
+                 //  setState(() {
+                   // _connectedDevice = device;
+                  //  });
+                },
+              ),
             ],
           ),
         ),
-        );
+      );
+    }
+
+    return ListView(
+      padding: const EdgeInsets.all(8),
+      children: <Widget>[
+        ...containers,
+      ],
+    );
   }
 
-  Stream<int> rssiStream() async* {
-    var isConnected = true;
-    final subscription = device.state.listen((state) {
-      isConnected = state == BluetoothDeviceState.connected;
-    });
-    while (isConnected) {
-      yield await device.readRssi();
-      await Future.delayed(const Duration(seconds: 1));
+  List<ButtonTheme> _buildReadWriteNotifyButton(
+      BluetoothCharacteristic characteristic) {
+    List<ButtonTheme> buttons = <ButtonTheme>[];
+
+    if (characteristic.properties.read) {
+      buttons.add(
+        ButtonTheme(
+          minWidth: 10,
+          height: 20,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: TextButton(
+              child: const Text('READ', style: TextStyle(color: Colors.orange)),
+              onPressed: () async {
+                var sub = characteristic.value.listen((value) {
+                  setState(() {
+                    widget.readValues[characteristic.uuid] = value;
+                  });
+                });
+                await characteristic.read();
+                sub.cancel();
+              },
+            ),
+          ),
+        ),
+      );
     }
-    subscription.cancel();
-    // Device disconnected, stopping RSSI stream
+    if (characteristic.properties.write) {
+      buttons.add(
+        ButtonTheme(
+          minWidth: 10,
+          height: 20,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: ElevatedButton(
+              child: const Text('WRITE', style: TextStyle(color: Colors.white)),
+              onPressed: () async {
+                await showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        title: const Text("Write"),
+                        content: Row(
+                          children: <Widget>[
+                            Expanded(
+                              child: TextField(
+                                controller: _writeController,
+                              ),
+                            ),
+                          ],
+                        ),
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text("Send"),
+                            onPressed: () {
+                              characteristic.write(
+                                  utf8.encode(_writeController.value.text));
+                              var encoded =
+                                  utf8.encode(_writeController.value.text);
+                              log("encode $encoded");
+                              Navigator.pop(context);
+                            },
+                          ),
+                          TextButton(
+                            child: const Text("Cancel"),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ],
+                      );
+                    });
+              },
+            ),
+          ),
+        ),
+      );
+    }
+    if (characteristic.properties.notify) {
+      buttons.add(
+        ButtonTheme(
+          minWidth: 10,
+          height: 20,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 4),
+            child: ElevatedButton(
+              child:
+                  const Text('NOTIFY', style: TextStyle(color: Colors.white)),
+              onPressed: () async {
+                characteristic.value.listen((value) async {
+                  print(" => $value");
+                  setState(() {
+                    widget.readValues[characteristic.uuid] = value;
+                    var decode = utf8.decode(value);
+                    log("decode $decode");
+                  });
+                });
+                await characteristic.setNotifyValue(true);
+              },
+            ),
+          ),
+        ),
+      );
+    }
+
+    return buttons;
   }
+
+  ListView _buildConnectDeviceView() {
+    List<Widget> containers = <Widget>[];
+
+    for (BluetoothService service in _services) {
+      List<Widget> characteristicsWidget = <Widget>[];
+
+      for (BluetoothCharacteristic characteristic in service.characteristics) {
+        characteristicsWidget.add(
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Column(
+              children: <Widget>[
+                Row(
+                  children: <Widget>[
+                    Text(characteristic.uuid.toString(),
+                        style: const TextStyle(fontWeight: FontWeight.bold)),
+                  ],
+                ),
+                Row(
+                  children: <Widget>[
+                    ..._buildReadWriteNotifyButton(characteristic),
+                  ],
+                ),
+                Container(
+                    height: 200,
+                    child: StreamBuilder(
+                        stream: characteristic.value,
+                        builder: (context, data) {
+                          var bb = utf8.decode(data.data ?? []);
+
+                          allData = allData + bb;
+                          print("0" * 50);
+                          print("allData => $allData");
+                          print("1" * 50);
+                          //  RegExp heart = RegExp(r'PPG\":\[\"[0-9]+\.[0-9]+');
+                          //   RegExp temp = RegExp(r'TEMP\":\[\"[0-9]+\.[0-9]+');
+
+                          //  RegExpMatch? rege =
+                          //     heart.firstMatch(allData);
+                          //  String? vbbb = rege
+                          //       ?.group(0)
+                          //       ?.split(":")
+                          //      ?.last
+                          //     ?.replaceAll("[", "")
+                          //  ?.replaceAll("]", "")
+                          //   .replaceAll("\"", "") ??
+                          //   "";
+
+                          // print(
+                          //     "heart  $vbbb");
+                          // RegExpMatch? regTemp =
+                          //     temp.firstMatch(allData);
+                          // String? cc = regTemp
+                          //         ?.group(0)
+                          //         ?.split(":").last
+                          //         ?.replaceAll("[", "")
+                          //         ?.replaceAll("]", "")
+                          //         .replaceAll("\"", "") ??
+                          //     "";
+                          //
+                          // print(
+                          //     "temperature  ${cc}");
+
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              Column(
+                                children: [
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: CircleAvatar(
+                                      backgroundImage:
+                                          AssetImage("assets/images/herat.png"),
+                                      backgroundColor: Colors.deepPurple,
+                                      maxRadius: 35,
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    "heart",
+                                    style: TextStyle(
+                                        color: AppColors.primaryColor,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Container(
+                                    height: 50,
+                                    width: 80,
+                                    padding: EdgeInsets.all(4),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(),
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.1),
+                                          spreadRadius: 2,
+                                          blurRadius: 3,
+                                          offset: Offset(0,
+                                              3), // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "${controller.temperature}",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                              Column(
+                                children: [
+                                  CircleAvatar(
+                                    backgroundImage: AssetImage(
+                                        "assets/images/temperature.png"),
+                                    backgroundColor: Colors.deepPurple,
+                                    maxRadius: 35,
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Text(
+                                    "Temperature",
+                                    style: TextStyle(
+                                        color: AppColors.primaryColor,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  Container(
+                                    height: 50,
+                                    width: 80,
+                                    padding: EdgeInsets.all(4),
+                                    decoration: BoxDecoration(
+                                      border: Border.all(),
+                                      borderRadius: BorderRadius.circular(10),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.1),
+                                          spreadRadius: 2,
+                                          blurRadius: 3,
+                                          offset: Offset(0,
+                                              3), // changes position of shadow
+                                        ),
+                                      ],
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        "hhhh",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold,
+                                            fontSize: 16),
+                                      ),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ],
+                          );
+                        })),
+                Row(
+                  children: <Widget>[
+                    Text('Value: ${widget.readValues[characteristic.uuid]}'),
+                  ],
+                ),
+                const Divider(),
+              ],
+            ),
+          ),
+        );
+      }
+      containers.add(
+        ExpansionTile(
+            title: Text(service.uuid.toString()),
+            children: characteristicsWidget),
+      );
+    }
+
+    return ListView(
+      padding: const EdgeInsets.all(8),
+      children: <Widget>[
+        ...containers,
+      ],
+    );
+  }
+
+  ListView _buildView() {
+    if (_connectedDevice != null) {
+      return _buildConnectDeviceView();
+    }
+    return _buildListViewOfDevices();
+  }
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+        appBar: AppBar(),
+        body: _buildView(),
+      );
 }

@@ -5,10 +5,6 @@ import 'package:table_calendar/table_calendar.dart';
 
 import '../../../../app/util/app_colors.dart';
 import '../../../../app/widget/custom_button.dart';
-import '../../../../app/widget/pop_up_Alert.dart';
-import '../../../../app/widget/widget_home/widget_drawer.dart';
-import '../../home_page.dart';
-import '../setting_page/personal_information_page/personal_information_page.dart';
 import 'insert_medecine.dart';
 import 'package:get/get.dart';
 
@@ -283,7 +279,7 @@ class MedecinePage extends GetView<MedecineController> {
                         onTap: () {
                           logic.getAllData(
                               logic.getMedecationJson!.data![pos].id!, context);
-                          logic.idMedeine =
+                          logic.idMedecine =
                               logic.getMedecationJson!.data![pos].id!;
                           logic.isUpdate = true;
                         },

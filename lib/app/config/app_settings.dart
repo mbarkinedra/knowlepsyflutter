@@ -1,7 +1,6 @@
 class SettingsApp {
-  //static String get baseUrl => 'http://192.168.1.16:8000';
-
   static String get baseUrl => 'https://api.knowlepsy.io';
+ // static String get baseUrl => 'http://192.168.1.43:8000';
 
   static String get apiPrefix => '/api';
 
@@ -42,10 +41,13 @@ class SettingsApp {
 
   static String get addStateStateCareGiver =>
       '$baseApiUrl/CaregiverSeizure/enabledesableCaregiver';
+
   static String get getFicheSeizureByEmail =>
       '$baseApiUrl/ficheSeizure/FicheSeizureDetails?email=';
+
   static String get getFicheSeizureDetails =>
       '$baseApiUrl/ficheSeizure/FicheSeizure/{id}?id=';
+
   static String get deleteCareGiver =>
       '$baseApiUrl/CaregiverSeizure/deleteCaregiverSeizure?caregiver_id=';
 

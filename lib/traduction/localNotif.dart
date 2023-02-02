@@ -1,27 +1,27 @@
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:timezone/timezone.dart'as tz;
-import 'package:timezone/data/latest.dart' as tz;
+import 'package:timezone/timezone.dart' as tz;
+
 class LocalNotificationService {
   LocalNotificationService();
 
   final _localNotificationService = FlutterLocalNotificationsPlugin();
 
-  Future<void> intialze() async {
+  Future<void> intialize() async {
     const AndroidInitializationSettings androidInitializationSettings =
-    AndroidInitializationSettings('@drawable/ico');
+        AndroidInitializationSettings('@drawable/ico');
 
     final InitializationSettings settings =
-    InitializationSettings(android: androidInitializationSettings);
+        InitializationSettings(android: androidInitializationSettings);
     await _localNotificationService.initialize(settings);
   }
 
   Future<NotificationDetails> _notificationDetails() async {
     const AndroidNotificationDetails androidNotificationDetails =
-    AndroidNotificationDetails('channel_id', "channel_name",
-        channelDescription: "description",
-        importance: Importance.max,
-        priority: Priority.max,
-        playSound: true);
+        AndroidNotificationDetails('channel_id', "channel_name",
+            channelDescription: "description",
+            importance: Importance.max,
+            priority: Priority.max,
+            playSound: true);
     return NotificationDetails(android: androidNotificationDetails);
   }
 
@@ -32,7 +32,10 @@ class LocalNotificationService {
   }
 
   Future<void> showSChedulNotification(
-      {required int id, required String title, required String body,time}) async {
+      {required int id,
+      required String title,
+      required String body,
+      time}) async {
     final details = await _notificationDetails();
     await _localNotificationService.zonedSchedule(
       id,
@@ -42,11 +45,10 @@ class LocalNotificationService {
       details,
       androidAllowWhileIdle: true,
       uiLocalNotificationDateInterpretation:
-      UILocalNotificationDateInterpretation.absoluteTime,);
+          UILocalNotificationDateInterpretation.absoluteTime,
+    );
   }
 
   void onDidReceviveLocalNotification(
-      int id, String? title, String? body, String? payload) {
-    print("idddddddddddddddd=?>===  $id");
-  }
+      int id, String? title, String? body, String? payload) {}
 }

@@ -531,15 +531,11 @@ class InsertMedecinePage extends GetView<MedecineController> {
                       }
                       controller.validator.validationType = true;
                       //send data to server and get errors
-                      if(controller.isUpdate){
+                      if (controller.isUpdate) {
                         controller.updateMedication(context);
-
-                      }else{
+                      } else {
                         controller.addMedication(context);
-
                       }
-
-
                     },
                   ),
                 ),

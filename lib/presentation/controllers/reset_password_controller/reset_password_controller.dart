@@ -4,7 +4,6 @@ import 'package:knowplesy/app/util/app_colors.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../data/networking/api/forgot password_api.dart';
-import '../../pages/login_page/login_page.dart';
 import '../../pages/login_page/reset_password/reset_password.dart';
 
 class LoginPasswordController extends GetxController {
@@ -19,17 +18,13 @@ class LoginPasswordController extends GetxController {
       ResetPasswordWithCodeApi();
   TextEditingController textEditingController = TextEditingController();
 
-  // final formKey = GlobalKey<FormState>();
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   RxBool isLoading = false.obs;
 
+  ///Reset Password With Code
   resetPasswordWithCode(context) {
-    // Map<String, dynamic> data = {
-    //   "email": email.text,
-    // };
     isLoading.value = true;
     forgotPasswordApi.postData({"email": email.text}).then((value) {
-      print("bbbbbbbbbbbbbbbbbb");
       isLoading.value = false;
 
       showDialog<void>(
@@ -103,9 +98,7 @@ class LoginPasswordController extends GetxController {
                           onCompleted: (v) {
                             debugPrint("Completed");
                           },
-                          // onTap: () {
-                          //   print("Pressed");
-                          // },
+
                           onChanged: (value) {
                             debugPrint(value);
                           },
@@ -132,7 +125,6 @@ class LoginPasswordController extends GetxController {
                         ) =>
                                 ResetPassword()));
                         update();
-
                       });
                     },
                     child: Container(
@@ -165,6 +157,7 @@ class LoginPasswordController extends GetxController {
     });
   }
 
+  /// Reset Password
   resetPassword() {
     isLoading.value = true;
 
